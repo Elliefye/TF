@@ -25,7 +25,7 @@ namespace TF2
             if (match != null)
             {
                 ConstVars.AuthStatus = 1;
-                App.Current.MainPage = new NavigationPage(new ViewAll());
+                App.Current.MainPage = new NavigationPage(new BottomNavigation());
             }
             else
             {

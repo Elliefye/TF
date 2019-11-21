@@ -10,7 +10,6 @@ namespace TF2.Entities
 {
     public class TempEntityLoader
     {
-        //TEMP place for vars till we get DB
         public static dynamic lecturersSubjects;
         public static List<Lecturer> lecturers = new List<Lecturer>();
         public static List<Subject> subjects = new List<Subject>();
@@ -117,7 +116,6 @@ namespace TF2.Entities
                         Role = user[3]
                     });
 
-                    //kinda wonky but works so ¯\_(ツ)_/¯
                     user[0] = reader.ReadLine();
 
                     if (user[0] != null)
