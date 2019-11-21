@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,29 +19,44 @@ namespace TF2.Entities
 
         public static void LoadLecturers()
         {
-            var fileLines = File.ReadAllLines("Lecturers.txt");
-            fileLines = fileLines.Where(x => !string.IsNullOrEmpty(x)).ToArray();
-            for (int i = 0; i + 1 < fileLines.Length; i += 2)
+            var assembly = IntrospectionExtensions.GetTypeInfo(typeof(TempEntityLoader)).Assembly;
+            Stream stream = assembly.GetManifestResourceStream("TF2.Files.Lecturers.txt");
+            using (var reader = new System.IO.StreamReader(stream))
             {
-                lecturers.Add(new Lecturer
+                string text = reader.ReadToEnd();
+                string[] fileLines = text.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
+
+                fileLines.Where(x => !string.IsNullOrEmpty(x)).ToArray();
+
+                for (int i = 0; i + 1 < fileLines.Length; i += 2)
                 {
-                    Id = fileLines[i].Trim(),
-                    Name = fileLines[i + 1].Trim(),
-                });
-            }
+                    lecturers.Add(new Lecturer
+                    {
+                        Id = fileLines[i].Trim(),
+                        Name = fileLines[i + 1].Trim(),
+                    });
+                }
+            }           
         }
 
         public static void LoadSubjects()
         {
-            var fileLines = File.ReadAllLines("Subjects.txt");
-            fileLines = fileLines.Where(x => !string.IsNullOrEmpty(x)).ToArray();
-            for (int i = 0; i + 1 < fileLines.Length; i += 2)
+            var assembly = IntrospectionExtensions.GetTypeInfo(typeof(TempEntityLoader)).Assembly;
+            Stream stream = assembly.GetManifestResourceStream("TF2.Files.Subjects.txt");
+            using (var reader = new System.IO.StreamReader(stream))
             {
-                subjects.Add(new Subject
+                string text = reader.ReadToEnd();
+                string[] fileLines = text.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
+                fileLines = fileLines.Where(x => !string.IsNullOrEmpty(x)).ToArray();
+
+                for (int i = 0; i + 1 < fileLines.Length; i += 2)
                 {
-                    LecturerID = fileLines[i].Trim(),
-                    SubjectName = fileLines[i + 1].Trim(),
-                });
+                    subjects.Add(new Subject
+                    {
+                        LecturerID = fileLines[i].Trim(),
+                        SubjectName = fileLines[i + 1].Trim(),
+                    });
+                }
             }
         }
 
@@ -58,10 +74,12 @@ namespace TF2.Entities
 
         public static void LoadReviews()
         {
-            using (var reviewsFile = new StreamReader("reviewsList.txt"))
+            var assembly = IntrospectionExtensions.GetTypeInfo(typeof(TempEntityLoader)).Assembly;
+            Stream stream = assembly.GetManifestResourceStream("TF2.Files.reviewsList.txt");
+            using (var reader = new System.IO.StreamReader(stream))
             {
                 string line;
-                while ((line = reviewsFile.ReadLine()) != null)
+                while ((line = reader.ReadLine()) != null)
                 {
                     var parts = line.Split('@');
                     reviews.Add(new Review
@@ -73,7 +91,6 @@ namespace TF2.Entities
                         Comment = parts[4]
                     });
                 }
-                reviewsFile.Close();
             }
         }
 
@@ -82,10 +99,13 @@ namespace TF2.Entities
             Encryption enc = new Encryption();
 
             string[] user;
-            using (System.IO.StreamReader userFile = new System.IO.StreamReader(@Path.Combine(Environment.CurrentDirectory, "users.txt")))
+            var assembly = IntrospectionExtensions.GetTypeInfo(typeof(TempEntityLoader)).Assembly;
+            Stream stream = assembly.GetManifestResourceStream("TF2.Files.users.txt");
+
+            using (var reader = new System.IO.StreamReader(stream))
             {
                 //let's hope the file is never empty
-                user = userFile.ReadLine().Split(' ');
+                user = reader.ReadLine().Split(' ');
 
                 while (user[0] != null)
                 {
@@ -98,7 +118,7 @@ namespace TF2.Entities
                     });
 
                     //kinda wonky but works so ¯\_(ツ)_/¯
-                    user[0] = userFile.ReadLine();
+                    user[0] = reader.ReadLine();
 
                     if (user[0] != null)
                     {
@@ -112,13 +132,15 @@ namespace TF2.Entities
         {
             Encryption enc = new Encryption();
 
-            using (System.IO.StreamWriter userFile = new StreamWriter(@Path.Combine(Environment.CurrentDirectory, "users.txt")))
+            var assembly = IntrospectionExtensions.GetTypeInfo(typeof(TempEntityLoader)).Assembly;
+            Stream stream = assembly.GetManifestResourceStream("TF2.Files.users.txt");
+            using (var writer = new System.IO.StreamWriter(stream))
             {
-                foreach(User u in users)
+                foreach (User u in users)
                 {
-                    userFile.WriteLine(enc.Encrypt(u.Email) + " " + enc.Encrypt(u.Password) + " " + enc.Encrypt(u.Username)
+                    writer.WriteLine(enc.Encrypt(u.Email) + " " + enc.Encrypt(u.Password) + " " + enc.Encrypt(u.Username)
                         + " " + u.Role);
-                }                            
+                }
             }
         }
 

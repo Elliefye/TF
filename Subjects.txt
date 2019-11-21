@@ -1,7 +1,0 @@
-2 Komparchas
-2 Procedurinis
-1 Komunikacijos
-1 Matematiniai uzdavinukai medikams
-3 Komparchas
-4 Diskrecioji
-5 PSI
