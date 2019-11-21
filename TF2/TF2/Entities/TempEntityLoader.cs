@@ -62,7 +62,7 @@ namespace TF2.Entities
         {
             return lecturers.GroupJoin(subjects,
             id => id.Id,
-            lid => lid.LecturerID,
+            lid => lid.Id,
             (id, lecturerSubjects) => new
             {
                 LecturerName = id.Name,
