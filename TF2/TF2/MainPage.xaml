@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:TF2"
+             x:Class="TF2.MainPage"
+             Title="Welcome to Teaching Feedback">
+
+    <StackLayout>
+        <!-- Place new controls here -->
+        <Label x:Name="LogInLabel"
+            Text="Please log in to continue" 
+            HorizontalOptions="Center"
+            VerticalOptions="CenterAndExpand" />
+        <Entry x:Name="UsernameText"
+            Placeholder="Username" />
+        <Entry x:Name="PasswordText"
+            Placeholder="Password" 
+            IsPassword="True"/>
+        <Button x:Name="LoginBtn"
+            Text="Log in" 
+           VerticalOptions="CenterAndExpand"
+                 Clicked="Login_Btn_Clicked"/>
+            
+    </StackLayout>
+
+</ContentPage>
