@@ -349,11 +349,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Eli\\Code\\C#\\TF2\\TF2\\TF2\\TF2.csproj",
+      "projectUniqueName": "D:\\Eli\\Code\\C#\\TF\\TF2\\TF2\\TF2.csproj",
       "projectName": "TF2",
-      "projectPath": "D:\\Eli\\Code\\C#\\TF2\\TF2\\TF2\\TF2.csproj",
+      "projectPath": "D:\\Eli\\Code\\C#\\TF\\TF2\\TF2\\TF2.csproj",
       "packagesPath": "C:\\Users\\Elina\\.nuget\\packages\\",
-      "outputPath": "D:\\Eli\\Code\\C#\\TF2\\TF2\\TF2\\obj\\",
+      "outputPath": "D:\\Eli\\Code\\C#\\TF\\TF2\\TF2\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

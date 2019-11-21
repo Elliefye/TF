@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using TF2.Entities;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -19,14 +19,18 @@ namespace TF2
 
         async void Login_Btn_Clicked(object sender, EventArgs e)
         {
-            if (UsernameText.Text == "admin" && PasswordText.Text == "admin")
+            User match = TempEntityLoader.users.FirstOrDefault(user => user.Email == UsernameText.Text
+            && user.Password == PasswordText.Text);
+
+            if (match != null)
             {
-                //await Navigation.PushAsync(new ViewAll());
+                ConstVars.AuthStatus = 1;
                 App.Current.MainPage = new NavigationPage(new ViewAll());
             }
             else
             {
                 await DisplayAlert("Incorrect data", "Login data incorrect. Please try again.", "OK");
+
             }
         }
     }

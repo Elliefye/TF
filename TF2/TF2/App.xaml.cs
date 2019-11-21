@@ -1,4 +1,5 @@
 ﻿using System;
+using TF2.Entities;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -18,6 +19,11 @@ namespace TF2
         protected override void OnStart()
         {
             // Handle when your app starts -- load all entities
+            TempEntityLoader.LoadLecturers();
+            TempEntityLoader.LoadSubjects();
+            TempEntityLoader.LoadReviews();
+            TempEntityLoader.lecturersSubjects = TempEntityLoader.groupJoinSubjectsAndLecturers();
+            TempEntityLoader.LoadUsers();
         }
 
         protected override void OnSleep()
