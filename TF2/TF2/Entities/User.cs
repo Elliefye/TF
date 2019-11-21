@@ -10,13 +10,13 @@ namespace TF2.Entities
     [Table ("Users")]
     public class User
     {
-        [PrimaryKey, AutoIncrement, Column("Id")]
+        [NotNull, PrimaryKey, AutoIncrement, Column("Id")]
         public int Id { get; set; }
-        [Column("Username")]
+        [NotNull, Unique, Column("Username")]
         public string Username { get; set; }
-        [Column("Password")]
+        [NotNull, Unique, Column("Password")]
         public string Password { get; set; }
-        [Column("Email")]
+        [NotNull, Column("Email")]
         public string Email { get; set; }
         [Column("Role")]
         public string Role { get; set; }
