@@ -17,7 +17,11 @@
             <Button x:Name="LoginBtn"
             Text="Log in" 
            VerticalOptions="CenterAndExpand"
-                 Clicked="Login_Btn_Clicked"/>
+                 Clicked="LoginBtnClicked"/>
+            <Button x:Name="signUpInsteadBtn"
+                Text="Sign Up Instead"
+                    VerticalOptions="CenterAndExpand" 
+                    Clicked="SignUpInsteadBtnClicked"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

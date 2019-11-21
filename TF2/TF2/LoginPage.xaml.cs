@@ -17,7 +17,7 @@ namespace TF2
 			InitializeComponent ();
 		}
 
-        async void Login_Btn_Clicked(object sender, EventArgs e)
+        async void LoginBtnClicked(object sender, EventArgs e)
         {
             User match = TempEntityLoader.users.FirstOrDefault(user => user.Email == UsernameText.Text
             && user.Password == PasswordText.Text);
@@ -32,6 +32,11 @@ namespace TF2
                 await DisplayAlert("Incorrect data", "Login data incorrect. Please try again.", "OK");
 
             }
+        }
+
+        async void SignUpInsteadBtnClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new SignupPage());
         }
     }
 }

@@ -12,7 +12,7 @@ namespace TF2
         {
             InitializeComponent();
 
-            MainPage = new LoginPage();
+            MainPage = new NavigationPage(new LoginPage());
             //MainPage = new MainPage();
         }
 
