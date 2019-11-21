@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Android.Content.Res;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -19,9 +20,8 @@ namespace TF2.Entities
 
         public static void LoadLecturers()
         {
-            var assembly = IntrospectionExtensions.GetTypeInfo(typeof(TempEntityLoader)).Assembly;
-            Stream stream = assembly.GetManifestResourceStream("TF2.Files.Lecturers.txt");
-            using (var reader = new System.IO.StreamReader(stream))
+            AssetManager assets = Android.App.Application.Context.Assets;
+            using (StreamReader reader = new StreamReader(assets.Open("Lecturers.txt")))
             {
                 string text = reader.ReadToEnd();
                 string[] fileLines = text.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
@@ -36,14 +36,12 @@ namespace TF2.Entities
                         Name = fileLines[i + 1].Trim(),
                     });
                 }
-            }           
+            }          
         }
 
         public static void LoadSubjects()
         {
-            var assembly = IntrospectionExtensions.GetTypeInfo(typeof(TempEntityLoader)).Assembly;
-            Stream stream = assembly.GetManifestResourceStream("TF2.Files.Subjects.txt");
-            using (var reader = new System.IO.StreamReader(stream))
+            using (StreamReader reader = new StreamReader(Android.App.Application.Context.Assets.Open("Subjects.txt")))
             {
                 string text = reader.ReadToEnd();
                 string[] fileLines = text.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
@@ -74,9 +72,7 @@ namespace TF2.Entities
 
         public static void LoadReviews()
         {
-            var assembly = IntrospectionExtensions.GetTypeInfo(typeof(TempEntityLoader)).Assembly;
-            Stream stream = assembly.GetManifestResourceStream("TF2.Files.reviewsList.txt");
-            using (var reader = new System.IO.StreamReader(stream))
+            using (StreamReader reader = new StreamReader(Android.App.Application.Context.Assets.Open("reviewsList.txt")))
             {
                 string line;
                 while ((line = reader.ReadLine()) != null)
@@ -99,10 +95,7 @@ namespace TF2.Entities
             Encryption enc = new Encryption();
 
             string[] user;
-            var assembly = IntrospectionExtensions.GetTypeInfo(typeof(TempEntityLoader)).Assembly;
-            Stream stream = assembly.GetManifestResourceStream("TF2.Files.users.txt");
-
-            using (var reader = new System.IO.StreamReader(stream))
+            using (StreamReader reader = new StreamReader(Android.App.Application.Context.Assets.Open("users.txt")))
             {
                 //let's hope the file is never empty
                 user = reader.ReadLine().Split(' ');
@@ -132,9 +125,8 @@ namespace TF2.Entities
         {
             Encryption enc = new Encryption();
 
-            var assembly = IntrospectionExtensions.GetTypeInfo(typeof(TempEntityLoader)).Assembly;
-            Stream stream = assembly.GetManifestResourceStream("TF2.Files.users.txt");
-            using (var writer = new System.IO.StreamWriter(stream))
+            var filename = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "users.txt");
+            using (var writer = new System.IO.StreamWriter(filename))
             {
                 foreach (User u in users)
                 {
@@ -143,6 +135,5 @@ namespace TF2.Entities
                 }
             }
         }
-
     }
 }

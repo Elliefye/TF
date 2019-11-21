@@ -114,3 +114,7 @@ D:\Eli\Code\C#\TF\TF2\TF2.iOS\obj\iPhoneSimulator\Debug\XamlC.stamp
 D:\Eli\Code\C#\TF\TF2\TF2.iOS\obj\iPhoneSimulator\Debug\TF2.iOS.csproj.CopyComplete
 D:\Eli\Code\C#\TF\TF2\TF2.iOS\obj\iPhoneSimulator\Debug\TF2.iOS.exe
 D:\Eli\Code\C#\TF\TF2\TF2.iOS\obj\iPhoneSimulator\Debug\TF2.iOS.pdb
+D:\Eli\Code\C#\TF\TF2\TF2.iOS\bin\iPhoneSimulator\Debug\Files\Lecturers.txt
+D:\Eli\Code\C#\TF\TF2\TF2.iOS\bin\iPhoneSimulator\Debug\Files\reviewsList.txt
+D:\Eli\Code\C#\TF\TF2\TF2.iOS\bin\iPhoneSimulator\Debug\Files\Subjects.txt
+D:\Eli\Code\C#\TF\TF2\TF2.iOS\bin\iPhoneSimulator\Debug\Files\users.txt
