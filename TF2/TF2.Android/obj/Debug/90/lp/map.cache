@@ -1,4 +1,10 @@
 FormsViewGroup
+SQLite-net
+SQLitePCLRaw.batteries_green
+SQLitePCLRaw.batteries_v2
+SQLitePCLRaw.core
+SQLitePCLRaw.lib.e_sqlite3
+SQLitePCLRaw.provider.e_sqlite3
 System.Runtime
 TF2
 Xamarin.Android.Arch.Core.Common
@@ -25,3 +31,4 @@ Xamarin.Forms.Platform.Android
 Xamarin.Forms.Platform
 Xamarin.Forms.Xaml
 netstandard
+System.Reflection.Extensions
