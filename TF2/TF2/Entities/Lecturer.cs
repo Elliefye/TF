@@ -8,14 +8,10 @@ namespace TF2.Entities
 {
     public class Lecturer
     {
-        private string _id;
+        public int Id { get; set; }
         public string Name { get; set; }
-        public int NoOfSubjects { get; set; }
-        public string Subjects { get; set; }
-        public string Id { 
-            get { return _id; } 
-            set { _id = value; } 
-        }
-        public List<Subject> SubjectsNew { get; set; }
+        public int NoOfSubjects { get; set; }       
+        public List<Subject> Subjects { get; set; }
+        public List<Review> Reviews { get; set; }
     }
 }

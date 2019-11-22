@@ -25,7 +25,6 @@ D:\Eli\Code\C#\TF\TF2\TF2\obj\Debug\netstandard2.0\TF2.pdb
 D:\Eli\Code\C#\TF\TF2\TF2\bin\Debug\netstandard2.0\TF2.deps.json
 D:\Eli\Code\C#\TF\TF2\TF2\bin\Debug\netstandard2.0\TF2.dll
 D:\Eli\Code\C#\TF\TF2\TF2\bin\Debug\netstandard2.0\TF2.pdb
-D:\Eli\Code\C#\TF\TF2\TF2\obj\Debug\netstandard2.0\XamlC.stamp
 D:\Eli\Code\C#\TF\TF2\TF2\bin\Debug\netstandard2.0\Files\Lecturers.txt
 D:\Eli\Code\C#\TF\TF2\TF2\bin\Debug\netstandard2.0\Files\reviewsList.txt
 D:\Eli\Code\C#\TF\TF2\TF2\bin\Debug\netstandard2.0\Files\Subjects.txt

@@ -32,7 +32,7 @@ namespace TF2.Entities
                 {
                     lecturers.Add(new Lecturer
                     {
-                        Id = fileLines[i].Trim(),
+                        Id = Int32.Parse(fileLines[i].Trim()),
                         Name = fileLines[i + 1].Trim(),
                     });
                 }
@@ -51,7 +51,7 @@ namespace TF2.Entities
                 {
                     subjects.Add(new Subject
                     {
-                        LecturerID = fileLines[i].Trim(),
+                        Id = Int32.Parse(fileLines[i].Trim()),
                         SubjectName = fileLines[i + 1].Trim(),
                     });
                 }
@@ -62,7 +62,7 @@ namespace TF2.Entities
         {
             return lecturers.GroupJoin(subjects,
             id => id.Id,
-            lid => lid.LecturerID,
+            lid => lid.Id,
             (id, lecturerSubjects) => new
             {
                 LecturerName = id.Name,

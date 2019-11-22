@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SQLite;
 
 namespace TF2.Entities
 {
     public class Subject
     {
-        public int SubjectId { get; set; }
+        public int Id { get; set; }
         public string SubjectName { get; set; }
-        public string LecturerID { get; set; }
+        public List<Lecturer> Lecturers { get; set; }
+        public List<Review> Reviews { get; set; }
     }
 }
