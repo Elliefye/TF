@@ -60,8 +60,9 @@ namespace TF2
                     return;
                 }
 
-                User existing = TempEntityLoader.users.FirstOrDefault(match => match.Email == emailText.Text
-                || match.Username == usernameText.Text);
+                User existing = EntityLoader.LogIn(usernameText.Text, passwordText1.Text);
+                    //TempEntityLoader.users.FirstOrDefault(match => match.Email == emailText.Text
+                //|| match.Username == usernameText.Text);
 
                 if (existing != null)
                 {

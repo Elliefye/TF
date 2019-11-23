@@ -19,14 +19,16 @@ namespace TF2
 
         async void LoginBtnClicked(object sender, EventArgs e)
         {
-            EntityLoader.LogIn(UsernameText.Text, PasswordText.Text);
+            User match = EntityLoader.LogIn(UsernameText.Text, PasswordText.Text);
 
-            if (ConstVars.currentUser == null)
+            if (match == null)
             {
                 await DisplayAlert("Incorrect data", "Login data incorrect. Please try again.", "OK");
             }
             else
             {
+                ConstVars.currentUser = match;
+                ConstVars.AuthStatus = 1;
                 App.Current.MainPage = new NavigationPage(new ViewAll());
             }
             /*User match = TempEntityLoader.users.FirstOrDefault(user => user.Email == UsernameText.Text

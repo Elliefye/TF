@@ -25,7 +25,7 @@ namespace TF2.Entities
         [NotNull, Column("UserId")]
         public int UserId { get; set; }
         [Column("Anonymous")]
-        public int Anonymous;
+        public int Anonymous { get; set; }
         public Lecturer lecturer;
         public Subject subject;
     }

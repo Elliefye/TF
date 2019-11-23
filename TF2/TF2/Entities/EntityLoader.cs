@@ -91,8 +91,9 @@ namespace TF2.Entities
             }
         }
 
-        public static void LogIn(string Username, string Password)
+        public static User LogIn(string Username, string Password)
         {
+            //todo: support logging in with either email or username (helps in signin as well)
             var match = from u in db.Table<User>()
                            where (u.Username == enc.Encrypt(Username) && u.Password == enc.Encrypt(Password))
                            select u;
@@ -101,7 +102,7 @@ namespace TF2.Entities
 
             if (userMatch.Count == 1)
             {
-                ConstVars.currentUser = new User
+                return new User
                 {
                     Id = match.ElementAt(0).Id,
                     Username = enc.Decrypt(match.ElementAt(0).Username),
@@ -111,7 +112,7 @@ namespace TF2.Entities
                     Role = match.ElementAt(0).Role
                 };
             }
-            //else return - log in failed
+            else return null;
         }
 
         public static void UpdateUserData()
