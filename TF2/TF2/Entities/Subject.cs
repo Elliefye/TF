@@ -7,11 +7,13 @@ using SQLite;
 
 namespace TF2.Entities
 {
+    [Table("Subjects")]
     public class Subject
     {
+        [NotNull, PrimaryKey, AutoIncrement, Column("Id")]
         public int Id { get; set; }
+        [NotNull, Unique, Column("SubjectName")]
         public string SubjectName { get; set; }
         public List<Lecturer> Lecturers { get; set; }
-        public List<Review> Reviews { get; set; }
     }
 }

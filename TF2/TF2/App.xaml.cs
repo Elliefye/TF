@@ -18,12 +18,15 @@ namespace TF2
 
         protected override void OnStart()
         {
+            EntityLoader.ConnectToDatabase("teaching_feedback.db");
+            EntityLoader.LoadLecturersAndSubjects();
+            EntityLoader.LoadReviews();
             // Handle when your app starts -- load all entities
-            TempEntityLoader.LoadLecturers();
+            /*TempEntityLoader.LoadLecturers();
             TempEntityLoader.LoadSubjects();
             TempEntityLoader.LoadReviews();
             TempEntityLoader.lecturersSubjects = TempEntityLoader.groupJoinSubjectsAndLecturers();
-            TempEntityLoader.LoadUsers();
+            TempEntityLoader.LoadUsers();*/
         }
 
         protected override void OnSleep()

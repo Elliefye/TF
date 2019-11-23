@@ -1,5 +1,4 @@
-﻿using Android.Content.Res;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -20,7 +19,7 @@ namespace TF2.Entities
 
         public static void LoadLecturers()
         {
-            AssetManager assets = Android.App.Application.Context.Assets;
+            Android.Content.Res.AssetManager assets = Android.App.Application.Context.Assets;
             using (StreamReader reader = new StreamReader(assets.Open("Lecturers.txt")))
             {
                 string text = reader.ReadToEnd();
@@ -33,7 +32,7 @@ namespace TF2.Entities
                     lecturers.Add(new Lecturer
                     {
                         Id = Int32.Parse(fileLines[i].Trim()),
-                        Name = fileLines[i + 1].Trim(),
+                        //Name = fileLines[i + 1].Trim(),
                     });
                 }
             }          
@@ -65,7 +64,7 @@ namespace TF2.Entities
             lid => lid.Id,
             (id, lecturerSubjects) => new
             {
-                LecturerName = id.Name,
+                //LecturerName = id.Name,
                 Subjects = lecturerSubjects,
             }).ToList();
         }
@@ -80,8 +79,8 @@ namespace TF2.Entities
                     var parts = line.Split('@');
                     reviews.Add(new Review
                     {
-                        Lecturer = parts[0],
-                        Subject = parts[1],
+                        //Lecturer = parts[0],
+                        //Subject = parts[1],
                         LecturerScore = int.Parse(parts[2]),
                         SubjectScore = int.Parse(parts[3]),
                         Comment = parts[4]

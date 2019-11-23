@@ -10,8 +10,10 @@ namespace TF2
     //a class for constants/global variables
     static class ConstVars
     {
-        public static int AuthStatus { get; set; } = 0;
         //0 - not logged in, other values can mean different user groups
-        public static User current;
+        public static int AuthStatus { get; set; } = 0;
+        //password is encrypted
+        public static User currentUser;
+
     }
 }

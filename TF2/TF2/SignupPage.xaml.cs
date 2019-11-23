@@ -60,8 +60,9 @@ namespace TF2
                     return;
                 }
 
-                User existing = TempEntityLoader.users.FirstOrDefault(match => match.Email == emailText.Text
-                || match.Username == usernameText.Text);
+                User existing = EntityLoader.LogIn(usernameText.Text, passwordText1.Text);
+                    //TempEntityLoader.users.FirstOrDefault(match => match.Email == emailText.Text
+                //|| match.Username == usernameText.Text);
 
                 if (existing != null)
                 {
@@ -70,15 +71,14 @@ namespace TF2
                 }
                 else
                 {
-                    TempEntityLoader.users.Add(new User
+                    EntityLoader.SignUp((new User
                     {
                         Username = usernameText.Text,
                         Password = passwordText1.Text,
                         Email = emailText.Text,
-                        Role = "Student" //default role is student right now
-                    });
+                        Role = "Student" //default role is student
+                    }));
 
-                    TempEntityLoader.SaveUsers();
                     await DisplayAlert("Success", "You were registered. Please log in now.", "OK");
                 }
 
