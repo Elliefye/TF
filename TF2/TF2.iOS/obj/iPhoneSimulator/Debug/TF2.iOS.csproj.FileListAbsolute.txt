@@ -118,3 +118,11 @@ D:\Eli\Code\C#\TF\TF2\TF2.iOS\bin\iPhoneSimulator\Debug\Files\Lecturers.txt
 D:\Eli\Code\C#\TF\TF2\TF2.iOS\bin\iPhoneSimulator\Debug\Files\reviewsList.txt
 D:\Eli\Code\C#\TF\TF2\TF2.iOS\bin\iPhoneSimulator\Debug\Files\Subjects.txt
 D:\Eli\Code\C#\TF\TF2\TF2.iOS\bin\iPhoneSimulator\Debug\Files\users.txt
+D:\Eli\Code\C#\TF\TF2\TF2.iOS\bin\iPhoneSimulator\Debug\SQLite-net.dll
+D:\Eli\Code\C#\TF\TF2\TF2.iOS\bin\iPhoneSimulator\Debug\SQLitePCLRaw.batteries_green.dll
+D:\Eli\Code\C#\TF\TF2\TF2.iOS\bin\iPhoneSimulator\Debug\SQLitePCLRaw.batteries_v2.dll
+D:\Eli\Code\C#\TF\TF2\TF2.iOS\bin\iPhoneSimulator\Debug\SQLitePCLRaw.core.dll
+D:\Eli\Code\C#\TF\TF2\TF2.iOS\bin\iPhoneSimulator\Debug\SQLitePCLRaw.provider.sqlite3.dll
+D:\Eli\Code\C#\TF\TF2\TF2.iOS\bin\iPhoneSimulator\Debug\Mono.Android.dll
+D:\Eli\Code\C#\TF\TF2\TF2.iOS\bin\iPhoneSimulator\Debug\Mono.Android.pdb
+D:\Eli\Code\C#\TF\TF2\TF2.iOS\bin\iPhoneSimulator\Debug\Mono.Android.xml

@@ -75,7 +75,7 @@ namespace TF2
                         Username = usernameText.Text,
                         Password = passwordText1.Text,
                         Email = emailText.Text,
-                        Role = "Student" //default role is student right now
+                        Role = "Student" //default role is student
                     }));
 
                     await DisplayAlert("Success", "You were registered. Please log in now.", "OK");

@@ -27,6 +27,7 @@ namespace TF2.Entities
         public static List<Review> reviews = new List<Review>();
         //db connection can only be accessed through this class
         private static SQLiteConnection db;
+        private static Encryption enc = new Encryption();
 
         public static void ConnectToDatabase(string dbName)
         {
@@ -93,15 +94,13 @@ namespace TF2.Entities
         public static void LogIn(string Username, string Password)
         {
             var match = from u in db.Table<User>()
-                           where (u.Username == Username && u.Password == Password)
+                           where (u.Username == enc.Encrypt(Username) && u.Password == enc.Encrypt(Password))
                            select u;
 
             List<User> userMatch = match.ToList();
 
             if (userMatch.Count == 1)
             {
-                Encryption enc = new Encryption();
-
                 ConstVars.currentUser = new User
                 {
                     Id = match.ElementAt(0).Id,
@@ -123,18 +122,28 @@ namespace TF2.Entities
             }
             else
             {
-                //use ConstVars.current user to write to db
+                //use ConstVars.currentUser to write to db
+                User current = ConstVars.currentUser;
+
+                current.Username = enc.Encrypt(current.Username);
+                current.Email = enc.Encrypt(current.Email);
+
+                db.Update(current);
             }
         }
 
-        public static void SignUp()
+        public static void SignUp(User newUser)
         {
+            newUser.Username = enc.Encrypt(newUser.Username);
+            newUser.Password = enc.Encrypt(newUser.Password);
+            newUser.Email = enc.Encrypt(newUser.Email);
 
+            db.Insert(newUser);
         }
 
         public static void AddReview(Review newReview)
         {
-
+            db.Insert(newReview);
         }
     }
 }

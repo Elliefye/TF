@@ -24,6 +24,8 @@ namespace TF2.Entities
         public string Comment { get; set; }
         [NotNull, Column("UserId")]
         public int UserId { get; set; }
+        [Column("Anonymous")]
+        public int Anonymous;
         public Lecturer lecturer;
         public Subject subject;
     }

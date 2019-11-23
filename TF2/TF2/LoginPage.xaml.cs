@@ -19,9 +19,7 @@ namespace TF2
 
         async void LoginBtnClicked(object sender, EventArgs e)
         {
-            //encrypt data first
-            Encryption enc = new Encryption();
-            EntityLoader.LogIn(enc.Encrypt(UsernameText.Text), enc.Encrypt(PasswordText.Text));
+            EntityLoader.LogIn(UsernameText.Text, PasswordText.Text);
 
             if (ConstVars.currentUser == null)
             {
