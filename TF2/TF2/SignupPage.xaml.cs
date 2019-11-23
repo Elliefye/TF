@@ -70,15 +70,14 @@ namespace TF2
                 }
                 else
                 {
-                    TempEntityLoader.users.Add(new User
+                    EntityLoader.SignUp((new User
                     {
                         Username = usernameText.Text,
                         Password = passwordText1.Text,
                         Email = emailText.Text,
                         Role = "Student" //default role is student right now
-                    });
+                    }));
 
-                    TempEntityLoader.SaveUsers();
                     await DisplayAlert("Success", "You were registered. Please log in now.", "OK");
                 }
 

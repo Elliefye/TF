@@ -19,7 +19,19 @@ namespace TF2
 
         async void LoginBtnClicked(object sender, EventArgs e)
         {
-            User match = TempEntityLoader.users.FirstOrDefault(user => user.Email == UsernameText.Text
+            //encrypt data first
+            Encryption enc = new Encryption();
+            EntityLoader.LogIn(enc.Encrypt(UsernameText.Text), enc.Encrypt(PasswordText.Text));
+
+            if (ConstVars.currentUser == null)
+            {
+                await DisplayAlert("Incorrect data", "Login data incorrect. Please try again.", "OK");
+            }
+            else
+            {
+                App.Current.MainPage = new NavigationPage(new ViewAll());
+            }
+            /*User match = TempEntityLoader.users.FirstOrDefault(user => user.Email == UsernameText.Text
             && user.Password == PasswordText.Text);
 
             if (match != null)
@@ -31,7 +43,7 @@ namespace TF2
             {
                 await DisplayAlert("Incorrect data", "Login data incorrect. Please try again.", "OK");
 
-            }
+            }*/
         }
 
         async void SignUpInsteadBtnClicked(object sender, EventArgs e)

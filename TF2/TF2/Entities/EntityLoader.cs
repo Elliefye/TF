@@ -7,7 +7,7 @@ using SQLite;
 
 namespace TF2.Entities
 {
-    //data has to be bound to a class in sqlite, so for now we have to have classes for all tables
+    //data preferably has to be bound to a class in sqlite, so for now we have classes for all tables
     [Table("LecturersAndSubjects")]
     class LecturersAndSubjects
     {
@@ -64,6 +64,16 @@ namespace TF2.Entities
                 Lecturer currentLecturer = lecturers.Find(l => l.Id == ls.LecturerId);
                 Subject currentSubject = subjects.Find(s => s.Id == ls.SubjectId);
 
+                if(currentLecturer.Subjects == null)
+                {
+                    currentLecturer.Subjects = new List<Subject>();
+                }
+
+                if(currentSubject.Lecturers == null)
+                {
+                    currentSubject.Lecturers = new List<Lecturer>();
+                }
+
                 currentLecturer.Subjects.Add(currentSubject);
                 currentSubject.Lecturers.Add(currentLecturer);
             }
@@ -82,7 +92,27 @@ namespace TF2.Entities
 
         public static void LogIn(string Username, string Password)
         {
+            var match = from u in db.Table<User>()
+                           where (u.Username == Username && u.Password == Password)
+                           select u;
 
+            List<User> userMatch = match.ToList();
+
+            if (userMatch.Count == 1)
+            {
+                Encryption enc = new Encryption();
+
+                ConstVars.currentUser = new User
+                {
+                    Id = match.ElementAt(0).Id,
+                    Username = enc.Decrypt(match.ElementAt(0).Username),
+                    //leave password encrypted for security reasons
+                    Password = match.ElementAt(0).Password,
+                    Email = enc.Decrypt(match.ElementAt(0).Email),
+                    Role = match.ElementAt(0).Role
+                };
+            }
+            //else return - log in failed
         }
 
         public static void UpdateUserData()
@@ -95,6 +125,11 @@ namespace TF2.Entities
             {
                 //use ConstVars.current user to write to db
             }
+        }
+
+        public static void SignUp()
+        {
+
         }
 
         public static void AddReview(Review newReview)

@@ -79,8 +79,8 @@ namespace TF2.Entities
                     var parts = line.Split('@');
                     reviews.Add(new Review
                     {
-                        Lecturer = parts[0],
-                        Subject = parts[1],
+                        //Lecturer = parts[0],
+                        //Subject = parts[1],
                         LecturerScore = int.Parse(parts[2]),
                         SubjectScore = int.Parse(parts[3]),
                         Comment = parts[4]
