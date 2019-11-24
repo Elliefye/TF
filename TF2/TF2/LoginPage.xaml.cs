@@ -31,19 +31,6 @@ namespace TF2
                 ConstVars.AuthStatus = 1;
                 App.Current.MainPage = new NavigationPage(new ViewAll());
             }
-            /*User match = TempEntityLoader.users.FirstOrDefault(user => user.Email == UsernameText.Text
-            && user.Password == PasswordText.Text);
-
-            if (match != null)
-            {
-                ConstVars.AuthStatus = 1;
-                App.Current.MainPage = new NavigationPage(new ViewAll());
-            }
-            else
-            {
-                await DisplayAlert("Incorrect data", "Login data incorrect. Please try again.", "OK");
-
-            }*/
         }
 
         async void SignUpInsteadBtnClicked(object sender, EventArgs e)

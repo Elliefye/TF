@@ -60,11 +60,11 @@ namespace TF2
                     return;
                 }
 
-                User existing = EntityLoader.LogIn(usernameText.Text, passwordText1.Text);
-                    //TempEntityLoader.users.FirstOrDefault(match => match.Email == emailText.Text
-                //|| match.Username == usernameText.Text);
+                User existingU = EntityLoader.LogIn(usernameText.Text, passwordText1.Text);
+                User existingE = EntityLoader.LogIn(emailText.Text, passwordText1.Text);
 
-                if (existing != null)
+
+                if (existingU != null || existingE != null)
                 {
                     await DisplayAlert("Error", "This user already exists. Please try logging in instead.", "OK");
                     return;
