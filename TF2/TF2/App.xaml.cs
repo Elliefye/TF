@@ -11,16 +11,18 @@ namespace TF2
         public App()
         {
             InitializeComponent();
-
+            EntityLoader.ConnectToDatabase("teaching_feedback.db");
+            EntityLoader.LoadLecturersAndSubjects();
+            EntityLoader.LoadReviews();
+            //MainPage = new NavigationPage(new BottomNavigation());
             MainPage = new NavigationPage(new LoginPage());
-            //MainPage = new MainPage();
         }
 
         protected override void OnStart()
         {
-            EntityLoader.ConnectToDatabase("teaching_feedback.db");
-            EntityLoader.LoadLecturersAndSubjects();
-            EntityLoader.LoadReviews();
+            //EntityLoader.ConnectToDatabase("teaching_feedback.db");
+            //EntityLoader.LoadLecturersAndSubjects();
+            //EntityLoader.LoadReviews();
             // Handle when your app starts -- load all entities
             /*TempEntityLoader.LoadLecturers();
             TempEntityLoader.LoadSubjects();
