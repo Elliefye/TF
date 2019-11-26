@@ -9,7 +9,7 @@ namespace TF2.Entities
 {
     //data preferably has to be bound to a class in sqlite, so for now we have classes for all tables
     [Table("LecturersAndSubjects")]
-    class LecturersAndSubjects
+    public class LecturersAndSubjects
     {
         [NotNull, PrimaryKey, AutoIncrement, Column("UniqueId")]
         public int Id { get; set; }
@@ -24,6 +24,7 @@ namespace TF2.Entities
     {
         public static List<Lecturer> lecturers = new List<Lecturer>();
         public static List<Subject> subjects = new List<Subject>();
+        public static List<LecturersAndSubjects> lecAndSub = new List<LecturersAndSubjects>();
         public static List<Review> reviews = new List<Review>();
         //db connection can only be accessed through this class
         private static SQLiteConnection db;
@@ -58,19 +59,19 @@ namespace TF2.Entities
             lecturers = db.Table<Lecturer>().ToList();
             subjects = db.Table<Subject>().ToList();
 
-            List<LecturersAndSubjects> group = db.Table<LecturersAndSubjects>().ToList();
+            lecAndSub = db.Table<LecturersAndSubjects>().ToList();
 
-            foreach (LecturersAndSubjects ls in group)
+            foreach (LecturersAndSubjects ls in lecAndSub)
             {
                 Lecturer currentLecturer = lecturers.Find(l => l.Id == ls.LecturerId);
                 Subject currentSubject = subjects.Find(s => s.Id == ls.SubjectId);
 
-                if(currentLecturer.Subjects == null)
+                if (currentLecturer.Subjects == null)
                 {
                     currentLecturer.Subjects = new List<Subject>();
                 }
 
-                if(currentSubject.Lecturers == null)
+                if (currentSubject.Lecturers == null)
                 {
                     currentSubject.Lecturers = new List<Lecturer>();
                 }
@@ -84,7 +85,7 @@ namespace TF2.Entities
         {
             reviews = db.Table<Review>().ToList();
 
-            foreach(Review r in reviews)
+            foreach (Review r in reviews)
             {
                 r.lecturer = lecturers.Find(l => l.Id == r.LecturerId);
                 r.subject = subjects.Find(s => s.Id == r.SubjectId);
@@ -93,23 +94,29 @@ namespace TF2.Entities
 
         public static User LogIn(string Username, string Password)
         {
-            //todo: support logging in with either email or username (helps in signin as well)
-            var match = from u in db.Table<User>()
-                           where (u.Username == enc.Encrypt(Username) && u.Password == enc.Encrypt(Password))
+            Username = enc.Encrypt(Username);
+            Password = enc.Encrypt(Password);
+
+            /*var match = from u in db.Table<User>()
+                           where ((u.Username == Username && u.Password == Password) || (u.Email == Username && u.Password == Password))
                            select u;
+                           
+             List<User> userMatch = match.ToList();*/
 
-            List<User> userMatch = match.ToList();
+            //supports logging in with either email or username
 
-            if (userMatch.Count == 1)
+            User match = db.Table<User>().FirstOrDefault(u => u.Username == Username || u.Email == Username && u.Password == Password);
+
+            if (match != null)
             {
                 return new User
                 {
-                    Id = match.ElementAt(0).Id,
-                    Username = enc.Decrypt(match.ElementAt(0).Username),
+                    Id = match.Id,
+                    Username = enc.Decrypt(match.Username),
                     //leave password encrypted for security reasons
-                    Password = match.ElementAt(0).Password,
-                    Email = enc.Decrypt(match.ElementAt(0).Email),
-                    Role = match.ElementAt(0).Role
+                    Password = match.Password,
+                    Email = enc.Decrypt(match.Email),
+                    Role = match.Role
                 };
             }
             else return null;
@@ -117,7 +124,7 @@ namespace TF2.Entities
 
         public static void UpdateUserData()
         {
-            if(ConstVars.AuthStatus == 0)
+            if (ConstVars.AuthStatus == 0)
             {
                 throw new System.InvalidOperationException("No user is logged in");
             }
@@ -145,6 +152,7 @@ namespace TF2.Entities
         public static void AddReview(Review newReview)
         {
             db.Insert(newReview);
+            reviews.Add(newReview);
         }
     }
 }

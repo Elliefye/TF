@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             Title="Reviews"
+             x:Class="TF2.Reviews">
+    
+    <ListView ItemsSource="{Binding ReviewsList}"
+              HasUnevenRows="True"
+              BackgroundColor="#ecf0f1"
+              SeparatorVisibility="None"
+              HorizontalOptions="FillAndExpand"
+              VerticalOptions="FillAndExpand">
+
+        <ListView.ItemTemplate>
+
+            <DataTemplate>
+                <ViewCell>
+                    <StackLayout Margin="6,4,6,4"
+                                 BackgroundColor="White">
+                        <Label Text="{Binding LecturerName}"/>
+                        <Label Text="{Binding SubjectName}"/>
+                        <Label Text="{Binding LecturerScore}"/>
+                        <Label Text="{Binding SubjectScore}"/>
+                        <Label Text="{Binding Comment}"/>
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+
+        </ListView.ItemTemplate>
+    </ListView>
+</ContentPage>
