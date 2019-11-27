@@ -15,7 +15,6 @@
               VerticalOptions="FillAndExpand">
 
         <ListView.ItemTemplate>
-
             <DataTemplate>
                 <ViewCell>
                     <StackLayout Margin="6,4,6,4"
@@ -28,7 +27,6 @@
                     </StackLayout>
                 </ViewCell>
             </DataTemplate>
-
         </ListView.ItemTemplate>
     </ListView>
 </ContentPage>

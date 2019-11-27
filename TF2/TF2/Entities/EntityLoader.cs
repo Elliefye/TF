@@ -105,7 +105,7 @@ namespace TF2.Entities
 
             //supports logging in with either email or username
 
-            User match = db.Table<User>().FirstOrDefault(u => u.Username == Username || u.Email == Username && u.Password == Password);
+            User match = db.Table<User>().FirstOrDefault(u => (u.Username == Username || u.Email == Username) && u.Password == Password);
 
             if (match != null)
             {

@@ -17,15 +17,19 @@ namespace TF2
         public SignupPage()
         {
             InitializeComponent();
+
+            UernameTextSignup.ReturnCommand = new Command(() => EmailTextSignup.Focus());
+            EmailTextSignup.ReturnCommand = new Command(() => PasswordText1Signup.Focus());
+            PasswordText1Signup.ReturnCommand = new Command(() => PasswordText2Signup.Focus());
         }
 
         async void Signup_Btn_Clicked(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(usernameText.Text) && !string.IsNullOrWhiteSpace(passwordText1.Text)
-                && !string.IsNullOrWhiteSpace(passwordText2.Text) && !string.IsNullOrWhiteSpace(emailText.Text))
+            if (!string.IsNullOrWhiteSpace(UernameTextSignup.Text) && !string.IsNullOrWhiteSpace(PasswordText1Signup.Text)
+                && !string.IsNullOrWhiteSpace(PasswordText2Signup.Text) && !string.IsNullOrWhiteSpace(EmailTextSignup.Text))
             {
                 //check if passwords match
-                if (passwordText1.Text != passwordText2.Text)
+                if (PasswordText1Signup.Text != PasswordText2Signup.Text)
                 {
                     await DisplayAlert("Incorrect password", "Passwords do not match. Please try again.", "OK");
                     await DisplayAlert("", Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "OK");
@@ -36,14 +40,14 @@ namespace TF2
                 //check if username valid (4-15 alphanumericals, must start with a letter)
                 Regex username = new Regex("^[a-zA-Z][a-zA-Z0-9]{3,14}$");
 
-                if (!username.IsMatch(usernameText.Text))
+                if (!username.IsMatch(UernameTextSignup.Text))
                 {
                     await DisplayAlert("Incorrect username", "Username too short or contains special characters. Please try again.", "OK");
                     return;
                 }
 
                 //check if password long enough
-                if (passwordText1.Text.Length < 6)
+                if (PasswordText1Signup.Text.Length < 6)
                 {
                     await DisplayAlert("Incorrect password", "Password must be at least 6 characters long. Please try again.", "OK");
                     return;
@@ -52,7 +56,7 @@ namespace TF2
                 //simple check if email is valid
                 try
                 {
-                    MailAddress email = new MailAddress(emailText.Text);
+                    MailAddress email = new MailAddress(EmailTextSignup.Text);
                 }
                 catch
                 {
@@ -60,8 +64,8 @@ namespace TF2
                     return;
                 }
 
-                User existingU = EntityLoader.LogIn(usernameText.Text, passwordText1.Text);
-                User existingE = EntityLoader.LogIn(emailText.Text, passwordText1.Text);
+                User existingU = EntityLoader.LogIn(UernameTextSignup.Text, PasswordText1Signup.Text);
+                User existingE = EntityLoader.LogIn(EmailTextSignup.Text, PasswordText1Signup.Text);
 
 
                 if (existingU != null || existingE != null)
@@ -73,19 +77,20 @@ namespace TF2
                 {
                     EntityLoader.SignUp((new User
                     {
-                        Username = usernameText.Text,
-                        Password = passwordText1.Text,
-                        Email = emailText.Text,
+                        Username = UernameTextSignup.Text,
+                        Password = PasswordText1Signup.Text,
+                        Email = EmailTextSignup.Text,
                         Role = "Student" //default role is student
                     }));
 
                     await DisplayAlert("Success", "You were registered. Please log in now.", "OK");
+                    await Navigation.PopAsync();
                 }
 
-                usernameText.Text = "";
-                passwordText1.Text = "";
-                passwordText2.Text = "";
-                emailText.Text = "";
+                UernameTextSignup.Text = "";
+                PasswordText1Signup.Text = "";
+                PasswordText2Signup.Text = "";
+                EmailTextSignup.Text = "";
             }
         }
     }

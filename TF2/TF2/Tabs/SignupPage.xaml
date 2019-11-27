@@ -5,17 +5,17 @@
              Title="Sign Up">
     <ContentPage.Content>
         <StackLayout>
-            <Entry x:Name="usernameText"
-            Placeholder="Username" />
-            <Entry x:Name="emailText"
+            <Entry x:Name="UernameTextSignup"
+            Placeholder="Username" ReturnType="Next"/>
+            <Entry x:Name="EmailTextSignup" ReturnType="Next"
             Placeholder="Email address" />
-            <Entry x:Name="passwordText1"
+            <Entry x:Name="PasswordText1Signup" ReturnType="Next"
             Placeholder="Password" 
             IsPassword="True"/>
-            <Entry x:Name="passwordText2"
+            <Entry x:Name="PasswordText2Signup" ReturnType="Done"
             Placeholder="Re-enter password" 
             IsPassword="True"/>
-            <Button x:Name="signupBtn"
+            <Button x:Name="SignupBtn"
             Text="Sign Up" 
            VerticalOptions="CenterAndExpand"
                  Clicked="Signup_Btn_Clicked"/>
