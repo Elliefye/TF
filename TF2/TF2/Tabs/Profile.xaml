@@ -8,9 +8,21 @@
              x:Class="TF2.Profile">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="PROFILE"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <Label Text="Username"
+                HorizontalOptions="CenterAndExpand" 
+                x:Name="UsernameLabel"
+                FontSize="Large"/>
+            <Label Text="Email"
+                HorizontalOptions="CenterAndExpand"
+                x:Name="EmailLabel"
+                   FontSize="Large"/>
+            <Button Text="Change account details"
+                    HorizontalOptions="CenterAndExpand"
+                    Clicked="ChangeAccount_Clicked"/>
+            <Button Text="Logout"
+                VerticalOptions="EndAndExpand"
+                HorizontalOptions="CenterAndExpand"
+                Clicked="Logout_Clicked"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -40,24 +40,24 @@ namespace TF2
 
         private void Submit_Clicked(object sender, EventArgs e)
         {
-            foreach (Review rev in EntityLoader.reviews)
-            {
-                System.Diagnostics.Debug.WriteLine(rev);
-            }
             Review review = new Review();
             review.LecturerId = lecSub.lecturerId;
             review.SubjectId = lecSub.subjectId;
             review.LecturerScore = Convert.ToInt32(LecturerScore.SelectedItem);
             review.SubjectScore = Convert.ToInt32(SubjectScore.SelectedItem);
             review.Comment = CommentEntry.Text;
-            review.UserId = 1;
-            review.Anonymous = 1;
-            EntityLoader.AddReview(review);
+            review.UserId = ConstVars.currentUser.Id;
 
-            foreach(Review rev in EntityLoader.reviews)
+            if(AnonCheckBox.IsChecked)
             {
-                System.Diagnostics.Debug.WriteLine("HHHHH" + rev);
+                review.Anonymous = 1;
             }
+            else
+            {
+                review.Anonymous = 0;
+            }
+
+            EntityLoader.AddReview(review);
 
             Application.Current.MainPage = new NavigationPage(new BottomNavigation());
         }

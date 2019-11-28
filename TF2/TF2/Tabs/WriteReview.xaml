@@ -4,7 +4,8 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="TF2.WriteReview">
+             x:Class="TF2.WriteReview"
+             Title="Write a review">
     <ContentPage.Content>
         <StackLayout>
             <Label x:Name="LecturerName"/>
@@ -14,8 +15,18 @@
             <Picker x:Name="SubjectScore"
                     Title="Rate subject"/>
             <Entry x:Name="CommentEntry"
-                   Placeholder="Write a comment"
-                   PlaceholderColor="Olive" />
+                   Placeholder="Write a comment"/>
+            <Grid HorizontalOptions="StartAndExpand" ColumnSpacing="20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <CheckBox Grid.Row="1" Grid.Column="1" VerticalOptions="Center" x:Name="AnonCheckBox" Color="#2196F3"/>
+                <Label Grid.Row="1" Grid.Column="2" Text="Submit anonymously" VerticalOptions="Center"/>
+            </Grid>
             <Button x:Name="Submit"
                     Text="Submit"
                     Clicked="Submit_Clicked"/>
