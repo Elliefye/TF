@@ -24,7 +24,7 @@ namespace TF2.Entities
     {
         public static List<Lecturer> lecturers = new List<Lecturer>();
         public static List<Subject> subjects = new List<Subject>();
-        public static List<LecturersAndSubjects> lecAndSub = new List<LecturersAndSubjects>();
+        public static List<LecturersAndSubjects> lecAndSub;
         public static List<Review> reviews = new List<Review>();
         //db connection can only be accessed through this class
         private static SQLiteConnection db;
@@ -58,6 +58,11 @@ namespace TF2.Entities
         {
             lecturers = db.Table<Lecturer>().ToList();
             subjects = db.Table<Subject>().ToList();
+        }
+
+        public static List<LecturersAndSubjects> GetLecturersAndSubjects()
+        {
+            return db.Table<LecturersAndSubjects>().ToList();
         }
 
         //DO NOT CALL FOR EACH SUBJECT, since it draws the whole lecsub table into memory each time
@@ -109,14 +114,7 @@ namespace TF2.Entities
             Username = enc.Encrypt(Username);
             Password = enc.Encrypt(Password);
 
-            /*var match = from u in db.Table<User>()
-                           where ((u.Username == Username && u.Password == Password) || (u.Email == Username && u.Password == Password))
-                           select u;
-                           
-             List<User> userMatch = match.ToList();*/
-
             //supports logging in with either email or username
-
             User match = db.Table<User>().FirstOrDefault(u => (u.Username == Username || u.Email == Username) && u.Password == Password);
 
             if (match != null)
@@ -218,6 +216,27 @@ namespace TF2.Entities
             }
 
             return db.Table<Review>().Where(r => r.UserId == ConstVars.currentUser.Id).ToList();
+        }
+
+        public static float GetAvgRating(Subject subject)
+        {
+            var avgRating = db.ExecuteScalar<string>("select avg(SubjectReview) from Reviews where SubjectId=" + subject.Id);
+
+            if(avgRating == null)
+            {
+                return 0;
+            }
+            else return float.Parse(avgRating.ToString());
+        }
+
+        public static float GetAvgRating(Lecturer lecturer)
+        {
+            var avgRating = db.ExecuteScalar<string>("select avg(LecturerReview) from Reviews where LecturerId=" + lecturer.Id);
+            if (avgRating == null)
+            {
+                return 0;
+            }
+            else return float.Parse(avgRating.ToString());
         }
     }
 }

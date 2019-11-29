@@ -10,7 +10,21 @@
                    FontAttributes="Bold"
                    x:Name="TitleLabel"/>
             <Label Text="Lecturer/subject"
-                   HorizontalOptions="CenterAndExpand"/>
+                   HorizontalOptions="CenterAndExpand"
+                   x:Name="SubtitleLabel"/>
+            <Label Text="Rated: Rating number"
+                   HorizontalOptions="CenterAndExpand"
+                   x:Name="RatingLabel"
+                   FontSize="Large"/>
+            <Label Text="All subjects/lecturers:"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Start"
+                   x:Name="List1Label"
+                   FontSize="Medium"/>
+            <ListView x:Name="SubOrLectList"
+                      HorizontalOptions="FillAndExpand"
+                      VerticalOptions="CenterAndExpand"
+                      ItemTapped="ItemFromList1Tapped"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

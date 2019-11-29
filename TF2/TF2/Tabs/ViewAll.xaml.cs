@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using TF2.Entities;
+using TF2.Tabs;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -24,8 +25,10 @@ namespace TF2
         {
 
             var content = e.Item as LecSub;
+            Subject sub = EntityLoader.subjects.FirstOrDefault(s => s.Id == content.subjectId);
+            await Navigation.PushAsync(new NavigationPage(new SubLectProfile(sub)));
             //System.Diagnostics.Debug.WriteLine(content.LecturerName + content.SubjectName);
-            await Navigation.PushAsync(new WriteReview(content)); //pass content if you want to pass the clicked item object to another page
+            //await Navigation.PushAsync(new WriteReview(content)); //pass content if you want to pass the clicked item object to another page
         }
 
         private void SearchBar_SearchButtonPressed(object sender, EventArgs e)
