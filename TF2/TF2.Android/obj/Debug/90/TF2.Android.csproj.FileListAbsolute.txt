@@ -749,4 +749,6 @@ D:\Eli\Code\C#\TF\TF2\TF2.Android\obj\Debug\90\android\assets\TF2.Android.pdb
 D:\Eli\Code\C#\TF\TF2\TF2.Android\obj\Debug\90\android\assets\Xamarin.Forms.Core.pdb
 D:\Eli\Code\C#\TF\TF2\TF2.Android\obj\Debug\90\android\assets\Xamarin.Forms.Platform.Android.pdb
 D:\Eli\Code\C#\TF\TF2\TF2.Android\obj\Debug\90\android\assets\Xamarin.Forms.Xaml.pdb
+D:\Eli\Code\C#\TF\TF2\TF2\bin\Debug\netstandard2.0\TF2.dll
+D:\Eli\Code\C#\TF\TF2\TF2.Android\bin\Debug\TF2.dll.mdb
 D:\Eli\Code\C#\TF\TF2\TF2.Android\obj\Debug\90\linksrc\TF2.dll.mdb

@@ -33,5 +33,20 @@ namespace TF2
                 _reviewsList.Add(new Rev(lecturerName, subjectName, review.LecturerScore, review.SubjectScore, review.Comment));
             }
         }
+
+        public ReviewViewModel(List<Review> reviews)
+        {
+            ReviewsList = new ObservableCollection<Rev>();
+
+            foreach (Review review in reviews)
+            {
+                Lecturer lec = EntityLoader.lecturers.Find(l => l.Id == review.LecturerId);
+                String lecturerName = lec.FirstName + " " + lec.LastName;
+                Subject sub = EntityLoader.subjects.Find(s => s.Id == review.SubjectId);
+                String subjectName = sub.SubjectName;
+
+                _reviewsList.Add(new Rev(lecturerName, subjectName, review.LecturerScore, review.SubjectScore, review.Comment));
+            }
+        }
     }
 }

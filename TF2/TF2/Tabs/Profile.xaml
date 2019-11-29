@@ -35,6 +35,10 @@
             <Button Text="Change account details"
                     HorizontalOptions="CenterAndExpand"
                     Clicked="ChangeAccount_Clicked"/>
+            <Button Text="My reviews"
+                    x:Name="MyReviewsBtn"
+                    HorizontalOptions="CenterAndExpand"
+                    Clicked="MyReviews_Clicked"/>
             <Button Text="Logout"
                 VerticalOptions="EndAndExpand"
                 HorizontalOptions="CenterAndExpand"

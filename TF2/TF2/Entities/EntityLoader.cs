@@ -197,5 +197,10 @@ namespace TF2.Entities
             db.Insert(newReview);
             reviews.Add(newReview);
         }
+
+        public static List<Review> GetUserReviews()
+        {
+            return db.Table<Review>().Where(r => r.UserId == ConstVars.currentUser.Id).ToList();
+        }
     }
 }

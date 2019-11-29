@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using TF2.Entities;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -17,6 +17,12 @@ namespace TF2
             InitializeComponent();
             EmailLabel.Text = ConstVars.currentUser.Email;
             UsernameLabel.Text = ConstVars.currentUser.Username;
+
+            List<Review> list = EntityLoader.GetUserReviews();
+            if (list.Count == 0)
+            {
+                MyReviewsBtn.IsEnabled = false;
+            }
         }
 
         private void Logout_Clicked(object sender, EventArgs e)
@@ -37,6 +43,12 @@ namespace TF2
         {
             EmailLabel.Text = ConstVars.currentUser.Email;
             UsernameLabel.Text = ConstVars.currentUser.Username;
+        }
+
+        async void MyReviews_Clicked(object sender, EventArgs e)
+        {
+           
+            await Navigation.PushAsync(new Reviews(EntityLoader.GetUserReviews()));
         }
     }
 }
