@@ -200,6 +200,11 @@ namespace TF2.Entities
 
         public static List<Review> GetUserReviews()
         {
+            if(ConstVars.AuthStatus == 0)
+            {
+                throw new InvalidOperationException("No user is logged in.");
+            }
+
             return db.Table<Review>().Where(r => r.UserId == ConstVars.currentUser.Id).ToList();
         }
     }
