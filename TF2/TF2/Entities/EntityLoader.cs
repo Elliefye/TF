@@ -105,7 +105,7 @@ namespace TF2.Entities
 
             //supports logging in with either email or username
 
-            User match = db.Table<User>().FirstOrDefault(u => u.Username == Username || u.Email == Username && u.Password == Password);
+            User match = db.Table<User>().FirstOrDefault(u => (u.Username == Username || u.Email == Username) && u.Password == Password);
 
             if (match != null)
             {
@@ -131,10 +131,14 @@ namespace TF2.Entities
             else
             {
                 //use ConstVars.currentUser to write to db
-                User current = ConstVars.currentUser;
-
-                current.Username = enc.Encrypt(current.Username);
-                current.Email = enc.Encrypt(current.Email);
+                User current = new User
+                {
+                    Id = ConstVars.currentUser.Id,
+                    Username = enc.Encrypt(ConstVars.currentUser.Username),
+                    Email = enc.Encrypt(ConstVars.currentUser.Email),
+                    Password = ConstVars.currentUser.Password,
+                    Role = ConstVars.currentUser.Role
+                };
 
                 db.Update(current);
             }
@@ -145,14 +149,63 @@ namespace TF2.Entities
             newUser.Username = enc.Encrypt(newUser.Username);
             newUser.Password = enc.Encrypt(newUser.Password);
             newUser.Email = enc.Encrypt(newUser.Email);
+            var id = db.ExecuteScalar<string>("select max(Id) from Users");
 
+            newUser.Id = Int32.Parse(id.ToString()) + 1;
+            
             db.Insert(newUser);
+        }
+
+        public static bool LookForExistingUser(string EmailOrUsername)
+        {
+            EmailOrUsername = enc.Encrypt(EmailOrUsername);
+
+            User match = db.Table<User>().FirstOrDefault(u => u.Username == EmailOrUsername || u.Email == EmailOrUsername);
+            return match != null;
+        }
+
+        public static bool LookForExistingUser(string email, string username)
+        {
+            User match;
+
+            if(ConstVars.currentUser.Email == email && ConstVars.currentUser.Username == username) //neither changed, only password
+            {
+                return false;
+            }
+            else if (ConstVars.currentUser.Email == email) //only username changed
+            {
+                username = enc.Encrypt(username);
+                match = db.Table<User>().FirstOrDefault(u => u.Username == username);
+            }
+            else if(ConstVars.currentUser.Username == username) //only email changed
+            {
+                email = enc.Encrypt(email);
+                match = db.Table<User>().FirstOrDefault(u => u.Email == email);                
+            }
+            else //both changed
+            {
+                username = enc.Encrypt(username);
+                email = enc.Encrypt(email);
+                match = db.Table<User>().FirstOrDefault(u => u.Username == username || u.Email == email);
+            }
+
+            return match != null;
         }
 
         public static void AddReview(Review newReview)
         {
             db.Insert(newReview);
             reviews.Add(newReview);
+        }
+
+        public static List<Review> GetUserReviews()
+        {
+            if(ConstVars.AuthStatus == 0)
+            {
+                throw new InvalidOperationException("No user is logged in.");
+            }
+
+            return db.Table<Review>().Where(r => r.UserId == ConstVars.currentUser.Id).ToList();
         }
     }
 }

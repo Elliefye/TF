@@ -20,7 +20,6 @@ namespace TF2
 
         public LecSubViewModel()
         {
-
             LecSubList = new ObservableCollection<LecSub>();
 
             foreach (LecturersAndSubjects ls in EntityLoader.lecAndSub)
@@ -36,5 +35,15 @@ namespace TF2
             }
         }
 
+        public LecSubViewModel(List<LecSub> lecSubList)
+        {
+            LecSubList = new ObservableCollection<LecSub>(lecSubList);
+        }
+
+
+        public List<LecSub> GetAllItems()
+        {
+            return new List<LecSub>(LecSubList);
+        }
     }
 }

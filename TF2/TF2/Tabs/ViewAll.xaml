@@ -3,13 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TF2.ViewAll"
              Title="ViewAll">
+    <StackLayout>
+        <SearchBar Placeholder="Look for something..." SearchButtonPressed="SearchBar_SearchButtonPressed" x:Name="Searchbar"
+                   TextChanged="Searchbar_TextChanged"></SearchBar>
+    
     <ListView ItemsSource="{Binding LecSubList}"
               ItemTapped="ItemTapped"
               HasUnevenRows="True"
               BackgroundColor="#ecf0f1"
               SeparatorVisibility="None"
               HorizontalOptions="FillAndExpand"
-              VerticalOptions="FillAndExpand">
+              VerticalOptions="FillAndExpand"
+              x:Name="MasterList">
 
         <ListView.ItemTemplate>
 
@@ -25,4 +30,5 @@
 
         </ListView.ItemTemplate>
     </ListView>
+    </StackLayout>
 </ContentPage>

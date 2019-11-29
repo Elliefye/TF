@@ -1115,26 +1115,21 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\pauli\\.nuget\\packages\\": {},
-    "C:\\Microsoft\\Xamarin\\NuGet\\": {}
+    "C:\\Users\\Elina\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\pauli\\Downloads\\TF\\TF2\\TF2.iOS\\TF2.iOS.csproj",
+      "projectUniqueName": "D:\\Eli\\Code\\C#\\TF\\TF2\\TF2.iOS\\TF2.iOS.csproj",
       "projectName": "TF2.iOS",
-      "projectPath": "C:\\Users\\pauli\\Downloads\\TF\\TF2\\TF2.iOS\\TF2.iOS.csproj",
-      "packagesPath": "C:\\Users\\pauli\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\pauli\\Downloads\\TF\\TF2\\TF2.iOS\\obj\\",
+      "projectPath": "D:\\Eli\\Code\\C#\\TF\\TF2\\TF2.iOS\\TF2.iOS.csproj",
+      "packagesPath": "C:\\Users\\Elina\\.nuget\\packages\\",
+      "outputPath": "D:\\Eli\\Code\\C#\\TF\\TF2\\TF2.iOS\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
-      "fallbackFolders": [
-        "C:\\Microsoft\\Xamarin\\NuGet\\"
-      ],
       "configFilePaths": [
-        "C:\\Users\\pauli\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        "C:\\Users\\Elina\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "xamarinios10"
@@ -1146,8 +1141,8 @@
       "frameworks": {
         "xamarinios10": {
           "projectReferences": {
-            "C:\\Users\\pauli\\Downloads\\TF\\TF2\\TF2\\TF2.csproj": {
-              "projectPath": "C:\\Users\\pauli\\Downloads\\TF\\TF2\\TF2\\TF2.csproj"
+            "D:\\Eli\\Code\\C#\\TF\\TF2\\TF2\\TF2.csproj": {
+              "projectPath": "D:\\Eli\\Code\\C#\\TF\\TF2\\TF2\\TF2.csproj"
             }
           }
         }

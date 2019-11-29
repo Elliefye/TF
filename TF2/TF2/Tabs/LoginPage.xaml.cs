@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Android.Content;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,11 +16,19 @@ namespace TF2
         public LoginPage()
         {
             InitializeComponent();
+            //focus on another field when done typing
+            UsernameTextLogin.ReturnCommand = new Command(() => PasswordTextLogin.Focus());
         }
 
         async void LoginBtnClicked(object sender, EventArgs e)
         {
-            User match = EntityLoader.LogIn(UsernameText.Text, PasswordText.Text);
+            if(String.IsNullOrWhiteSpace(UsernameTextLogin.Text) || String.IsNullOrWhiteSpace(PasswordTextLogin.Text))
+            {
+                await DisplayAlert("Incorrect data", "Please enter login data.", "OK");
+                return;
+            }
+
+            User match = EntityLoader.LogIn(UsernameTextLogin.Text, PasswordTextLogin.Text);
 
             if (match == null)
             {

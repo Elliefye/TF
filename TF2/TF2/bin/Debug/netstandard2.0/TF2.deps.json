@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETStandard,Version=v2.0/",
-    "signature": ""
+    "signature": "78f1665f4b8c34ecd83ec2cc55ff47e20a5de317"
   },
   "compilationOptions": {},
   "targets": {
@@ -12,7 +12,7 @@
           "NETStandard.Library": "2.0.3",
           "Xamarin.Forms": "4.3.0.991211",
           "sqlite-net-pcl": "1.6.292",
-          "Microsoft.CSharp": "4.0.0.0",
+          "Microsoft.CSharp": "2.0.5.0",
           "Mono.Android": "0.0.0.0"
         },
         "runtime": {
@@ -80,11 +80,11 @@
           }
         }
       },
-      "Microsoft.CSharp/4.0.0.0": {
+      "Microsoft.CSharp/2.0.5.0": {
         "runtime": {
           "Microsoft.CSharp.dll": {
-            "assemblyVersion": "4.0.0.0",
-            "fileVersion": "4.7.3062.0"
+            "assemblyVersion": "2.0.5.0",
+            "fileVersion": "4.0.50524.0"
           }
         }
       },
@@ -93,14 +93,6 @@
           "Mono.Android.dll": {
             "assemblyVersion": "0.0.0.0",
             "fileVersion": "0.0.0.0"
-          }
-        }
-      },
-      "System.Dynamic/4.0.0.0": {
-        "runtime": {
-          "System.Dynamic.dll": {
-            "assemblyVersion": "4.0.0.0",
-            "fileVersion": "4.7.3062.0"
           }
         }
       }
@@ -154,17 +146,12 @@
       "path": "xamarin.forms/4.3.0.991211",
       "hashPath": "xamarin.forms.4.3.0.991211.nupkg.sha512"
     },
-    "Microsoft.CSharp/4.0.0.0": {
+    "Microsoft.CSharp/2.0.5.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""
     },
     "Mono.Android/0.0.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "System.Dynamic/4.0.0.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""

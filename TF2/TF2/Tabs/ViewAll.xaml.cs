@@ -12,18 +12,49 @@ namespace TF2
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ViewAll : ContentPage
     {
+        LecSubViewModel lsvm = new LecSubViewModel();
+
         public ViewAll()
         {
             InitializeComponent();
-            BindingContext = new LecSubViewModel();
+            BindingContext = lsvm;
         }
 
         private async void ItemTapped(object sender, ItemTappedEventArgs e)
         {
 
             var content = e.Item as LecSub;
-            System.Diagnostics.Debug.WriteLine(content.LecturerName + content.SubjectName);
+            //System.Diagnostics.Debug.WriteLine(content.LecturerName + content.SubjectName);
             await Navigation.PushAsync(new WriteReview(content)); //pass content if you want to pass the clicked item object to another page
+        }
+
+        private void SearchBar_SearchButtonPressed(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(Searchbar.Text))
+            {
+                List<LecSub> currentItems = new List<LecSub>();
+
+                foreach (LecSub item in lsvm.LecSubList)//lsvm.LecSubList.ToList<LecSub>())
+                {
+                    if (item.LecturerName.ToLower().Contains(Searchbar.Text.ToLower()) ||
+                        item.SubjectName.ToLower().Contains(Searchbar.Text.ToLower()))
+                    {
+                        currentItems.Add(item);
+                    }
+                }
+
+                lsvm = new LecSubViewModel(currentItems);
+                BindingContext = lsvm;
+            }            
+        }
+
+        private void Searchbar_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if(string.IsNullOrEmpty(Searchbar.Text))
+            {
+                lsvm = new LecSubViewModel();
+                BindingContext = lsvm;
+            }
         }
     }
 }
