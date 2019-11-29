@@ -68,3 +68,4 @@ D:\Eli\Code\C#\TF\TF2\TF2\obj\Debug\netstandard2.0\Tabs\ViewAll.xaml.g.cs
 D:\Eli\Code\C#\TF\TF2\TF2\obj\Debug\netstandard2.0\Tabs\WriteReview.xaml.g.cs
 D:\Eli\Code\C#\TF\TF2\TF2\bin\Debug\netstandard2.0\Microsoft.CSharp.dll
 D:\Eli\Code\C#\TF\TF2\TF2\bin\Debug\netstandard2.0\Microsoft.CSharp.pdb
+D:\Eli\Code\C#\TF\TF2\TF2\obj\Debug\netstandard2.0\Tabs\SubLectProfile.xaml.g.cs

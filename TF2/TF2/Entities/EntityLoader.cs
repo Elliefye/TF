@@ -58,27 +58,39 @@ namespace TF2.Entities
         {
             lecturers = db.Table<Lecturer>().ToList();
             subjects = db.Table<Subject>().ToList();
+        }
 
+        //DO NOT CALL FOR EACH SUBJECT, since it draws the whole lecsub table into memory each time
+        public static List<Lecturer> GetLectListForSubject(Subject sub) 
+        {
             lecAndSub = db.Table<LecturersAndSubjects>().ToList();
+            List<Lecturer> lecturerList = new List<Lecturer>();
 
             foreach (LecturersAndSubjects ls in lecAndSub)
             {
-                Lecturer currentLecturer = lecturers.Find(l => l.Id == ls.LecturerId);
-                Subject currentSubject = subjects.Find(s => s.Id == ls.SubjectId);
-
-                if (currentLecturer.Subjects == null)
+                if(ls.SubjectId == sub.Id)
                 {
-                    currentLecturer.Subjects = new List<Subject>();
+                    lecturerList.Add(lecturers.Find(l => l.Id == ls.LecturerId));
                 }
-
-                if (currentSubject.Lecturers == null)
-                {
-                    currentSubject.Lecturers = new List<Lecturer>();
-                }
-
-                currentLecturer.Subjects.Add(currentSubject);
-                currentSubject.Lecturers.Add(currentLecturer);
             }
+
+            return lecturerList;
+        }
+
+        public static List<Subject> GetSubListForLecturer(Lecturer lect)
+        {
+            lecAndSub = db.Table<LecturersAndSubjects>().ToList();
+            List<Subject> subjectList = new List<Subject>();
+
+            foreach (LecturersAndSubjects ls in lecAndSub)
+            {
+                if(ls.LecturerId == lect.Id)
+                {
+                    subjectList.Add(subjects.Find(s => s.Id == ls.SubjectId));
+                }
+            }
+
+            return subjectList;
         }
 
         public static void LoadReviews()

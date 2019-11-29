@@ -14,6 +14,11 @@ namespace TF2.Entities
         public int Id { get; set; }
         [NotNull, Unique, Column("SubjectName")]
         public string SubjectName { get; set; }
-        public List<Lecturer> Lecturers { get; set; }
+        public Lazy<List<Lecturer>> Lecturers;
+
+        public Subject()
+        {
+            Lecturers = new Lazy<List<Lecturer>>(() => EntityLoader.GetLectListForSubject(this));
+        }
     }
 }
