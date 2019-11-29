@@ -91,8 +91,8 @@ namespace TF2
                     EntityLoader.UpdateUserData();
 
                     await DisplayAlert("Success", "Data change sucessful.", "OK");
-                    await Navigation.PopAsync();
                     OnUpdatedData();
+                    await Navigation.PopAsync();                   
                 }
             };
         }

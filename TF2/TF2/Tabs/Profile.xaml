@@ -8,14 +8,30 @@
              x:Class="TF2.Profile">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Username"
+            <Grid HorizontalOptions="StartAndExpand" ColumnSpacing="20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="1" Grid.Column="1" Text="Username: "
+                   FontSize="Large"
+                   FontAttributes="Bold"/>
+                <Label Grid.Row="1" Grid.Column="2" Text="Username"
                 HorizontalOptions="CenterAndExpand" 
                 x:Name="UsernameLabel"
                 FontSize="Large"/>
-            <Label Text="Email"
+                <Label Grid.Row="2" Grid.Column="1" Text="Email: "
+                   FontSize="Large"
+                   FontAttributes="Bold"/>
+                <Label Grid.Row="2" Grid.Column="2" Text="Email"
                 HorizontalOptions="CenterAndExpand"
                 x:Name="EmailLabel"
                    FontSize="Large"/>
+            </Grid>
             <Button Text="Change account details"
                     HorizontalOptions="CenterAndExpand"
                     Clicked="ChangeAccount_Clicked"/>
