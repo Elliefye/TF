@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using TF2.Entities;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -27,8 +27,11 @@ namespace TF2.Tabs
         public LecturerViewModel()
         {
             LecturerViewList = new ObservableCollection<LecturerView>();
-            LecturerViewList.Add(new LecturerView("Kasuba", "5"));
-            LecturerViewList.Add(new LecturerView("Skersys", "4.76"));
+            
+            foreach(Lecturer lect in EntityLoader.lecturers)
+            {
+                LecturerViewList.Add(new LecturerView(lect.FirstName + " " + lect.LastName, Math.Round(EntityLoader.GetAvgRating(lect), 2).ToString()));
+            }
         }
     }
 
@@ -43,6 +46,16 @@ namespace TF2.Tabs
         }
 
         private void ItemTapped(object sender, ItemTappedEventArgs e)
+        {
+
+        }
+
+        private void SearchBar_SearchButtonPressed(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Searchbar_TextChanged(object sender, TextChangedEventArgs e)
         {
 
         }

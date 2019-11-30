@@ -5,26 +5,28 @@
              Title="Browse all lecturers">
     <ContentPage.Content>
         <StackLayout>
+            <SearchBar Placeholder="Find a lecturer..." SearchButtonPressed="SearchBar_SearchButtonPressed" x:Name="Searchbar"
+                   TextChanged="Searchbar_TextChanged"></SearchBar>
             <ListView 
               ItemTapped="ItemTapped"
               HasUnevenRows="False"
-              SeparatorVisibility="None"
+              SeparatorVisibility="Default"
               HorizontalOptions="FillAndExpand"
               VerticalOptions="FillAndExpand"
               x:Name="LecturerList"
                 ItemsSource="{Binding LecturerViewList}"
-                Margin="20,20,0,20">
+                Margin="10,0,0,0">
 
                 <ListView.ItemTemplate>
 
                     <DataTemplate>
                         <ViewCell>
-                            <Grid HorizontalOptions="StartAndExpand" ColumnSpacing="20" >
+                            <Grid HorizontalOptions="StartAndExpand" ColumnSpacing="5" >
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="100"/>
+                                    <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="8*"></ColumnDefinition>
+                                    <ColumnDefinition Width="9*"></ColumnDefinition>
                                     <ColumnDefinition Width="*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
 
@@ -35,14 +37,12 @@
                                        Text="{Binding Item1}" 
                                        HorizontalTextAlignment="Start"
                                        VerticalTextAlignment="Center"
-                                       TextColor="Black"
                                        FontSize="Medium"/>
                                 
                                 <Label Grid.Column="1" Grid.Row="0"
                                        Text="{Binding Item2}"
-                                       HorizontalTextAlignment="End"
+                                       HorizontalTextAlignment="Center"
                                        VerticalTextAlignment="Center"
-                                       TextColor="Black"
                                        FontSize="Medium"/>
                             </Grid>
                         </ViewCell>
