@@ -15,6 +15,8 @@ namespace TF2.Tabs
         private List<string> list1Empty = new List<string>();
         private List<string> list1Full = new List<string>();
         private bool list1Collapsed = false;
+        private bool subprof = true;
+        private int id;
 
 		public SubLectProfile ()
 		{
@@ -54,6 +56,7 @@ namespace TF2.Tabs
             };
 
             List1Label.GestureRecognizers.Add(list1LabelTapGestureRecognizer);
+            id = subject.Id;
         }
 
         public SubLectProfile(Lecturer lecturer)
@@ -89,6 +92,8 @@ namespace TF2.Tabs
             };
 
             List1Label.GestureRecognizers.Add(list1LabelTapGestureRecognizer);
+            subprof = false;
+            id = lecturer.Id;
         }
 
         private async void ItemFromList1Tapped(object sender, ItemTappedEventArgs e)
@@ -126,5 +131,18 @@ namespace TF2.Tabs
             }
         }
 
+        async void AddReviewBtn_Clicked(object sender, EventArgs e)
+        {
+            if(subprof)
+            {
+                Subject subject = EntityLoader.subjects.Find(s => s.Id == id);
+                await Navigation.PushAsync(new AddReview(subject));
+            }
+            else
+            {
+                Lecturer lecturer = EntityLoader.lecturers.Find(l => l.Id == id);
+                await Navigation.PushAsync(new AddReview(lecturer));
+            }
+        }
     }
 }

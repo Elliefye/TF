@@ -25,6 +25,11 @@
                       HorizontalOptions="FillAndExpand"
                       VerticalOptions="CenterAndExpand"
                       ItemTapped="ItemFromList1Tapped"/>
+            <Button x:Name="AddReviewBtn"
+                    Text="Add Review"
+                    HorizontalOptions="CenterAndExpand"
+                    VerticalOptions="EndAndExpand"
+                    Clicked="AddReviewBtn_Clicked"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

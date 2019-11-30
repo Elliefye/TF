@@ -4,8 +4,8 @@
   <uses-permission android:name="android.permission.INTERNET" />
   <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-  <application android:label="TF2.Android" android:name="android.app.Application" android:allowBackup="true" android:icon="@mipmap/icon" android:debuggable="true">
-    <activity android:configChanges="orientation|screenSize" android:icon="@mipmap/icon" android:label="TF2" android:theme="@style/MainTheme" android:name="md5e3b727d402188d2a729e0a966b379c2e.MainActivity">
+  <application android:label="TF2.Android" android:name="android.app.Application" android:allowBackup="true" android:icon="@mipmap/icon1" android:debuggable="true">
+    <activity android:configChanges="orientation|screenSize" android:icon="@mipmap/icon1" android:label="UniRate" android:theme="@style/MainTheme" android:name="md5e3b727d402188d2a729e0a966b379c2e.MainActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
         <category android:name="android.intent.category.LAUNCHER" />

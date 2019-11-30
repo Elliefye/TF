@@ -736,6 +736,8 @@ D:\Eli\Code\C#\TF\TF2\TF2.Android\obj\Debug\90\linksrc\System.IO.Compression.Fil
 D:\Eli\Code\C#\TF\TF2\TF2.Android\obj\Debug\90\linksrc\System.Web.Services.pdb
 D:\Eli\Code\C#\TF\TF2\TF2.Android\bin\Debug\TF2.dll.mdb
 D:\Eli\Code\C#\TF\TF2\TF2.Android\obj\Debug\90\linksrc\TF2.dll.mdb
+D:\Eli\Code\C#\TF\TF2\TF2.Android\obj\Debug\90\res\mipmap-hdpi\icon1.png
+D:\Eli\Code\C#\TF\TF2\TF2.Android\obj\Debug\90\res\mipmap-mdpi\icon1.png
 D:\Eli\Code\C#\TF\TF2\TF2.Android\obj\Debug\90\android\assets\TF2.dll.mdb
 D:\Eli\Code\C#\TF\TF2\TF2.Android\obj\Debug\90\android\assets\FormsViewGroup.pdb
 D:\Eli\Code\C#\TF\TF2\TF2.Android\obj\Debug\90\android\assets\Mono.Android.pdb

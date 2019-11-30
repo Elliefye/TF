@@ -238,5 +238,25 @@ namespace TF2.Entities
             }
             else return float.Parse(avgRating.ToString());
         }
+
+        public static List<SubjectReview> GetSubjectReviews(Subject subject)
+        {
+            return db.Table<SubjectReview>().Where(sr => sr.SubjectId == subject.Id).ToList();
+        }
+
+        public static List<LecturerReview> GetLecturerReviews(Lecturer lecturer)
+        {
+            return db.Table<LecturerReview>().Where(lr => lr.LecturerId == lecturer.Id).ToList();
+        }
+
+        public static void AddReview(LecturerReview review)
+        {
+            db.Insert(review);
+        }
+
+        public static void AddReview(SubjectReview review)
+        {
+            db.Insert(review);
+        }
     }
 }

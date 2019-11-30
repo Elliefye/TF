@@ -5229,8 +5229,9 @@ containing a value of this type.
     }
     public static final class mipmap {
         public static final int icon=0x7f030000;
-        public static final int icon_round=0x7f030001;
-        public static final int launcher_foreground=0x7f030002;
+        public static final int icon1=0x7f030001;
+        public static final int icon_round=0x7f030002;
+        public static final int launcher_foreground=0x7f030003;
     }
     public static final class string {
         public static final int abc_action_bar_home_description=0x7f0b0018;
