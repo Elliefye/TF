@@ -27,6 +27,7 @@ namespace TF2.Tabs
             var content = e.Item as LecOrSubView;
             Lecturer lec = EntityLoader.lecturers.FirstOrDefault(s => s.FirstName + " " + s.LastName == content.Item1);
             await Navigation.PushAsync(new SubLectProfile(lec));
+            //await Navigation.PushAsync(new ProRevNavigation(lec));
         }
 
         private void SearchBar_SearchButtonPressed(object sender, EventArgs e)
