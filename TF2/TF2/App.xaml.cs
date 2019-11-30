@@ -1,5 +1,6 @@
 ﻿using System;
 using TF2.Entities;
+using TF2.Tabs;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -14,8 +15,8 @@ namespace TF2
             EntityLoader.ConnectToDatabase("teaching_feedback.db");
             EntityLoader.LoadLecturersAndSubjects();
             EntityLoader.LoadReviews();
-            //MainPage = new NavigationPage(new BottomNavigation());
-            MainPage = new NavigationPage(new LoginPage());
+            //MainPage = new NavigationPage(new LoginPage());
+            MainPage = new NavigationPage(new BottomNavigation());
         }
 
         protected override void OnStart()
@@ -23,12 +24,6 @@ namespace TF2
             //EntityLoader.ConnectToDatabase("teaching_feedback.db");
             //EntityLoader.LoadLecturersAndSubjects();
             //EntityLoader.LoadReviews();
-            // Handle when your app starts -- load all entities
-            /*TempEntityLoader.LoadLecturers();
-            TempEntityLoader.LoadSubjects();
-            TempEntityLoader.LoadReviews();
-            TempEntityLoader.lecturersSubjects = TempEntityLoader.groupJoinSubjectsAndLecturers();
-            TempEntityLoader.LoadUsers();*/
         }
 
         protected override void OnSleep()

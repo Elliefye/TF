@@ -30,7 +30,6 @@ D:\Eli\Code\C#\TF\TF2\TF2\bin\Debug\netstandard2.0\Mono.Android.dll
 D:\Eli\Code\C#\TF\TF2\TF2\bin\Debug\netstandard2.0\Mono.Android.pdb
 D:\Eli\Code\C#\TF\TF2\TF2\bin\Debug\netstandard2.0\Mono.Android.xml
 D:\Eli\Code\C#\TF\TF2\TF2\obj\Debug\netstandard2.0\TF2.csproj.CopyComplete
-D:\Eli\Code\C#\TF\TF2\TF2\obj\Debug\netstandard2.0\XamlC.stamp
 C:\Users\pauli\Downloads\TF\TF2\TF2\bin\Debug\netstandard2.0\Files\Lecturers.txt
 C:\Users\pauli\Downloads\TF\TF2\TF2\bin\Debug\netstandard2.0\Files\reviewsList.txt
 C:\Users\pauli\Downloads\TF\TF2\TF2\bin\Debug\netstandard2.0\Files\Subjects.txt
@@ -69,3 +68,5 @@ D:\Eli\Code\C#\TF\TF2\TF2\obj\Debug\netstandard2.0\Tabs\WriteReview.xaml.g.cs
 D:\Eli\Code\C#\TF\TF2\TF2\bin\Debug\netstandard2.0\Microsoft.CSharp.dll
 D:\Eli\Code\C#\TF\TF2\TF2\bin\Debug\netstandard2.0\Microsoft.CSharp.pdb
 D:\Eli\Code\C#\TF\TF2\TF2\obj\Debug\netstandard2.0\Tabs\SubLectProfile.xaml.g.cs
+D:\Eli\Code\C#\TF\TF2\TF2\obj\Debug\netstandard2.0\Tabs\AllLecturers.xaml.g.cs
+D:\Eli\Code\C#\TF\TF2\TF2\obj\Debug\netstandard2.0\XamlC.stamp

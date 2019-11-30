@@ -5,7 +5,8 @@
              xmlns:views="clr-namespace:TF2" 
              BarBackgroundColor="Transparent"
              xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
-             android:TabbedPage.ToolbarPlacement ="Bottom"
+            xmlns:views1="clr-namespace:TF2.Tabs"
+            android:TabbedPage.ToolbarPlacement ="Bottom"
              android:TabbedPage.BarItemColor="#999999"
              android:TabbedPage.BarSelectedItemColor="Black"
             >
@@ -28,7 +29,7 @@
         </NavigationPage>
         <NavigationPage Title="Other" Icon="other_icon.png">
             <x:Arguments>
-                <views:ViewAll />
+                <views1:AllLecturers />
             </x:Arguments>
         </NavigationPage>
     </TabbedPage.Children>
