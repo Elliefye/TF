@@ -26,7 +26,8 @@ namespace TF2
 
             var content = e.Item as LecSub;
             Subject sub = EntityLoader.subjects.FirstOrDefault(s => s.Id == content.subjectId);
-            await Navigation.PushAsync(new NavigationPage(new SubLectProfile(sub)));
+            await Navigation.PushAsync(new SubLectProfile(sub));
+            //await Navigation.PushAsync(new NavigationPage(new SubLectProfile(sub)));
             //System.Diagnostics.Debug.WriteLine(content.LecturerName + content.SubjectName);
             //await Navigation.PushAsync(new WriteReview(content)); //pass content if you want to pass the clicked item object to another page
         }

@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TF2.LecSubNavigation"
+             xmlns:views="clr-namespace:TF2" 
+             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+             BarBackgroundColor="Transparent"
+             xmlns:views1="clr-namespace:TF2.Tabs"
+             android:TabbedPage.BarItemColor="#999999"
+             android:TabbedPage.BarSelectedItemColor="Black"
+            >
+    <!--Pages can be added as references or inline-->
+    <TabbedPage.Children>
+        <NavigationPage Title="Lecturers" Icon="lecturer_icon.png">
+            <x:Arguments>
+                <views1:AllLecturers />
+            </x:Arguments>
+        </NavigationPage>
+        <NavigationPage Title="Subjects" Icon="subject_icon.png">
+            <x:Arguments>
+                <views1:AllSubjects />
+            </x:Arguments>
+        </NavigationPage>
+    </TabbedPage.Children>
+</TabbedPage>

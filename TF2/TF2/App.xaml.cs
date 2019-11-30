@@ -15,15 +15,17 @@ namespace TF2
             EntityLoader.ConnectToDatabase("teaching_feedback.db");
             EntityLoader.LoadLecturersAndSubjects();
             EntityLoader.LoadReviews();
-            MainPage = new NavigationPage(new LoginPage());
-            /*ConstVars.currentUser = new User()
+            //MainPage = new NavigationPage(new LoginPage());
+
+            ConstVars.currentUser = new User()
             {
                 Id = 2,
                 Username = "Ellie",
                 Email = "ellie@mail.com"                
             };
             ConstVars.AuthStatus = 1;
-            MainPage = new NavigationPage(new BottomNavigation());*/
+            MainPage = new NavigationPage(new BottomNavigation());
+            
         }
 
         protected override void OnStart()

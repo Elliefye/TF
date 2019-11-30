@@ -38,7 +38,8 @@ namespace TF2
             {
                 ConstVars.currentUser = match;
                 ConstVars.AuthStatus = 1;
-                App.Current.MainPage = new NavigationPage(new BottomNavigation());
+                //App.Current.MainPage = new NavigationPage(new BottomNavigation());
+                App.Current.MainPage = new BottomNavigation();
             }
         }
 

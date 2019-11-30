@@ -106,7 +106,8 @@ namespace TF2.Tabs
 
                 if (lect != null)
                 {
-                    await Navigation.PushAsync(new NavigationPage(new SubLectProfile(lect)));
+                    await Navigation.PushAsync(new SubLectProfile(lect));
+                    //await Navigation.PushAsync(new NavigationPage(new SubLectProfile(lect)));
                     Navigation.RemovePage(Navigation.NavigationStack[Navigation.NavigationStack.Count - 2]);
                     return;
                 }
@@ -115,7 +116,8 @@ namespace TF2.Tabs
 
                 if (sub != null)
                 {
-                    await Navigation.PushAsync(new NavigationPage(new SubLectProfile(sub)));
+                    await Navigation.PushAsync(new SubLectProfile(sub));
+                    //await Navigation.PushAsync(new NavigationPage(new SubLectProfile(sub)));
                     Navigation.RemovePage(Navigation.NavigationStack[Navigation.NavigationStack.Count - 2]);
                     return;
                 }
