@@ -8,8 +8,21 @@
              Title="Subjects">
     <ContentPage.Content>
         <StackLayout>
-            <SearchBar Placeholder="Find a subject..." SearchButtonPressed="SearchBar_SearchButtonPressed" x:Name="Searchbar"
+            <Grid HorizontalOptions="StartAndExpand" ColumnSpacing="10" Margin="0,0,5,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="50"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <SearchBar Placeholder="Find a subject..." SearchButtonPressed="SearchBar_SearchButtonPressed" x:Name="Searchbar"
                    TextChanged="Searchbar_TextChanged"></SearchBar>
+
+                <Image Grid.Column="1" Grid.Row="0" Source="azdown.png" x:Name="SortIcon"/>
+            </Grid>
+            
             <ListView 
               ItemTapped="ItemTapped"
               HasUnevenRows="False"

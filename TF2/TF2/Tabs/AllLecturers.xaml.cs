@@ -15,11 +15,45 @@ namespace TF2.Tabs
 	public partial class AllLecturers : ContentPage
 	{
         LecturerViewModel lecturerViewModel = new LecturerViewModel();
+        private int currentSort = 1;
 
         public AllLecturers ()
 		{
 			InitializeComponent ();
-            LecturerList.BindingContext = lecturerViewModel;            
+            LecturerList.BindingContext = lecturerViewModel;
+
+            var sortTapGestureRecognizer = new TapGestureRecognizer();
+            sortTapGestureRecognizer.Tapped += (s, e) => {
+                if (currentSort == 1)
+                {
+                    currentSort = 2; //z-a
+                    SortIcon.Source = "azup.png";
+                    lecturerViewModel = new LecturerViewModel(lecturerViewModel.SortZA());
+                    LecturerList.BindingContext = lecturerViewModel;
+                }
+                else if (currentSort == 2)
+                {
+                    currentSort = 3; //5-0
+                    SortIcon.Source = "stardown.png";
+                    lecturerViewModel = new LecturerViewModel(lecturerViewModel.Sort50());
+                    LecturerList.BindingContext = lecturerViewModel;
+                }
+                else if (currentSort == 3)
+                {
+                    currentSort = 4; //0-5
+                    SortIcon.Source = "starup.png";
+                    lecturerViewModel = new LecturerViewModel(lecturerViewModel.Sort05());
+                    LecturerList.BindingContext = lecturerViewModel;
+                }
+                else
+                {
+                    currentSort = 1; //a-z
+                    SortIcon.Source = "azdown.png";
+                    lecturerViewModel = new LecturerViewModel(lecturerViewModel.SortAZ());
+                    LecturerList.BindingContext = lecturerViewModel;
+                }
+            };
+            SortIcon.GestureRecognizers.Add(sortTapGestureRecognizer);
         }
 
         private async void ItemTapped(object sender, ItemTappedEventArgs e)
