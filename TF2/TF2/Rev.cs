@@ -6,18 +6,14 @@ namespace TF2
 {
     class Rev
     {
-        public String LecturerName { get; set; }
-        public String SubjectName { get; set; }
-        public int LecturerScore { get; set; }
-        public int SubjectScore { get; set; }
-        public String Comment { get; set; }
+        public string Reviewerusername { get; set; }
+        public int LecSubScore { get; set; }
+        public string Comment { get; set; }
 
-        public Rev(String lecturerName, String subjectName, int lecturerScore, int subjectScore, String comment)
+        public Rev(string Reviewerusername, int LecSubScore, string comment)
         {
-            LecturerName = lecturerName;
-            SubjectName = subjectName;
-            LecturerScore = lecturerScore;
-            SubjectScore = subjectScore;
+            this.Reviewerusername = Reviewerusername;
+            this.LecSubScore = LecSubScore;
             Comment = comment;
         }
     }

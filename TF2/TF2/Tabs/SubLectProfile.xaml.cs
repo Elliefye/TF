@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +15,10 @@ namespace TF2.Tabs
 	{
         private List<string> list1Empty = new List<string>();
         private List<string> list1Full = new List<string>();
+        private ObservableCollection<Rev> list2Empty = new ObservableCollection<Rev>();
+        private ObservableCollection<Rev> list2Full = new ObservableCollection<Rev>();
         private bool list1Collapsed = false;
+        private bool list2Collapsed = false;
         private bool subprof = true;
         private int id;
 
@@ -32,7 +36,7 @@ namespace TF2.Tabs
             RatingLabel.Text = "Rating: " + EntityLoader.GetAvgRating(subject);
             List1Label.Text = "All lecturers: ▼";
 
-            foreach(Lecturer l in subject.Lecturers.Value)
+            foreach (Lecturer l in subject.Lecturers.Value)
             {
                 list1Full.Add(l.FirstName + " " + l.LastName);
             }
@@ -57,6 +61,11 @@ namespace TF2.Tabs
 
             List1Label.GestureRecognizers.Add(list1LabelTapGestureRecognizer);
             id = subject.Id;
+            
+            ReviewViewModel reviewViewModel = new ReviewViewModel(subject);
+            ReviewList.BindingContext = reviewViewModel;
+            list2Full = reviewViewModel.ReviewViewList;
+            ReviewListChange();
         }
 
         public SubLectProfile(Lecturer lecturer)
@@ -68,7 +77,7 @@ namespace TF2.Tabs
             RatingLabel.Text = "Rating: " + EntityLoader.GetAvgRating(lecturer);
             List1Label.Text = "All subjects: ▼";
 
-            foreach(Subject s in lecturer.Subjects.Value)
+            foreach (Subject s in lecturer.Subjects.Value)
             {
                 list1Full.Add(s.SubjectName);
             }
@@ -94,6 +103,35 @@ namespace TF2.Tabs
             List1Label.GestureRecognizers.Add(list1LabelTapGestureRecognizer);
             subprof = false;
             id = lecturer.Id;
+
+            ReviewViewModel reviewViewModel = new ReviewViewModel(lecturer);
+            ReviewList.BindingContext = reviewViewModel;
+            list2Full = reviewViewModel.ReviewViewList;
+            ReviewListChange();
+        }
+
+        private void ReviewListChange()
+        {
+            List2Label.Text = "All reviews: ▼";
+
+            var list2LabelTapGestureRecognizer = new TapGestureRecognizer();
+
+            list2LabelTapGestureRecognizer.Tapped += (s, e) => {
+                if (list2Collapsed)
+                {
+                    ReviewList.ItemsSource = list2Full;
+                    List2Label.Text = "All reviews: ▼";
+                    list2Collapsed = false;
+                }
+                else
+                {
+                    ReviewList.ItemsSource = list2Empty;
+                    List2Label.Text = "All reviews: ▷";
+                    list2Collapsed = true;
+                }
+            };
+
+            List2Label.GestureRecognizers.Add(list2LabelTapGestureRecognizer);
         }
 
         private async void ItemFromList1Tapped(object sender, ItemTappedEventArgs e)

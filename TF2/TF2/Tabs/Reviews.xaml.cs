@@ -15,13 +15,13 @@ namespace TF2
         public Reviews()
         {
             InitializeComponent();
-            BindingContext = new ReviewViewModel();
+            //BindingContext = new ReviewViewModel();
         }
 
         public Reviews(List<Review> reviewList)
         {
             InitializeComponent();
-            BindingContext = new ReviewViewModel(reviewList);
+            //BindingContext = new ReviewViewModel(reviewList);
         }
     }
 }

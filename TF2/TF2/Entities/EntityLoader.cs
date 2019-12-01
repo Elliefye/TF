@@ -258,5 +258,17 @@ namespace TF2.Entities
         {
             db.Insert(review);
         }
+
+        public static string GetReviewerUsername(LecturerReview lecturerReview)
+        {
+            string reviewerUsername = db.Table<User>().FirstOrDefault(u => u.Id == lecturerReview.UserId).Username;
+            return enc.Decrypt(reviewerUsername);
+        }
+
+        public static string GetReviewerUsername(SubjectReview subjectReview)
+        {
+            string reviewerUsername = db.Table<User>().FirstOrDefault(u => u.Id == subjectReview.UserId).Username;
+            return enc.Decrypt(reviewerUsername);
+        }
     }
 }

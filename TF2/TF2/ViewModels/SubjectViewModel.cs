@@ -17,7 +17,6 @@ namespace TF2.ViewModels
 
             foreach (Subject sub in EntityLoader.subjects)
             {
-                System.Diagnostics.Debug.WriteLine(sub.SubjectName);
                 SubjectViewList.Add(new LecOrSubView(sub.SubjectName, Math.Round(EntityLoader.GetAvgRating(sub), 2).ToString()));
             }
         }
