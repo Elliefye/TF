@@ -40,7 +40,6 @@ D:\Eli\Code\C#\TF\TF2\TF2\obj\Debug\netstandard2.0\Tabs\WriteReview.xaml.g.cs
 D:\Eli\Code\C#\TF\TF2\TF2\obj\Debug\netstandard2.0\TF2.csproj.CoreCompileInputs.cache
 D:\Eli\Code\C#\TF\TF2\TF2\obj\Debug\netstandard2.0\TF2.AssemblyInfoInputs.cache
 D:\Eli\Code\C#\TF\TF2\TF2\obj\Debug\netstandard2.0\TF2.AssemblyInfo.cs
-D:\Eli\Code\C#\TF\TF2\TF2\obj\Debug\netstandard2.0\XamlC.stamp
 D:\Eli\Code\C#\TF\TF2\TF2\obj\Debug\netstandard2.0\TF2.csproj.CopyComplete
 D:\Eli\Code\C#\TF\TF2\TF2\obj\Debug\netstandard2.0\TF2.dll
 D:\Eli\Code\C#\TF\TF2\TF2\obj\Debug\netstandard2.0\TF2.pdb
@@ -75,3 +74,5 @@ C:\Users\pauli\Downloads\TF\TF2\TF2\obj\Debug\netstandard2.0\TF2.csproj.CopyComp
 C:\Users\pauli\Downloads\TF\TF2\TF2\obj\Debug\netstandard2.0\TF2.dll
 C:\Users\pauli\Downloads\TF\TF2\TF2\obj\Debug\netstandard2.0\TF2.pdb
 C:\Users\pauli\Downloads\TF\TF2\TF2\obj\Debug\netstandard2.0\TF2.csprojAssemblyReference.cache
+D:\Eli\Code\C#\TF\TF2\TF2\obj\Debug\netstandard2.0\Tabs\SplashScreen.xaml.g.cs
+D:\Eli\Code\C#\TF\TF2\TF2\obj\Debug\netstandard2.0\XamlC.stamp

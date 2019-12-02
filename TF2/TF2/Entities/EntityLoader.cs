@@ -270,5 +270,13 @@ namespace TF2.Entities
             string reviewerUsername = db.Table<User>().FirstOrDefault(u => u.Id == subjectReview.UserId).Username;
             return enc.Decrypt(reviewerUsername);
         }
+
+        public static User GetUserFromId(int id)
+        {
+            User user = db.Get<User>(id);
+            user.Username = enc.Decrypt(user.Username);
+            user.Email = enc.Decrypt(user.Email);
+            return user;
+        }
     }
 }

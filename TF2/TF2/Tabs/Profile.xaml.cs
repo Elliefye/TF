@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TF2.Entities;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -29,6 +30,7 @@ namespace TF2
         {
             ConstVars.currentUser = null;
             ConstVars.AuthStatus = 0;
+            SecureStorage.Remove("uauth_token");
             App.Current.MainPage = new NavigationPage(new LoginPage());
         }
 

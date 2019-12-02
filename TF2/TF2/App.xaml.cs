@@ -1,6 +1,7 @@
 ﻿using System;
 using TF2.Entities;
 using TF2.Tabs;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -15,7 +16,9 @@ namespace TF2
             EntityLoader.ConnectToDatabase("teaching_feedback.db");
             EntityLoader.LoadLecturersAndSubjects();
             EntityLoader.LoadReviews();
-           MainPage = new NavigationPage(new LoginPage());
+            CheckForAuth();
+            //MainPage = new NavigationPage(new SplashScreen());
+            //MainPage = new NavigationPage(new LoginPage());
 
             /*ConstVars.currentUser = new User()
             {
@@ -42,6 +45,29 @@ namespace TF2
         protected override void OnResume()
         {
             // Handle when your app resumes
+        }
+
+        private async void CheckForAuth()
+        {
+            try
+            {
+                string token = await SecureStorage.GetAsync("uauth_token");
+
+                if (token != null)
+                {
+                    ConstVars.AuthStatus = 1;
+                    ConstVars.currentUser = EntityLoader.GetUserFromId(Int32.Parse(token));
+                    MainPage = new NavigationPage(new BottomNavigation());
+                }
+                else
+                {
+                    MainPage = new NavigationPage(new LoginPage());
+                }
+            }
+            catch
+            {
+                MainPage = new NavigationPage(new LoginPage());
+            }
         }
     }
 }
