@@ -15,6 +15,7 @@ namespace TF2
         public BottomNavigation()
         {
             InitializeComponent();
+            NavigationPage.SetHasNavigationBar(this, false);
         }
     }
 }

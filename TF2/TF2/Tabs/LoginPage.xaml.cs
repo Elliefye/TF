@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using TF2.Entities;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Xamarin.Essentials;
 
 namespace TF2
 {
@@ -24,7 +25,7 @@ namespace TF2
         {
             if(String.IsNullOrWhiteSpace(UsernameTextLogin.Text) || String.IsNullOrWhiteSpace(PasswordTextLogin.Text))
             {
-                await DisplayAlert("Incorrect data", "Please enter login data.", "OK");
+                await DisplayAlert("Error", "Please enter your credentials.", "OK");
                 return;
             }
 
@@ -32,13 +33,14 @@ namespace TF2
 
             if (match == null)
             {
-                await DisplayAlert("Incorrect data", "Login data incorrect. Please try again.", "OK");
+                await DisplayAlert("Error", "Login credentials incorrect. Please try again.", "OK");
             }
             else
             {
                 ConstVars.currentUser = match;
                 ConstVars.AuthStatus = 1;
-                App.Current.MainPage = new NavigationPage(new BottomNavigation());
+                await SecureStorage.SetAsync("uauth_token", ConstVars.currentUser.Id.ToString());
+                App.Current.MainPage = new BottomNavigation();
             }
         }
 

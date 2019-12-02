@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TF2.Entities;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -18,8 +19,10 @@ namespace TF2
             EmailLabel.Text = ConstVars.currentUser.Email;
             UsernameLabel.Text = ConstVars.currentUser.Username;
 
-            List<Review> list = EntityLoader.GetUserReviews();
-            if (list.Count == 0)
+            List<LecturerReview> lectList = EntityLoader.GetUserReviewsL();
+            List<SubjectReview> subList = EntityLoader.GetUserReviewsS();
+
+            if (lectList.Count == 0 && subList.Count == 0)
             {
                 MyReviewsBtn.IsEnabled = false;
             }
@@ -29,26 +32,26 @@ namespace TF2
         {
             ConstVars.currentUser = null;
             ConstVars.AuthStatus = 0;
+            SecureStorage.Remove("uauth_token");
             App.Current.MainPage = new NavigationPage(new LoginPage());
         }
 
         async void ChangeAccount_Clicked(object sender, EventArgs e)
         {
             var SignupPage = new SignupPage(ConstVars.currentUser);
-            SignupPage.UpdatedData += UpdateLabels;
+            SignupPage.updated += UpdateLabels;
             await Navigation.PushAsync(SignupPage);
         }
 
-        private void UpdateLabels(object sender, EventArgs e)
+        private void UpdateLabels()
         {
             EmailLabel.Text = ConstVars.currentUser.Email;
             UsernameLabel.Text = ConstVars.currentUser.Username;
         }
 
         async void MyReviews_Clicked(object sender, EventArgs e)
-        {
-           
-            await Navigation.PushAsync(new Reviews(EntityLoader.GetUserReviews()));
+        {          
+            await Navigation.PushAsync(new Reviews(EntityLoader.GetUserReviewsS(), EntityLoader.GetUserReviewsL()));
         }
     }
 }

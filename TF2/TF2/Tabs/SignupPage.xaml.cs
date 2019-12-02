@@ -14,16 +14,12 @@ namespace TF2
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SignupPage : ContentPage
     {
-        public event EventHandler UpdatedData;
-
-        private void OnUpdatedData()
-        {
-            UpdatedData?.Invoke(this, EventArgs.Empty);
-        }
+        public delegate void UpdatedData();
+        public UpdatedData updated = null;
 
         public SignupPage()
         {
-            InitializeComponent();
+            InitializeComponent();            
 
             UernameTextSignup.ReturnCommand = new Command(() => EmailTextSignup.Focus());
             EmailTextSignup.ReturnCommand = new Command(() => PasswordText1Signup.Focus());
@@ -32,7 +28,7 @@ namespace TF2
 
         public SignupPage(User existing)
         {
-            InitializeComponent();
+            InitializeComponent();          
 
             UernameTextSignup.ReturnCommand = new Command(() => EmailTextSignup.Focus());
             EmailTextSignup.ReturnCommand = new Command(() => PasswordText1Signup.Focus());
@@ -90,8 +86,8 @@ namespace TF2
                     };
                     EntityLoader.UpdateUserData();
 
-                    await DisplayAlert("Success", "Data change sucessful.", "OK");
-                    OnUpdatedData();
+                    await DisplayAlert("Success", "Data change sucessful.", "Great!");
+                    updated?.Invoke();
                     await Navigation.PopAsync();                   
                 }
             };

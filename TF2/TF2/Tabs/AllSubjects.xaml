@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="TF2.Tabs.AllSubjects"
+             Title="Subjects">
+    <ContentPage.Content>
+        <StackLayout>
+            <Grid HorizontalOptions="StartAndExpand" ColumnSpacing="10" Margin="0,0,5,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="50"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <SearchBar Placeholder="Find a subject..." SearchButtonPressed="SearchBar_SearchButtonPressed" x:Name="Searchbar"
+                   TextChanged="Searchbar_TextChanged"></SearchBar>
+
+                <Image Grid.Column="1" Grid.Row="0" Source="azdown.png" x:Name="SortIcon"/>
+            </Grid>
+            
+            <ListView 
+              ItemTapped="ItemTapped"
+              HasUnevenRows="False"
+              SeparatorVisibility="Default"
+              HorizontalOptions="FillAndExpand"
+              VerticalOptions="FillAndExpand"
+              x:Name="SubjectList"
+                ItemsSource="{Binding SubjectViewList}"
+                Margin="10,0,0,0">
+
+                <ListView.ItemTemplate>
+
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid HorizontalOptions="StartAndExpand" ColumnSpacing="5" >
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="9*"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+
+                                <BoxView Color="White" Grid.Column="0" Grid.Row="0"/>
+                                <BoxView Color="White" Grid.Column="1" Grid.Row="0"/>
+
+                                <Label Grid.Column="0" Grid.Row="0" 
+                                       Text="{Binding Item1}" 
+                                       HorizontalTextAlignment="Start"
+                                       VerticalTextAlignment="Center"
+                                       FontSize="Medium"/>
+
+                                <Label Grid.Column="1" Grid.Row="0"
+                                       Text="{Binding Item2}"
+                                       HorizontalTextAlignment="Center"
+                                       VerticalTextAlignment="Center"
+                                       FontSize="Medium"/>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

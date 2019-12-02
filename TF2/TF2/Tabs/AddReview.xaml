@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TF2.Tabs.AddReview">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Adding a new review for "
+                HorizontalOptions="CenterAndExpand" 
+                   FontSize="Medium"
+                   FontAttributes="Bold"
+                   x:Name="TopTextLabel"/>
+            <Picker x:Name="ScorePicker"
+                    Title="Score">
+                <Picker.Items>
+                    <x:String>1</x:String>
+                    <x:String>2</x:String>
+                    <x:String>3</x:String>
+                    <x:String>4</x:String>
+                    <x:String>5</x:String>
+                </Picker.Items>
+            </Picker>
+            <Picker x:Name="LectOrSubPicker"
+                    Title="(Optional) Lecturers/Subjects"/>
+            <Entry x:Name="CommentEntry"
+                   Placeholder="Write a comment..."/>
+            <Grid HorizontalOptions="StartAndExpand" ColumnSpacing="20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <CheckBox Grid.Row="1" Grid.Column="1" VerticalOptions="Center" x:Name="AnonCheckBox" Color="#2196F3"/>
+                <Label Grid.Row="1" Grid.Column="2" Text="Submit anonymously" VerticalOptions="Center"/>
+            </Grid>
+            <Button x:Name="Submit"
+                    Text="Submit"
+                    Clicked="Submit_Clicked"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
