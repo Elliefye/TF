@@ -12,16 +12,10 @@ namespace TF2
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Reviews : ContentPage
     {
-        public Reviews()
+        public Reviews(List<SubjectReview> subjectReviews, List<LecturerReview> lecturerReviews)
         {
             InitializeComponent();
-            //BindingContext = new ReviewViewModel();
-        }
-
-        public Reviews(List<Review> reviewList)
-        {
-            InitializeComponent();
-            //BindingContext = new ReviewViewModel(reviewList);
+            BindingContext = new ReviewViewModel(subjectReviews, lecturerReviews);
         }
     }
 }

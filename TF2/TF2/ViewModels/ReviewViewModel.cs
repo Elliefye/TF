@@ -45,21 +45,22 @@ namespace TF2
 
             }
         }
-        /*
-        public ReviewViewModel(List<Review> reviews)
+        
+        public ReviewViewModel(List<SubjectReview> subjectReviews, List<LecturerReview> lecturerReviews)
         {
-            ReviewsList = new ObservableCollection<Rev>();
+            ReviewViewList = new ObservableCollection<Rev>();
 
-            foreach (Review review in reviews)
+            foreach (SubjectReview review in subjectReviews)
+            {
+                string subName = EntityLoader.subjects.Find(s => s.Id == review.SubjectId).SubjectName;
+                ReviewViewList.Add(new Rev(subName, review.Rating, review.Comment));
+            }
+
+            foreach (LecturerReview review in lecturerReviews)
             {
                 Lecturer lec = EntityLoader.lecturers.Find(l => l.Id == review.LecturerId);
-                String lecturerName = lec.FirstName + " " + lec.LastName;
-                Subject sub = EntityLoader.subjects.Find(s => s.Id == review.SubjectId);
-                String subjectName = sub.SubjectName;
-
-                ReviewsList.Add(new Rev(lecturerName, subjectName, review.LecturerScore, review.SubjectScore, review.Comment));
+                ReviewViewList.Add(new Rev(lec.FirstName + " " + lec.LastName, review.Rating, review.Comment));
             }
-        }
-        */
+        }       
     }
 }

@@ -19,8 +19,10 @@ namespace TF2
             EmailLabel.Text = ConstVars.currentUser.Email;
             UsernameLabel.Text = ConstVars.currentUser.Username;
 
-            List<Review> list = EntityLoader.GetUserReviews();
-            if (list.Count == 0)
+            List<LecturerReview> lectList = EntityLoader.GetUserReviewsL();
+            List<SubjectReview> subList = EntityLoader.GetUserReviewsS();
+
+            if (lectList.Count == 0 && subList.Count == 0)
             {
                 MyReviewsBtn.IsEnabled = false;
             }
@@ -48,9 +50,8 @@ namespace TF2
         }
 
         async void MyReviews_Clicked(object sender, EventArgs e)
-        {
-           
-            await Navigation.PushAsync(new Reviews(EntityLoader.GetUserReviews()));
+        {          
+            await Navigation.PushAsync(new Reviews(EntityLoader.GetUserReviewsS(), EntityLoader.GetUserReviewsL()));
         }
     }
 }

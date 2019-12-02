@@ -137,7 +137,7 @@ namespace TF2.Tabs
         private async void ItemFromList1Tapped(object sender, ItemTappedEventArgs e)
         {
             string item = e.Item.ToString();
-            bool answer = await DisplayAlert("", "Would you like to visit the profile page for " + item + "?", "Yes please!", "No thanks");
+            bool answer = await DisplayAlert("", "Would you like to visit the profile page for " + item + "?", "Yes!", "No thanks");
 
             if(answer)
             {
@@ -150,7 +150,6 @@ namespace TF2.Tabs
                 if (lect != null)
                 {
                     await Navigation.PushAsync(new SubLectProfile(lect));
-                    //await Navigation.PushAsync(new NavigationPage(new SubLectProfile(lect)));
                     Navigation.RemovePage(Navigation.NavigationStack[Navigation.NavigationStack.Count - 2]);
                     return;
                 }
@@ -160,7 +159,6 @@ namespace TF2.Tabs
                 if (sub != null)
                 {
                     await Navigation.PushAsync(new SubLectProfile(sub));
-                    //await Navigation.PushAsync(new NavigationPage(new SubLectProfile(sub)));
                     Navigation.RemovePage(Navigation.NavigationStack[Navigation.NavigationStack.Count - 2]);
                     return;
                 }
@@ -174,12 +172,38 @@ namespace TF2.Tabs
             if(subprof)
             {
                 Subject subject = EntityLoader.subjects.Find(s => s.Id == id);
-                await Navigation.PushAsync(new AddReview(subject));
+                var nextPage = new AddReview(subject);
+                nextPage.AddedReview += UpdateReviewList;
+                await Navigation.PushAsync(nextPage);
             }
             else
             {
                 Lecturer lecturer = EntityLoader.lecturers.Find(l => l.Id == id);
-                await Navigation.PushAsync(new AddReview(lecturer));
+                var nextPage = new AddReview(lecturer);
+                nextPage.AddedReview += UpdateReviewList;
+                await Navigation.PushAsync(nextPage);
+            }
+        }
+
+        private void UpdateReviewList(object sender, EventArgs e)
+        {
+            if(subprof) //subject profile page
+            {
+                Subject current = EntityLoader.subjects.FirstOrDefault(s => s.Id == id);
+                RatingLabel.Text = "Rating: " + EntityLoader.GetAvgRating(current);
+
+                ReviewViewModel reviewViewModel = new ReviewViewModel(current);
+                ReviewList.BindingContext = reviewViewModel;
+                list2Full = reviewViewModel.ReviewViewList;
+            }
+            else
+            {
+                Lecturer current = EntityLoader.lecturers.FirstOrDefault(l => l.Id == id);
+                RatingLabel.Text = "Rating: " + EntityLoader.GetAvgRating(current);
+
+                ReviewViewModel reviewViewModel = new ReviewViewModel(current);
+                ReviewList.BindingContext = reviewViewModel;
+                list2Full = reviewViewModel.ReviewViewList;
             }
         }
     }

@@ -115,7 +115,8 @@ namespace TF2.Entities
             Password = enc.Encrypt(Password);
 
             //supports logging in with either email or username
-            User match = db.Table<User>().FirstOrDefault(u => (u.Username == Username || u.Email == Username) && u.Password == Password);
+            User match = db.Table<User>().FirstOrDefault(u => (u.Username == Username || u.Email == Username) 
+             && u.Password == Password);
 
             if (match != null)
             {
@@ -208,19 +209,28 @@ namespace TF2.Entities
             reviews.Add(newReview);
         }
 
-        public static List<Review> GetUserReviews()
+        public static List<LecturerReview> GetUserReviewsL()
         {
             if(ConstVars.AuthStatus == 0)
             {
                 throw new InvalidOperationException("No user is logged in.");
             }
 
-            return db.Table<Review>().Where(r => r.UserId == ConstVars.currentUser.Id).ToList();
+            return db.Table<LecturerReview>().Where(r => r.UserId == ConstVars.currentUser.Id).ToList();
+        }
+        public static List<SubjectReview> GetUserReviewsS()
+        {
+            if (ConstVars.AuthStatus == 0)
+            {
+                throw new InvalidOperationException("No user is logged in.");
+            }
+
+            return db.Table<SubjectReview>().Where(r => r.UserId == ConstVars.currentUser.Id).ToList();
         }
 
         public static float GetAvgRating(Subject subject)
         {
-            var avgRating = db.ExecuteScalar<string>("select avg(SubjectReview) from Reviews where SubjectId=" + subject.Id);
+            var avgRating = db.ExecuteScalar<string>("select avg(Rating) from SubjectReviews where SubjectId=" + subject.Id);
 
             if(avgRating == null)
             {
@@ -231,7 +241,7 @@ namespace TF2.Entities
 
         public static float GetAvgRating(Lecturer lecturer)
         {
-            var avgRating = db.ExecuteScalar<string>("select avg(LecturerReview) from Reviews where LecturerId=" + lecturer.Id);
+            var avgRating = db.ExecuteScalar<string>("select avg(Rating) from LecturerReviews where LecturerId=" + lecturer.Id);
             if (avgRating == null)
             {
                 return 0;

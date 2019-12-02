@@ -16,7 +16,14 @@ namespace TF2.Tabs
         private Lecturer l;
         private Subject s;
 
-		public AddReview ()
+        public event EventHandler AddedReview;
+
+        private void OnAddReview()
+        {
+            AddedReview?.Invoke(this, EventArgs.Empty);
+        }
+
+        public AddReview ()
 		{
 			InitializeComponent ();
 		}
@@ -110,6 +117,7 @@ namespace TF2.Tabs
             }
 
             await DisplayAlert("Success", "Your review was added.", "Cool!");
+            OnAddReview();
             await Navigation.PopAsync();
         }
     }

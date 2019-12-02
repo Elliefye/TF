@@ -6,8 +6,8 @@
              mc:Ignorable="d"
              Title="Reviews"
              x:Class="TF2.Reviews">
-    
-    <ListView ItemsSource="{Binding ReviewsList}"
+
+    <ListView ItemsSource="{Binding ReviewViewList}"
               HasUnevenRows="True"
               BackgroundColor="#ecf0f1"
               SeparatorVisibility="None"
@@ -19,10 +19,8 @@
                 <ViewCell>
                     <StackLayout Margin="6,4,6,4"
                                  BackgroundColor="White">
-                        <Label Text="{Binding LecturerName}"/>
-                        <Label Text="{Binding SubjectName}"/>
-                        <Label Text="{Binding LecturerScore}"/>
-                        <Label Text="{Binding SubjectScore}"/>
+                        <Label Text="{Binding Reviewerusername}"/>
+                        <Label Text="{Binding LecSubScore}"/>
                         <Label Text="{Binding Comment}"/>
                     </StackLayout>
                 </ViewCell>
