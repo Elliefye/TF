@@ -39,11 +39,11 @@ namespace TF2
         async void ChangeAccount_Clicked(object sender, EventArgs e)
         {
             var SignupPage = new SignupPage(ConstVars.currentUser);
-            SignupPage.UpdatedData += UpdateLabels;
+            SignupPage.updated += UpdateLabels;
             await Navigation.PushAsync(SignupPage);
         }
 
-        private void UpdateLabels(object sender, EventArgs e)
+        private void UpdateLabels()
         {
             EmailLabel.Text = ConstVars.currentUser.Email;
             UsernameLabel.Text = ConstVars.currentUser.Username;
