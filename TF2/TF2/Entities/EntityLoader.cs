@@ -279,6 +279,16 @@ namespace TF2.Entities
             db.Update(review);
         }
 
+        public static void DeleteReview(LecturerReview review)
+        {
+            db.Delete(review);
+        }
+
+        public static void DeleteReview(SubjectReview review)
+        {
+            db.Delete(review);
+        }
+
         public static string GetReviewerUsername(LecturerReview lecturerReview)
         {
             string reviewerUsername = db.Table<User>().FirstOrDefault(u => u.Id == lecturerReview.UserId).Username;

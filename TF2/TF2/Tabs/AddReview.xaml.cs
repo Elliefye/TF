@@ -145,6 +145,7 @@ namespace TF2.Tabs
             }
 
             l = lecturer;
+            subrev = false;
             Submit.Clicked -= Submit_Clicked;
             Submit.Clicked += SubmitEdit_Clicked;
         }
