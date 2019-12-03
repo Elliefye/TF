@@ -15,7 +15,7 @@ namespace TF2.ViewModels
         {
             LecturerViewList = new ObservableCollection<LecOrSubView>();
 
-            foreach (Lecturer lect in EntityLoader.lecturers)
+            foreach (Lecturer lect in EntityLoader.lecturers.OrderBy(l => l.FirstName))
             {
                 LecturerViewList.Add(new LecOrSubView(lect.FirstName + " " + lect.LastName, Math.Round(EntityLoader.GetAvgRating(lect), 2).ToString()));
             }

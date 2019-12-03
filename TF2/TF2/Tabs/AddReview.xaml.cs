@@ -59,6 +59,43 @@ namespace TF2.Tabs
             s = subject;
         }
 
+        public AddReview(Subject subject, SubjectReview review)
+        {
+            InitializeComponent();
+
+            TopTextLabel.Text = "Editing your review for: " + subject.SubjectName;
+
+            if(review.LecturerId != 0)
+            {
+                int index = 0;
+
+                foreach (Lecturer lecturer in subject.Lecturers.Value)
+                {
+                    LectOrSubPicker.Items.Add(lecturer.FirstName + " " + lecturer.LastName);
+
+                    if(lecturer.Id == review.LecturerId)
+                    {
+                        LectOrSubPicker.SelectedIndex = index;
+                    }
+
+                    index++;
+                }
+            }
+            else
+            {
+                LectOrSubPicker.Title = "(Optional) pick the lecturer";
+
+                foreach (Lecturer lecturer in subject.Lecturers.Value)
+                {
+                    LectOrSubPicker.Items.Add(lecturer.FirstName + " " + lecturer.LastName);
+                }
+            }
+
+            ScorePicker.SelectedIndex = review.Rating;
+            CommentEntry.Text = review.Comment;
+            s = subject;
+        }
+
         async void Submit_Clicked(object sender, EventArgs e)
         {
             if(subrev)

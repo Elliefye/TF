@@ -15,7 +15,7 @@ namespace TF2.ViewModels
         {
             SubjectViewList = new ObservableCollection<LecOrSubView>();
 
-            foreach (Subject sub in EntityLoader.subjects)
+            foreach (Subject sub in EntityLoader.subjects.OrderBy(s => s.SubjectName))
             {
                 SubjectViewList.Add(new LecOrSubView(sub.SubjectName, Math.Round(EntityLoader.GetAvgRating(sub), 2).ToString()));
             }

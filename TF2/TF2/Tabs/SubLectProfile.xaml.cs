@@ -66,6 +66,13 @@ namespace TF2.Tabs
             ReviewList.BindingContext = reviewViewModel;
             list2Full = reviewViewModel.ReviewViewList;
             ReviewListChange();
+
+            if (EntityLoader.GetUserReviewsS().Any(sr => sr.SubjectId == id))
+            {
+                AddReviewBtn.Text = "Change review";
+                AddReviewBtn.Clicked -= AddReviewBtn_Clicked;
+                AddReviewBtn.Clicked += EditReviewBtn_Clicked;
+            }
         }
 
         public SubLectProfile(Lecturer lecturer)
@@ -108,6 +115,13 @@ namespace TF2.Tabs
             ReviewList.BindingContext = reviewViewModel;
             list2Full = reviewViewModel.ReviewViewList;
             ReviewListChange();
+
+            if (EntityLoader.GetUserReviewsL().Any(lr => lr.LecturerId == id))
+            {
+                AddReviewBtn.Text = "Change review";
+                AddReviewBtn.Clicked -= AddReviewBtn_Clicked;
+                AddReviewBtn.Clicked += EditReviewBtn_Clicked;
+            }
         }
 
         private void ReviewListChange()
@@ -178,6 +192,26 @@ namespace TF2.Tabs
             }
             else
             {
+                Lecturer lecturer = EntityLoader.lecturers.Find(l => l.Id == id);
+                var nextPage = new AddReview(lecturer);
+                nextPage.AddedReview += UpdateReviewList;
+                await Navigation.PushAsync(nextPage);
+            }
+        }
+
+        async void EditReviewBtn_Clicked(object sender, EventArgs e)
+        {
+            if (subprof)
+            {
+                SubjectReview review = EntityLoader.GetUserReviewsS().Find(sr => sr.SubjectId == id);
+                Subject subject = EntityLoader.subjects.Find(s => s.Id == id);
+                var nextPage = new AddReview(subject);
+                nextPage.AddedReview += UpdateReviewList;
+                await Navigation.PushAsync(nextPage);
+            }
+            else
+            {
+                LecturerReview review = EntityLoader.GetUserReviewsL().Find(lr => lr.LecturerId == id);
                 Lecturer lecturer = EntityLoader.lecturers.Find(l => l.Id == id);
                 var nextPage = new AddReview(lecturer);
                 nextPage.AddedReview += UpdateReviewList;
