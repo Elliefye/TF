@@ -205,7 +205,7 @@ namespace TF2.Tabs
             {
                 SubjectReview review = EntityLoader.GetUserReviewsS().Find(sr => sr.SubjectId == id);
                 Subject subject = EntityLoader.subjects.Find(s => s.Id == id);
-                var nextPage = new AddReview(subject);
+                var nextPage = new AddReview(subject, review);
                 nextPage.AddedReview += UpdateReviewList;
                 await Navigation.PushAsync(nextPage);
             }
@@ -229,6 +229,13 @@ namespace TF2.Tabs
                 ReviewViewModel reviewViewModel = new ReviewViewModel(current);
                 ReviewList.BindingContext = reviewViewModel;
                 list2Full = reviewViewModel.ReviewViewList;
+
+                if (EntityLoader.GetUserReviewsS().Any(sr => sr.SubjectId == id))
+                {
+                    AddReviewBtn.Text = "Change review";
+                    AddReviewBtn.Clicked -= AddReviewBtn_Clicked;
+                    AddReviewBtn.Clicked += EditReviewBtn_Clicked;
+                }
             }
             else
             {
@@ -238,6 +245,13 @@ namespace TF2.Tabs
                 ReviewViewModel reviewViewModel = new ReviewViewModel(current);
                 ReviewList.BindingContext = reviewViewModel;
                 list2Full = reviewViewModel.ReviewViewList;
+
+                if (EntityLoader.GetUserReviewsL().Any(lr => lr.LecturerId == id))
+                {
+                    AddReviewBtn.Text = "Change review";
+                    AddReviewBtn.Clicked -= AddReviewBtn_Clicked;
+                    AddReviewBtn.Clicked += EditReviewBtn_Clicked;
+                }
             }
         }
     }

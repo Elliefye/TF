@@ -91,9 +91,62 @@ namespace TF2.Tabs
                 }
             }
 
-            ScorePicker.SelectedIndex = review.Rating;
+            ScorePicker.SelectedIndex = review.Rating - 1;
             CommentEntry.Text = review.Comment;
+
+            if(review.Anonymous == 1)
+            {
+                AnonCheckBox.IsChecked = true;
+            }
+            
             s = subject;
+            Submit.Clicked -= Submit_Clicked;
+            Submit.Clicked += SubmitEdit_Clicked;
+        }
+
+        public AddReview(Lecturer lecturer, LecturerReview review)
+        {
+            InitializeComponent();
+
+            TopTextLabel.Text = "Editing your review for: " + lecturer.FirstName + " " + lecturer.LastName;
+
+            if (review.SubjectId != 0)
+            {
+                int index = 0;
+
+                foreach (Subject subject in lecturer.Subjects.Value)
+                {
+                    LectOrSubPicker.Items.Add(subject.SubjectName);
+
+                    if (subject.Id == review.SubjectId)
+                    {
+                        LectOrSubPicker.SelectedIndex = index;
+                    }
+
+                    index++;
+                }
+            }
+            else
+            {
+                LectOrSubPicker.Title = "(Optional) pick the subject";
+
+                foreach (Subject subject in lecturer.Subjects.Value)
+                {
+                    LectOrSubPicker.Items.Add(subject.SubjectName);
+                }
+            }
+
+            ScorePicker.SelectedIndex = review.Rating - 1;
+            CommentEntry.Text = review.Comment;
+
+            if (review.Anonymous == 1)
+            {
+                AnonCheckBox.IsChecked = true;
+            }
+
+            l = lecturer;
+            Submit.Clicked -= Submit_Clicked;
+            Submit.Clicked += SubmitEdit_Clicked;
         }
 
         async void Submit_Clicked(object sender, EventArgs e)
@@ -154,6 +207,64 @@ namespace TF2.Tabs
             }
 
             await DisplayAlert("Success", "Your review was added.", "Cool!");
+            OnAddReview();
+            await Navigation.PopAsync();
+        }
+
+        async void SubmitEdit_Clicked(object sender, EventArgs e)
+        {
+            if(subrev)
+            {
+                SubjectReview currentReview = EntityLoader.GetUserReviewsS().Find(sr => sr.SubjectId == s.Id);
+
+                if (LectOrSubPicker.SelectedIndex != -1)
+                {
+                    currentReview.LecturerId = EntityLoader.lecturers.Find(l => {
+                        string name = l.FirstName + " " + l.LastName;
+                        return name == LectOrSubPicker.Items[LectOrSubPicker.SelectedIndex];
+                    }).Id;
+                }
+
+                currentReview.Rating = ScorePicker.SelectedIndex + 1;
+                currentReview.Comment = CommentEntry.Text;
+
+                if (AnonCheckBox.IsChecked)
+                {
+                    currentReview.Anonymous = 1;
+                }
+                else
+                {
+                    currentReview.Anonymous = 0;
+                }
+
+                EntityLoader.EditReview(currentReview);
+            }
+            else
+            {
+                LecturerReview currentReview = EntityLoader.GetUserReviewsL().Find(lr => lr.LecturerId == l.Id);
+
+                if (LectOrSubPicker.SelectedIndex != -1)
+                {
+                    currentReview.LecturerId = EntityLoader.subjects.Find(s =>
+                        s.SubjectName == LectOrSubPicker.Items[LectOrSubPicker.SelectedIndex]).Id;
+                }
+
+                currentReview.Rating = ScorePicker.SelectedIndex + 1;
+                currentReview.Comment = CommentEntry.Text;
+
+                if (AnonCheckBox.IsChecked)
+                {
+                    currentReview.Anonymous = 1;
+                }
+                else
+                {
+                    currentReview.Anonymous = 0;
+                }
+
+                EntityLoader.EditReview(currentReview);
+            }
+
+            await DisplayAlert("Success", "Your review was edited successfully.", "Cool!");
             OnAddReview();
             await Navigation.PopAsync();
         }

@@ -91,5 +91,12 @@ namespace TF2.Tabs
                 LecturerList.BindingContext = lecturerViewModel;
             }
         }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            lecturerViewModel = new LecturerViewModel(lecturerViewModel.UpdateRatings());
+            LecturerList.BindingContext = lecturerViewModel;
+        }
     }
 }

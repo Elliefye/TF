@@ -50,5 +50,18 @@ namespace TF2.ViewModels
         {
             return new ObservableCollection<LecOrSubView>(SubjectViewList.ToList().OrderByDescending(v => v.Item2));
         }
+
+        public ObservableCollection<LecOrSubView> UpdateRatings()
+        {
+            ObservableCollection<LecOrSubView> newList = new ObservableCollection<LecOrSubView>();
+
+            foreach (LecOrSubView sw in SubjectViewList)
+            {
+                Subject sub = EntityLoader.subjects.Find(s => s.SubjectName == sw.Item1);
+                newList.Add(new LecOrSubView(sw.Item1, Math.Round(EntityLoader.GetAvgRating(sub), 2).ToString()));
+            }
+
+            return newList;
+        }
     }
 }
