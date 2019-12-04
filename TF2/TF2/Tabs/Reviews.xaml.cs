@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using TF2.Entities;
+using TF2.Tabs;
+using TF2.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -15,25 +19,13 @@ namespace TF2
         public Reviews(List<SubjectReview> subjectReviews, List<LecturerReview> lecturerReviews)
         {
             InitializeComponent();
-            BindingContext = new ReviewViewModel(subjectReviews, lecturerReviews);
+            BindingContext = new UserReviewListView(subjectReviews, lecturerReviews);
         }
 
-        private async void ItemTapped(object sender, ItemTappedEventArgs e)
+        protected override void OnAppearing()
         {
-            var content = e.Item as Rev;
-            Subject sub = EntityLoader.subjects.Find(s => s.SubjectName == content.Reviewerusername);
-
-            if(sub != null)
-            {
-                SubjectReview subrev = EntityLoader.GetUserReviewsS().Find(sr => sr.SubjectId == sub.Id);
-                await Navigation.PushAsync(new Tabs.AddReview(sub, subrev));
-            }
-            else
-            {
-                Lecturer lec = EntityLoader.lecturers.Find(l => l.FirstName + " " + l.LastName == content.Reviewerusername);
-                LecturerReview lecrev = EntityLoader.GetUserReviewsL().Find(lr => lr.LecturerId == lec?.Id);
-                await Navigation.PushAsync(new Tabs.AddReview(lec, lecrev));
-            }
+            base.OnAppearing();
+            BindingContext = new UserReviewListView(EntityLoader.GetUserReviewsS(), EntityLoader.GetUserReviewsL());
         }
     }
 }
