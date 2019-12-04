@@ -8,13 +8,13 @@
              xmlns:views1="clr-namespace:TF2.Tabs"
              android:TabbedPage.ToolbarPlacement ="Bottom"
              android:TabbedPage.BarItemColor="#999999"
-             android:TabbedPage.BarSelectedItemColor="Black"
-            >
+             android:TabbedPage.BarSelectedItemColor="Black">
+
     <!--Pages can be added as references or inline-->
     <TabbedPage.Children>
         <NavigationPage Title="Home" Icon="home_icon.png">
             <x:Arguments>
-                <views:ViewAll />
+                <views1:MainPage />
             </x:Arguments>
         </NavigationPage>
         <NavigationPage Title="Browse" Icon="browse_icon.png">
@@ -29,7 +29,7 @@
         </NavigationPage>
         <NavigationPage Title="Other" Icon="other_icon.png">
             <x:Arguments>
-                <views:ViewAll />
+                <views1:MainPage />
             </x:Arguments>
         </NavigationPage>
     </TabbedPage.Children>

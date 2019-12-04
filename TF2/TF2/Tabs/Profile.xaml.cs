@@ -53,5 +53,23 @@ namespace TF2
         {          
             await Navigation.PushAsync(new Reviews(EntityLoader.GetUserReviewsS(), EntityLoader.GetUserReviewsL()));
         }
+
+        private void ThemeCheckBox_CheckedChanged(object sender, CheckedChangedEventArgs e)
+        {
+            ICollection<ResourceDictionary> mergedDictionaries = Application.Current.Resources.MergedDictionaries;
+
+            if (mergedDictionaries != null)
+            {
+                mergedDictionaries.Clear();
+                if (ThemeCheckBox.IsChecked)
+                {
+                    mergedDictionaries.Add(new DarkTheme());
+                }
+                else
+                {
+                    mergedDictionaries.Add(new LightTheme());
+                }
+            }
+        }
     }
 }

@@ -5,10 +5,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              Title="Profile"
-             x:Class="TF2.Profile">
+             x:Class="TF2.Profile"
+             BackgroundColor="{DynamicResource PageBackgroundColor}">
     <ContentPage.Content>
         <StackLayout>
-            <Grid HorizontalOptions="StartAndExpand" ColumnSpacing="20">
+            <Grid HorizontalOptions="StartAndExpand" ColumnSpacing="20" BackgroundColor="{DynamicResource PrimaryColor}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto"/>
@@ -33,12 +34,23 @@
                    FontSize="Large"/>
             </Grid>
             <Button Text="Change account details"
-                    HorizontalOptions="CenterAndExpand"
+                    HorizontalOptions="Center"
                     Clicked="ChangeAccount_Clicked"/>
             <Button Text="My reviews"
                     x:Name="MyReviewsBtn"
                     HorizontalOptions="CenterAndExpand"
                     Clicked="MyReviews_Clicked"/>
+            <Grid HorizontalOptions="StartAndExpand" ColumnSpacing="20" BackgroundColor="{DynamicResource PrimaryColor}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <CheckBox Grid.Row="1" Grid.Column="1" VerticalOptions="Center" x:Name="ThemeCheckBox" Color="#2196F3" CheckedChanged="ThemeCheckBox_CheckedChanged"/>
+                <Label Grid.Row="1" Grid.Column="2" Text="Use dark theme" VerticalOptions="Center"/>
+            </Grid>
             <Button Text="Logout"
                 VerticalOptions="EndAndExpand"
                 HorizontalOptions="CenterAndExpand"
