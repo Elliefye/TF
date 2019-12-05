@@ -23,8 +23,6 @@ namespace TF2.Tabs
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class SubLectProfile : ContentPage
 	{
-        //private List<string> list1Empty = new List<string>();
-        //private List<string> list1Full = new List<string>();
         private ObservableCollection<Item> list1Full = new ObservableCollection<Item>();
         private ObservableCollection<Item> list1Empty = new ObservableCollection<Item>();
         private ObservableCollection<Rev> list2Empty = new ObservableCollection<Rev>();
@@ -103,7 +101,6 @@ namespace TF2.Tabs
 
             foreach (Subject s in lecturer.Subjects.Value)
             {
-                //list1Full.Add(s.SubjectName);
                 list1Full.Add(new Item(s.SubjectName));
             }
 

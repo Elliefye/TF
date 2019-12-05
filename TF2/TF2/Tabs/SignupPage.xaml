@@ -2,23 +2,29 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TF2.SignupPage"
-             Title="Sign Up">
+             Title="Sign Up"
+             BackgroundColor="{DynamicResource PageBackgroundColor}">
     <ContentPage.Content>
         <StackLayout>
             <Entry x:Name="UernameTextSignup"
-            Placeholder="Username" ReturnType="Next"/>
+            Placeholder="Username" ReturnType="Next"
+                   TextColor="{DynamicResource PrimaryTextColor}" PlaceholderColor="{DynamicResource PrimaryColor}"/>
             <Entry x:Name="EmailTextSignup" ReturnType="Next"
-            Placeholder="Email address" />
+            Placeholder="Email address" 
+                   TextColor="{DynamicResource PrimaryTextColor}" PlaceholderColor="{DynamicResource PrimaryColor}"/>
             <Entry x:Name="PasswordText1Signup" ReturnType="Next"
             Placeholder="Password" 
-            IsPassword="True"/>
+            IsPassword="True"
+                   TextColor="{DynamicResource PrimaryTextColor}" PlaceholderColor="{DynamicResource PrimaryColor}"/>
             <Entry x:Name="PasswordText2Signup" ReturnType="Done"
             Placeholder="Re-enter password" 
-            IsPassword="True"/>
+            IsPassword="True"
+                   TextColor="{DynamicResource PrimaryTextColor}" PlaceholderColor="{DynamicResource PrimaryColor}"/>
             <Button x:Name="SignupBtn"
             Text="Sign Up" 
            VerticalOptions="CenterAndExpand"
-                 Clicked="Signup_Btn_Clicked"/>
+                 Clicked="Signup_Btn_Clicked"
+                    Style="{StaticResource ButtonStyle}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

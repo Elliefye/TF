@@ -32,6 +32,13 @@ namespace TF2.Tabs
         {
             InitializeComponent();
 
+            var AnonLabelTapGestureRecognizer = new TapGestureRecognizer();
+            AnonLabelTapGestureRecognizer.Tapped += (s, e) =>
+            {
+                AnonCheckBox.IsChecked = !AnonCheckBox.IsChecked;
+            };
+            AnonLabel.GestureRecognizers.Add(AnonLabelTapGestureRecognizer);
+
             TopTextLabel.Text += lecturer.FirstName + " " + lecturer.LastName;
             LectOrSubPicker.Title = "(Optional) pick the subject";
 
@@ -48,6 +55,13 @@ namespace TF2.Tabs
         {
             InitializeComponent();
 
+            var AnonLabelTapGestureRecognizer = new TapGestureRecognizer();
+            AnonLabelTapGestureRecognizer.Tapped += (s, e) =>
+            {
+                AnonCheckBox.IsChecked = !AnonCheckBox.IsChecked;
+            };
+            AnonLabel.GestureRecognizers.Add(AnonLabelTapGestureRecognizer);
+
             TopTextLabel.Text += subject.SubjectName;
             LectOrSubPicker.Title = "(Optional) pick the lecturer";
 
@@ -62,6 +76,13 @@ namespace TF2.Tabs
         public AddReview(Subject subject, SubjectReview review)
         {
             InitializeComponent();
+
+            var AnonLabelTapGestureRecognizer = new TapGestureRecognizer();
+            AnonLabelTapGestureRecognizer.Tapped += (s, e) =>
+            {
+                AnonCheckBox.IsChecked = !AnonCheckBox.IsChecked;
+            };
+            AnonLabel.GestureRecognizers.Add(AnonLabelTapGestureRecognizer);
 
             TopTextLabel.Text = "Editing your review for: " + subject.SubjectName;
 
@@ -107,6 +128,13 @@ namespace TF2.Tabs
         public AddReview(Lecturer lecturer, LecturerReview review)
         {
             InitializeComponent();
+
+            var AnonLabelTapGestureRecognizer = new TapGestureRecognizer();
+            AnonLabelTapGestureRecognizer.Tapped += (s, e) =>
+            {
+                AnonCheckBox.IsChecked = !AnonCheckBox.IsChecked;
+            };
+            AnonLabel.GestureRecognizers.Add(AnonLabelTapGestureRecognizer);
 
             TopTextLabel.Text = "Editing your review for: " + lecturer.FirstName + " " + lecturer.LastName;
 

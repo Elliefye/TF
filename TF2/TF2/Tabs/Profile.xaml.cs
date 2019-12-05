@@ -16,6 +16,14 @@ namespace TF2
         public Profile()
         {
             InitializeComponent();
+
+            var DarkModeLabelTapGestureRecognizer = new TapGestureRecognizer();
+            DarkModeLabelTapGestureRecognizer.Tapped += (s, e) =>
+            {
+                ThemeCheckBox.IsChecked = !ThemeCheckBox.IsChecked;
+            };
+            ModeLabel.GestureRecognizers.Add(DarkModeLabelTapGestureRecognizer);
+
             EmailLabel.Text = ConstVars.currentUser.Email;
             UsernameLabel.Text = ConstVars.currentUser.Username;
 

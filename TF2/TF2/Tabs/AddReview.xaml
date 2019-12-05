@@ -1,16 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="TF2.Tabs.AddReview">
+             x:Class="TF2.Tabs.AddReview"
+             BackgroundColor="{DynamicResource PageBackgroundColor}">
     <ContentPage.Content>
+        <ScrollView>
         <StackLayout>
             <Label Text="Adding a new review for "
                 HorizontalOptions="CenterAndExpand" 
-                   FontSize="Medium"
+                   Style="{StaticResource MediumLabelStyle}"
                    FontAttributes="Bold"
                    x:Name="TopTextLabel"/>
             <Picker x:Name="ScorePicker"
-                    Title="Score">
+                    Title="Score"
+                    TextColor="{DynamicResource PrimaryTextColor}">
                 <Picker.Items>
                     <x:String>1</x:String>
                     <x:String>2</x:String>
@@ -20,9 +23,12 @@
                 </Picker.Items>
             </Picker>
             <Picker x:Name="LectOrSubPicker"
-                    Title="(Optional) Lecturers/Subjects"/>
+                    Title="(Optional) Lecturers/Subjects"
+                    TextColor="{DynamicResource PrimaryTextColor}"/>
             <Entry x:Name="CommentEntry"
-                   Placeholder="Write a comment..."/>
+                   Placeholder="Write a comment..."
+                   TextColor="{DynamicResource PrimaryTextColor}"
+                   PlaceholderColor="{DynamicResource PrimaryColor}"/>
             <Grid HorizontalOptions="StartAndExpand" ColumnSpacing="20">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -31,12 +37,14 @@
                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <CheckBox Grid.Row="1" Grid.Column="1" VerticalOptions="Center" x:Name="AnonCheckBox" Color="#2196F3"/>
-                <Label Grid.Row="1" Grid.Column="2" Text="Submit anonymously" VerticalOptions="Center"/>
+                <CheckBox Grid.Row="1" Grid.Column="1" VerticalOptions="Center" x:Name="AnonCheckBox" Color="{DynamicResource PrimaryColor}"/>
+                <Label Grid.Row="1" Grid.Column="2" Text="Submit anonymously" VerticalOptions="Center" x:Name="AnonLabel" Style="{StaticResource SmallLabelStyle}"/>
             </Grid>
             <Button x:Name="Submit"
                     Text="Submit"
-                    Clicked="Submit_Clicked"/>
+                    Clicked="Submit_Clicked"
+                    Style="{StaticResource ButtonStyle}"/>
         </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

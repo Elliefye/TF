@@ -49,7 +49,7 @@
                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <CheckBox Grid.Row="1" Grid.Column="1" VerticalOptions="Center" x:Name="ThemeCheckBox" Color="{DynamicResource PrimaryColor}" CheckedChanged="ThemeCheckBox_CheckedChanged"/>
-                <Label Grid.Row="1" Grid.Column="2" Text="Use dark theme" VerticalOptions="Center" Style="{StaticResource SmallLabelStyle}"/>
+                <Label Grid.Row="1" Grid.Column="2" Text="Use dark theme" VerticalOptions="Center" x:Name="ModeLabel" Style="{StaticResource SmallLabelStyle}"/>
             </Grid>
             <Button Text="Logout"               
                     Clicked="Logout_Clicked"
