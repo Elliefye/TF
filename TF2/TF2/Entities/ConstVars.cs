@@ -14,6 +14,6 @@ namespace TF2
         public static int AuthStatus { get; set; } = 0;
         //password is encrypted
         public static User currentUser;
-
+        public static bool DarkMode { get; set; } = false;
     }
 }

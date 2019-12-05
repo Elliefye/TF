@@ -7,8 +7,8 @@
              BarBackgroundColor="Transparent"
              xmlns:views1="clr-namespace:TF2.Tabs"
              android:TabbedPage.BarItemColor="#999999"
-             android:TabbedPage.BarSelectedItemColor="Black"
-            >
+             android:TabbedPage.BarSelectedItemColor="{DynamicResource PrimaryTextColor}"
+             BackgroundColor="{DynamicResource PageBackgroundColor}">
     <!--Pages can be added as references or inline-->
     <TabbedPage.Children>
         <NavigationPage Title="Lecturers" Icon="lecturer_icon.png">

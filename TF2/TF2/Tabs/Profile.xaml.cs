@@ -26,6 +26,11 @@ namespace TF2
             {
                 MyReviewsBtn.IsEnabled = false;
             }
+
+            if(ConstVars.DarkMode)
+            {
+                ThemeCheckBox.IsChecked = true;
+            }
         }
 
         private void Logout_Clicked(object sender, EventArgs e)
@@ -33,6 +38,7 @@ namespace TF2
             ConstVars.currentUser = null;
             ConstVars.AuthStatus = 0;
             SecureStorage.Remove("uauth_token");
+            SecureStorage.Remove("mode");
             App.Current.MainPage = new NavigationPage(new LoginPage());
         }
 
@@ -54,7 +60,7 @@ namespace TF2
             await Navigation.PushAsync(new Reviews(EntityLoader.GetUserReviewsS(), EntityLoader.GetUserReviewsL()));
         }
 
-        private void ThemeCheckBox_CheckedChanged(object sender, CheckedChangedEventArgs e)
+        private async void ThemeCheckBox_CheckedChanged(object sender, CheckedChangedEventArgs e)
         {
             ICollection<ResourceDictionary> mergedDictionaries = Application.Current.Resources.MergedDictionaries;
 
@@ -63,10 +69,14 @@ namespace TF2
                 mergedDictionaries.Clear();
                 if (ThemeCheckBox.IsChecked)
                 {
+                    await SecureStorage.SetAsync("mode", "1");
+                    ConstVars.DarkMode = true;
                     mergedDictionaries.Add(new DarkTheme());
                 }
                 else
                 {
+                    await SecureStorage.SetAsync("mode", "0");
+                    ConstVars.DarkMode = false;
                     mergedDictionaries.Add(new LightTheme());
                 }
             }

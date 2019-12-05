@@ -15,7 +15,7 @@
                 </Grid.ColumnDefinitions>
 
                 <SearchBar Grid.Column="0" Grid.Row="0" Placeholder="Find a lecturer..." SearchButtonPressed="SearchBar_SearchButtonPressed" x:Name="Searchbar"
-                   TextChanged="Searchbar_TextChanged"></SearchBar>
+                   TextChanged="Searchbar_TextChanged" TextColor="{DynamicResource PrimaryTextColor}" PlaceholderColor="{DynamicResource PrimaryColor}"></SearchBar>
 
                 <Image Grid.Column="1" Grid.Row="0" Source="azdown.png" x:Name="SortIcon"/>
             </Grid>
@@ -43,20 +43,22 @@
                                     <ColumnDefinition Width="*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
 
-                                <BoxView Color="White" Grid.Column="0" Grid.Row="0"/>
-                                <BoxView Color="White" Grid.Column="1" Grid.Row="0"/>
-                                
+                                <BoxView Color="{DynamicResource PageBackgroundColor}" Grid.Column="0" Grid.Row="0"/>
+                                <BoxView Color="{DynamicResource PageBackgroundColor}" Grid.Column="1" Grid.Row="0"/>
+
                                 <Label Grid.Column="0" Grid.Row="0" 
                                        Text="{Binding Item1}" 
+                                       TextColor="{DynamicResource PrimaryTextColor}"
                                        HorizontalTextAlignment="Start"
                                        VerticalTextAlignment="Center"
                                        FontSize="Medium"/>
                                 
                                 <Label Grid.Column="1" Grid.Row="0"
-                                       Text="{Binding Item2}"
+                                       Text="{Binding Item2}"                                       
                                        HorizontalTextAlignment="Center"
                                        VerticalTextAlignment="Center"
-                                       FontSize="Medium"/>
+                                       FontSize="Medium"
+                                       TextColor="{DynamicResource PrimaryColor}"/>
                             </Grid>
                         </ViewCell>
                     </DataTemplate>

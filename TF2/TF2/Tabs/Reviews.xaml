@@ -5,13 +5,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              Title="Reviews"
-             x:Class="TF2.Reviews">
+             x:Class="TF2.Reviews"
+             BackgroundColor="{DynamicResource PageBackgroundColor}">
 
     <ListView ItemsSource="{Binding ReviewViewList}"
-              HasUnevenRows="True"
-              BackgroundColor="#ecf0f1"
+              HasUnevenRows="True"              
               HorizontalOptions="FillAndExpand"
               VerticalOptions="FillAndExpand">
+        <!--BackgroundColor="#ecf0f1"-->
 
         <ListView.ItemTemplate>
             <DataTemplate>
@@ -27,9 +28,9 @@
                         </Grid.ColumnDefinitions>
 
                         <StackLayout Grid.Column="0" Grid.Row="0" Margin="6,4,6,4">
-                            <Label Text="{Binding LecSubName}"/>
-                            <Label Text="{Binding LecSubScore}"/>
-                            <Label Text="{Binding Comment}"/>
+                            <Label Text="{Binding LecSubName}" Style="{StaticResource SmallLabelStyle}"/>
+                            <Label Text="{Binding LecSubScore}" Style="{StaticResource SmallLabelStyle}"/>
+                            <Label Text="{Binding Comment}" Style="{StaticResource SmallLabelStyle}"/>
                         </StackLayout>
 
                         <Image Grid.Column="1" Grid.Row="0" Source="edit.png" x:Name="EditIcon">

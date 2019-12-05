@@ -9,7 +9,7 @@
              BackgroundColor="{DynamicResource PageBackgroundColor}">
     <ContentPage.Content>
         <StackLayout>
-            <Grid HorizontalOptions="StartAndExpand" ColumnSpacing="20" BackgroundColor="{DynamicResource PrimaryColor}">
+            <Grid HorizontalOptions="StartAndExpand" ColumnSpacing="20">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto"/>
@@ -19,28 +19,28 @@
                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Label Grid.Row="1" Grid.Column="1" Text="Username: "
-                   FontSize="Large"
+                   Style="{StaticResource MediumLabelStyle}"
                    FontAttributes="Bold"/>
                 <Label Grid.Row="1" Grid.Column="2" Text="Username"
                 HorizontalOptions="CenterAndExpand" 
                 x:Name="UsernameLabel"
-                FontSize="Large"/>
+                Style="{StaticResource MediumLabelStyle}"/>
                 <Label Grid.Row="2" Grid.Column="1" Text="Email: "
-                   FontSize="Large"
+                   Style="{StaticResource MediumLabelStyle}"
                    FontAttributes="Bold"/>
                 <Label Grid.Row="2" Grid.Column="2" Text="Email"
                 HorizontalOptions="CenterAndExpand"
                 x:Name="EmailLabel"
-                   FontSize="Large"/>
+                   Style="{StaticResource MediumLabelStyle}"/>
             </Grid>
             <Button Text="Change account details"
-                    HorizontalOptions="Center"
-                    Clicked="ChangeAccount_Clicked"/>
+                    Clicked="ChangeAccount_Clicked"
+                    Style="{StaticResource ButtonStyle}"/>
             <Button Text="My reviews"
                     x:Name="MyReviewsBtn"
-                    HorizontalOptions="CenterAndExpand"
-                    Clicked="MyReviews_Clicked"/>
-            <Grid HorizontalOptions="StartAndExpand" ColumnSpacing="20" BackgroundColor="{DynamicResource PrimaryColor}">
+                    Clicked="MyReviews_Clicked"
+                    Style="{StaticResource ButtonStyle}"/>
+            <Grid HorizontalOptions="StartAndExpand" ColumnSpacing="20">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
@@ -48,13 +48,13 @@
                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <CheckBox Grid.Row="1" Grid.Column="1" VerticalOptions="Center" x:Name="ThemeCheckBox" Color="#2196F3" CheckedChanged="ThemeCheckBox_CheckedChanged"/>
-                <Label Grid.Row="1" Grid.Column="2" Text="Use dark theme" VerticalOptions="Center"/>
+                <CheckBox Grid.Row="1" Grid.Column="1" VerticalOptions="Center" x:Name="ThemeCheckBox" Color="{DynamicResource PrimaryColor}" CheckedChanged="ThemeCheckBox_CheckedChanged"/>
+                <Label Grid.Row="1" Grid.Column="2" Text="Use dark theme" VerticalOptions="Center" Style="{StaticResource SmallLabelStyle}"/>
             </Grid>
-            <Button Text="Logout"
-                VerticalOptions="EndAndExpand"
-                HorizontalOptions="CenterAndExpand"
-                Clicked="Logout_Clicked"/>
+            <Button Text="Logout"               
+                    Clicked="Logout_Clicked"
+                    Style="{StaticResource ButtonStyle}"
+                    VerticalOptions="End"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

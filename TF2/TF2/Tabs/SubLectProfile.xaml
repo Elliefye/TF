@@ -3,42 +3,57 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TF2.Tabs.SubLectProfile">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Title"
-                   HorizontalOptions="CenterAndExpand" 
-                   FontSize="Large"
+        <ScrollView>
+            <StackLayout>
+                <Label Text="Title"
+                   Style="{StaticResource LargeLabelStyle}"
                    FontAttributes="Bold"
-                   x:Name="TitleLabel"/>
-            <Label Text="Lecturer/subject"
+                   x:Name="TitleLabel"
+                   TextColor="{DynamicResource PrimaryColor}"
+                   HorizontalOptions="CenterAndExpand" />
+                <Label Text="Lecturer/subject"
                    HorizontalOptions="CenterAndExpand"
-                   x:Name="SubtitleLabel"/>
-            <Label Text="Rated: Rating number"
+                   x:Name="SubtitleLabel"
+                   Style="{StaticResource SmallLabelStyle}"/>
+                <Label Text="Rated: Rating number"
                    HorizontalOptions="CenterAndExpand"
                    x:Name="RatingLabel"
-                   FontSize="Large"/>
-            <Label Text="All subjects/lecturers:"
+                   Style="{StaticResource LargeLabelStyle}"
+                   Margin="0,0,0,50"/>
+
+                <Label Text="All subjects/lecturers:"
                    FontAttributes="Bold"
                    HorizontalOptions="Start"
                    x:Name="List1Label"
-                   FontSize="Medium"
+                   Style="{StaticResource MediumLabelStyle}"
                    Margin="10,0,0,0"/>
-            <ListView x:Name="SubOrLectList"
+                <ListView x:Name="SubOrLectList"
                       HorizontalOptions="FillAndExpand"
                       VerticalOptions="CenterAndExpand"
-                      ItemTapped="ItemFromList1Tapped"/>
-            <Button x:Name="AddReviewBtn"
-                    Text="Add Review"
-                    HorizontalOptions="CenterAndExpand"
-                    VerticalOptions="EndAndExpand"
-                    Clicked="AddReviewBtn_Clicked"/>
+                      ItemTapped="ItemFromList1Tapped"
+                      HasUnevenRows="False"
+                      RowHeight="40">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                        <ViewCell>
+                            <Label Style="{StaticResource SmallLabelStyle}" Text="{Binding item}" Margin="5,12,5,12"/>
+                        </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
 
-            <Label Text="All reviews"
+                <Button x:Name="AddReviewBtn"
+                    Text="Add Review"
+                    Clicked="AddReviewBtn_Clicked"                    
+                    Style="{StaticResource ButtonStyle}"/>
+
+                <Label Text="All reviews"
                    FontAttributes="Bold"
                    HorizontalOptions="Start"
                    x:Name="List2Label"
-                   FontSize="Medium"
+                   Style="{StaticResource MediumLabelStyle}"
                    Margin="10,0,0,0"/>
-            <ListView 
+                <ListView 
               HasUnevenRows="true"
               SeparatorVisibility="Default"
               HorizontalOptions="FillAndExpand"
@@ -46,46 +61,47 @@
               x:Name="ReviewList"
               ItemsSource="{Binding ReviewViewList}">
 
-                <ListView.ItemTemplate>
+                    <ListView.ItemTemplate>
 
-                    <DataTemplate>
-                        <ViewCell>
-                            <Grid HorizontalOptions="Start" BackgroundColor="Wheat" Margin="10,10,10,10">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"></ColumnDefinition>
-                                </Grid.ColumnDefinitions>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid HorizontalOptions="Start" Margin="10,10,10,10">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
 
-                                <Label Grid.Column="0" Grid.Row="0" 
+                                    <Label Grid.Column="0" Grid.Row="0" 
                                        Text="{Binding Reviewerusername}" 
-                                       FontSize="Medium"
-                                       TextColor="Green"/>
+                                       Style="{StaticResource SmallLabelStyle}"
+                                       TextColor="{DynamicResource PrimaryColor}"/>
 
-                                <StackLayout Grid.Column="0" Grid.Row="1"
+                                    <StackLayout Grid.Column="0" Grid.Row="1"
                                              Spacing="0"
                                              Orientation="Horizontal">
-                                    <Label
-                                       Text="Score: "
-                                       FontSize="Medium"/>
+                                        <Label
+                                       Text="Rating: "
+                                       Style="{StaticResource SmallLabelStyle}"/>
 
-                                    <Label
+                                        <Label
                                        Text="{Binding LecSubScore}"
-                                       FontSize="Medium"/>
-                                </StackLayout>
-                                
-                                <Label Grid.Column="0" Grid.Row="2"
-                                       Text="{Binding Comment}"
-                                       FontSize="Medium"/>
-                            </Grid>
-                        </ViewCell>
-                    </DataTemplate>
+                                       Style="{StaticResource SmallLabelStyle}"/>
+                                    </StackLayout>
 
-                </ListView.ItemTemplate>
-            </ListView>
-        </StackLayout>
+                                    <Label Grid.Column="0" Grid.Row="2"
+                                       Text="{Binding Comment}"
+                                       Style="{StaticResource SmallLabelStyle}"/>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>
