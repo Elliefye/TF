@@ -20,26 +20,32 @@
                 </Grid.ColumnDefinitions>
                 <Label Grid.Row="1" Grid.Column="1" Text="Username: "
                    Style="{StaticResource MediumLabelStyle}"
-                   FontAttributes="Bold"/>
+                   FontAttributes="Bold"
+                       Margin="0,10,0,0"/>
                 <Label Grid.Row="1" Grid.Column="2" Text="Username"
                 HorizontalOptions="CenterAndExpand" 
                 x:Name="UsernameLabel"
-                Style="{StaticResource MediumLabelStyle}"/>
+                Style="{StaticResource MediumLabelStyle}"
+                       Margin="0,10,0,0"/>
                 <Label Grid.Row="2" Grid.Column="1" Text="Email: "
                    Style="{StaticResource MediumLabelStyle}"
-                   FontAttributes="Bold"/>
+                   FontAttributes="Bold"
+                       Margin="0,10,0,0"/>
                 <Label Grid.Row="2" Grid.Column="2" Text="Email"
                 HorizontalOptions="CenterAndExpand"
                 x:Name="EmailLabel"
-                   Style="{StaticResource MediumLabelStyle}"/>
+                   Style="{StaticResource MediumLabelStyle}"
+                       Margin="0,10,0,0"/>
             </Grid>
             <Button Text="Change account details"
                     Clicked="ChangeAccount_Clicked"
-                    Style="{StaticResource ButtonStyle}"/>
+                    Style="{StaticResource ButtonStyle}"
+                    Margin="5,20,5,0"/>
             <Button Text="My reviews"
                     x:Name="MyReviewsBtn"
                     Clicked="MyReviews_Clicked"
-                    Style="{StaticResource ButtonStyle}"/>
+                    Style="{StaticResource ButtonStyle}"
+                    Margin="5,20,5,20"/>
             <Grid HorizontalOptions="StartAndExpand" ColumnSpacing="20">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -53,8 +59,12 @@
             </Grid>
             <Button Text="Logout"               
                     Clicked="Logout_Clicked"
-                    Style="{StaticResource ButtonStyle}"
-                    VerticalOptions="End"/>
+                    CornerRadius="18"
+                    BackgroundColor="{DynamicResource PrimaryColor}"
+                    TextColor="{DynamicResource SecondaryColor}"
+                    Margin="5,0,5,0"
+                    HorizontalOptions="Fill"
+                    VerticalOptions="EndAndExpand"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

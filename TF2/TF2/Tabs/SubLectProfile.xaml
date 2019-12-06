@@ -31,12 +31,11 @@
                       HorizontalOptions="FillAndExpand"
                       VerticalOptions="CenterAndExpand"
                       ItemTapped="ItemFromList1Tapped"
-                      HasUnevenRows="False"
-                      RowHeight="40">
+                      HasUnevenRows="False">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                         <ViewCell>
-                            <Label Style="{StaticResource SmallLabelStyle}" Text="{Binding item}" Margin="5,12,5,12"/>
+                                <Label Style="{StaticResource SmallLabelStyle}" Text="{Binding item}" VerticalTextAlignment="Center" Margin="5,0,0,0" MinimumHeightRequest="40"/>
                         </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>

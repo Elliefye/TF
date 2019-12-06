@@ -60,7 +60,7 @@ namespace TF2.Tabs
                     SubOrLectList.ItemsSource = list1Full;
                     List1Label.Text = "All lecturers: ▼";
                     list1Collapsed = false;
-                    SubOrLectList.HeightRequest = list1Full.Count * SubOrLectList.RowHeight + 20;
+                    SubOrLectList.HeightRequest = list1Full.Count * 40 + 20;
                 }
                 else
                 {
@@ -72,7 +72,7 @@ namespace TF2.Tabs
             };
 
             List1Label.GestureRecognizers.Add(list1LabelTapGestureRecognizer);
-            SubOrLectList.HeightRequest = list1Full.Count * SubOrLectList.RowHeight + 20;
+            SubOrLectList.HeightRequest = list1Full.Count * 40 + 20;
 
             id = subject.Id;
             
@@ -113,7 +113,7 @@ namespace TF2.Tabs
                     SubOrLectList.ItemsSource = list1Full;
                     List1Label.Text = "All subjects: ▼";
                     list1Collapsed = false;
-                    SubOrLectList.HeightRequest = list1Full.Count * SubOrLectList.RowHeight + 20;
+                    SubOrLectList.HeightRequest = list1Full.Count * 40 + 20;
                 }
                 else
                 {
@@ -125,7 +125,7 @@ namespace TF2.Tabs
             };
 
             List1Label.GestureRecognizers.Add(list1LabelTapGestureRecognizer);
-            SubOrLectList.HeightRequest = list1Full.Count * SubOrLectList.RowHeight + 20;
+            SubOrLectList.HeightRequest = list1Full.Count * 40 + 20;
 
             subprof = false;
             id = lecturer.Id;
@@ -134,7 +134,7 @@ namespace TF2.Tabs
             ReviewList.BindingContext = reviewViewModel;
             list2Full = reviewViewModel.ReviewViewList;
             ReviewListChange();
-            ReviewList.HeightRequest = list2Full.Count * ReviewList.RowHeight;
+            ReviewList.HeightRequest = list2Full.Count * 100 +50;
 
 
             if (EntityLoader.GetUserReviewsL().Any(lr => lr.LecturerId == id))
@@ -158,6 +158,8 @@ namespace TF2.Tabs
                     List2Label.Text = "All reviews: ▼";
                     list2Collapsed = false;
                     ReviewList.HeightRequest = list2Full.Count * 100 + 50;
+                    List1Label.VerticalOptions = LayoutOptions.CenterAndExpand;
+                    AddReviewBtn.VerticalOptions = LayoutOptions.CenterAndExpand;
                 }
                 else
                 {
@@ -165,6 +167,8 @@ namespace TF2.Tabs
                     List2Label.Text = "All reviews: ▷";
                     list2Collapsed = true;
                     ReviewList.HeightRequest = 0;
+                    List1Label.VerticalOptions = LayoutOptions.CenterAndExpand;
+                    AddReviewBtn.VerticalOptions = LayoutOptions.CenterAndExpand;
                 }
             };
 
@@ -173,8 +177,9 @@ namespace TF2.Tabs
 
         private async void ItemFromList1Tapped(object sender, ItemTappedEventArgs e)
         {
-            string item = e.Item.ToString();
-            SubOrLectList.SelectedItem = null;
+            Item source = e.Item as Item;
+            string item = source.item;            
+
             bool answer = await DisplayAlert("", "Would you like to visit the profile page for " + item + "?", "Yes!", "No thanks");
 
             if(answer)
