@@ -21,7 +21,7 @@ namespace TF2.Droid
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             LoadApplication(new App());
-            Window.SetStatusBarColor(Android.Graphics.Color.Argb(255, 0, 0, 0));
+            Window.SetStatusBarColor(Android.Graphics.Color.Argb(255, 80, 80, 80));
         }
     }
 }
