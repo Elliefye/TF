@@ -182,8 +182,10 @@ namespace TF2.Tabs
         {
             if(subrev)
             {
-                SubjectReview newReview = new SubjectReview();
-                newReview.SubjectId = s.Id;
+                SubjectReview newReview = new SubjectReview
+                {
+                    SubjectId = s.Id
+                };
 
                 if (LectOrSubPicker.SelectedIndex != -1)
                 {
@@ -210,8 +212,10 @@ namespace TF2.Tabs
             }
             else
             {
-                LecturerReview newReview = new LecturerReview();
-                newReview.LecturerId = l.Id;
+                LecturerReview newReview = new LecturerReview
+                {
+                    LecturerId = l.Id
+                };
 
                 if (LectOrSubPicker.SelectedIndex != -1)
                 {
