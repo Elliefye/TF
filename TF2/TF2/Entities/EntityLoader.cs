@@ -35,7 +35,7 @@ namespace TF2.Entities
             string dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), dbName);
 
             //copy DB to device
-            if (!File.Exists(dbPath))
+            //if (!File.Exists(dbPath))
             {
                 using (var br = new BinaryReader(Application.Context.Assets.Open(dbName)))
                 {
@@ -307,28 +307,6 @@ namespace TF2.Entities
             user.Username = enc.Decrypt(user.Username);
             user.Email = enc.Decrypt(user.Email);
             return user;
-        }
-
-        public static List<Lecturer> GetTop5Lecturers()
-        {
-            var list = db.ExecuteScalar<string>("select top 5 from LecturerReviews "); //something something, need to think abt this one
-
-            if (list == null)
-            {
-                return null;
-            }
-            else return new List<Lecturer>();
-        }
-
-        public static List<Subject> GetTop5Subjects()
-        {
-            var list = db.ExecuteScalar<string>("select top 5 from LecturerReviews "); //something something, need to think abt this one
-
-            if (list == null)
-            {
-                return null;
-            }
-            else return new List<Subject>();
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using TF2.Entities;
 using TF2.Tabs;
 using Xamarin.Essentials;
@@ -14,15 +16,37 @@ namespace TF2
         public App()
         {
             InitializeComponent();
+            // Create Database & Tables
+            List<User> allusers;
+            string dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "teaching_feedback.db");
             EntityLoader.ConnectToDatabase("teaching_feedback.db");
+
+            using (var db = new Context(dbPath))
+            {
+                // Ensure database is created
+                db.Database.EnsureCreated();
+
+                // Retreive Data
+                allusers = db.Users.ToList();
+            }
+
+            // Show Data
+            MainPage = new ContentPage()
+            {
+                Content = new ListView()
+                {
+                    ItemsSource = allusers
+                }
+            };
+            /*EntityLoader.ConnectToDatabase("teaching_feedback.db");
             EntityLoader.LoadLecturersAndSubjects();
             EntityLoader.LoadReviews();
-            CheckForAuth();
+            CheckForAuth();*/
         }
 
         protected override void OnStart()
         {
-            SetColorMode();
+            //SetColorMode();
         }
 
         protected override void OnSleep()

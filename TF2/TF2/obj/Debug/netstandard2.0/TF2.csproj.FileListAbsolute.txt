@@ -37,7 +37,6 @@ D:\Eli\Code\C#\TF\TF2\TF2\obj\Debug\netstandard2.0\Tabs\SignupPage.xaml.g.cs
 D:\Eli\Code\C#\TF\TF2\TF2\obj\Debug\netstandard2.0\Tabs\SubLectProfile.xaml.g.cs
 D:\Eli\Code\C#\TF\TF2\TF2\obj\Debug\netstandard2.0\Tabs\ViewAll.xaml.g.cs
 D:\Eli\Code\C#\TF\TF2\TF2\obj\Debug\netstandard2.0\Tabs\WriteReview.xaml.g.cs
-D:\Eli\Code\C#\TF\TF2\TF2\obj\Debug\netstandard2.0\TF2.csproj.CoreCompileInputs.cache
 D:\Eli\Code\C#\TF\TF2\TF2\obj\Debug\netstandard2.0\TF2.AssemblyInfoInputs.cache
 D:\Eli\Code\C#\TF\TF2\TF2\obj\Debug\netstandard2.0\TF2.AssemblyInfo.cs
 D:\Eli\Code\C#\TF\TF2\TF2\obj\Debug\netstandard2.0\TF2.csproj.CopyComplete
@@ -77,3 +76,4 @@ C:\Users\pauli\Downloads\TF\TF2\TF2\obj\Debug\netstandard2.0\TF2.csprojAssemblyR
 D:\Eli\Code\C#\TF\TF2\TF2\obj\Debug\netstandard2.0\Tabs\MainPage.xaml.g.cs
 D:\Eli\Code\C#\TF\TF2\TF2\obj\Debug\netstandard2.0\DarkTheme.xaml.g.cs
 D:\Eli\Code\C#\TF\TF2\TF2\obj\Debug\netstandard2.0\LightTheme.xaml.g.cs
+D:\Eli\Code\C#\TF\TF2\TF2\obj\Debug\netstandard2.0\XamlC.stamp
