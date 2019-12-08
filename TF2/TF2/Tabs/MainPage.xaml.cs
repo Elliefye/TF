@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TF2.Entities;
+using TF2.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -16,49 +17,41 @@ namespace TF2.Tabs
 		{
 			InitializeComponent ();
 
-            List<Lecturer> top5 = EntityLoader.GetTop5Lecturers();
+            LecturerViewModel lecturerViewModel = new LecturerViewModel();
+            lecturerViewModel = new LecturerViewModel(lecturerViewModel.Sort50());
 
-            Lecturer current = top5.ElementAt(0);
-            list1row0.Text = current.FirstName + " " + current.LastName;
-            list1row0score.Text = EntityLoader.GetAvgRating(current).ToString();
+            list1row0.Text = lecturerViewModel.LecturerViewList.ElementAt(0).Item1;
+            list1row0score.Text = lecturerViewModel.LecturerViewList.ElementAt(0).Item2;
 
-            current = top5.ElementAt(1);
-            list1row1.Text = current.FirstName + " " + current.LastName;
-            list1row1score.Text = EntityLoader.GetAvgRating(current).ToString();
+            list1row1.Text = lecturerViewModel.LecturerViewList.ElementAt(1).Item1;
+            list1row1score.Text = lecturerViewModel.LecturerViewList.ElementAt(1).Item2;
 
-            current = top5.ElementAt(2);
-            list1row2.Text = current.FirstName + " " + current.LastName;
-            list1row2score.Text = EntityLoader.GetAvgRating(current).ToString();
+            list1row2.Text = lecturerViewModel.LecturerViewList.ElementAt(2).Item1;
+            list1row2score.Text = lecturerViewModel.LecturerViewList.ElementAt(2).Item2;
 
-            current = top5.ElementAt(3);
-            list1row3.Text = current.FirstName + " " + current.LastName;
-            list1row3score.Text = EntityLoader.GetAvgRating(current).ToString();
+            list1row3.Text = lecturerViewModel.LecturerViewList.ElementAt(3).Item1;
+            list1row3score.Text = lecturerViewModel.LecturerViewList.ElementAt(3).Item2;
 
-            current = top5.ElementAt(4);
-            list1row4.Text = current.FirstName + " " + current.LastName;
-            list1row4score.Text = EntityLoader.GetAvgRating(current).ToString();
+            list1row4.Text = lecturerViewModel.LecturerViewList.ElementAt(4).Item1;
+            list1row4score.Text = lecturerViewModel.LecturerViewList.ElementAt(4).Item2;
 
-            List<Subject> top5s = EntityLoader.GetTop5Subjects();
+            SubjectViewModel subjectViewModel = new SubjectViewModel();
+            subjectViewModel = new SubjectViewModel(subjectViewModel.Sort50());
 
-            Subject currents = top5s.ElementAt(0);
-            list2row0.Text = currents.SubjectName;
-            list2row0score.Text = EntityLoader.GetAvgRating(currents).ToString();
+            list2row0.Text = subjectViewModel.SubjectViewList.ElementAt(0).Item1;
+            list2row0score.Text = subjectViewModel.SubjectViewList.ElementAt(0).Item2;
 
-            currents = top5s.ElementAt(1);
-            list2row1.Text = currents.SubjectName;
-            list2row1score.Text = EntityLoader.GetAvgRating(currents).ToString();
+            list2row1.Text = subjectViewModel.SubjectViewList.ElementAt(1).Item1;
+            list2row1score.Text = subjectViewModel.SubjectViewList.ElementAt(1).Item2;
 
-            currents = top5s.ElementAt(2);
-            list2row2.Text = currents.SubjectName;
-            list2row2score.Text = EntityLoader.GetAvgRating(currents).ToString();
+            list2row2.Text = subjectViewModel.SubjectViewList.ElementAt(2).Item1;
+            list2row2score.Text = subjectViewModel.SubjectViewList.ElementAt(2).Item2;
 
-            currents = top5s.ElementAt(3);
-            list2row3.Text = currents.SubjectName;
-            list2row3score.Text = EntityLoader.GetAvgRating(currents).ToString();
+            list2row3.Text = subjectViewModel.SubjectViewList.ElementAt(3).Item1;
+            list2row3score.Text = subjectViewModel.SubjectViewList.ElementAt(3).Item2;
 
-            currents = top5s.ElementAt(4);
-            list2row4.Text = currents.SubjectName;
-            list2row4score.Text = EntityLoader.GetAvgRating(currents).ToString();
+            list2row4.Text = subjectViewModel.SubjectViewList.ElementAt(4).Item1;
+            list2row4score.Text = subjectViewModel.SubjectViewList.ElementAt(4).Item2;
         }
 	}
 }
