@@ -723,6 +723,8 @@ C:\Users\pauli\Downloads\TF\TF2\TF2.Android\obj\Debug\90\stamp\_ResolveLibraryPr
 C:\Users\pauli\Downloads\TF\TF2\TF2.Android\bin\Debug\TF2.dll.mdb
 D:\Eli\Code\C#\TF\TF2\TF2.Android\bin\Debug\System.Numerics.Vectors.pdb
 D:\Eli\Code\C#\TF\TF2\TF2.Android\bin\Debug\Xamarin.Essentials.pdb
+D:\Eli\Code\C#\TF\TF2\TF2.Android\obj\Debug\90\res\drawable\delete.png
+D:\Eli\Code\C#\TF\TF2\TF2.Android\obj\Debug\90\res\drawable\edit.png
 D:\Eli\Code\C#\TF\TF2\TF2.Android\obj\Debug\90\linksrc\TF2.Android.pdb
 D:\Eli\Code\C#\TF\TF2\TF2.Android\obj\Debug\90\linksrc\FormsViewGroup.pdb
 D:\Eli\Code\C#\TF\TF2\TF2.Android\obj\Debug\90\linksrc\Mono.Android.pdb

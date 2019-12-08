@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Text;
 
-
 namespace TF2.ViewModels
 {
     public class LecOrSubView : Tuple<string, string>

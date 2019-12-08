@@ -16,6 +16,14 @@ namespace TF2
         public Profile()
         {
             InitializeComponent();
+
+            var DarkModeLabelTapGestureRecognizer = new TapGestureRecognizer();
+            DarkModeLabelTapGestureRecognizer.Tapped += (s, e) =>
+            {
+                ThemeCheckBox.IsChecked = !ThemeCheckBox.IsChecked;
+            };
+            ModeLabel.GestureRecognizers.Add(DarkModeLabelTapGestureRecognizer);
+
             EmailLabel.Text = ConstVars.currentUser.Email;
             UsernameLabel.Text = ConstVars.currentUser.Username;
 
@@ -26,6 +34,11 @@ namespace TF2
             {
                 MyReviewsBtn.IsEnabled = false;
             }
+
+            if(ConstVars.DarkMode)
+            {
+                ThemeCheckBox.IsChecked = true;
+            }
         }
 
         private void Logout_Clicked(object sender, EventArgs e)
@@ -33,6 +46,7 @@ namespace TF2
             ConstVars.currentUser = null;
             ConstVars.AuthStatus = 0;
             SecureStorage.Remove("uauth_token");
+            SecureStorage.Remove("mode");
             App.Current.MainPage = new NavigationPage(new LoginPage());
         }
 
@@ -52,6 +66,28 @@ namespace TF2
         async void MyReviews_Clicked(object sender, EventArgs e)
         {          
             await Navigation.PushAsync(new Reviews(EntityLoader.GetUserReviewsS(), EntityLoader.GetUserReviewsL()));
+        }
+
+        private async void ThemeCheckBox_CheckedChanged(object sender, CheckedChangedEventArgs e)
+        {
+            ICollection<ResourceDictionary> mergedDictionaries = Application.Current.Resources.MergedDictionaries;
+
+            if (mergedDictionaries != null)
+            {
+                mergedDictionaries.Clear();
+                if (ThemeCheckBox.IsChecked)
+                {
+                    await SecureStorage.SetAsync("mode", "1");
+                    ConstVars.DarkMode = true;
+                    mergedDictionaries.Add(new DarkTheme());
+                }
+                else
+                {
+                    await SecureStorage.SetAsync("mode", "0");
+                    ConstVars.DarkMode = false;
+                    mergedDictionaries.Add(new LightTheme());
+                }
+            }
         }
     }
 }

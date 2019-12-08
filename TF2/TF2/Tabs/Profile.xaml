@@ -5,7 +5,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              Title="Profile"
-             x:Class="TF2.Profile">
+             x:Class="TF2.Profile"
+             BackgroundColor="{DynamicResource PageBackgroundColor}">
     <ContentPage.Content>
         <StackLayout>
             <Grid HorizontalOptions="StartAndExpand" ColumnSpacing="20">
@@ -18,31 +19,52 @@
                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Label Grid.Row="1" Grid.Column="1" Text="Username: "
-                   FontSize="Large"
-                   FontAttributes="Bold"/>
+                   Style="{StaticResource MediumLabelStyle}"
+                   FontAttributes="Bold"
+                       Margin="0,10,0,0"/>
                 <Label Grid.Row="1" Grid.Column="2" Text="Username"
                 HorizontalOptions="CenterAndExpand" 
                 x:Name="UsernameLabel"
-                FontSize="Large"/>
+                Style="{StaticResource MediumLabelStyle}"
+                       Margin="0,10,0,0"/>
                 <Label Grid.Row="2" Grid.Column="1" Text="Email: "
-                   FontSize="Large"
-                   FontAttributes="Bold"/>
+                   Style="{StaticResource MediumLabelStyle}"
+                   FontAttributes="Bold"
+                       Margin="0,10,0,0"/>
                 <Label Grid.Row="2" Grid.Column="2" Text="Email"
                 HorizontalOptions="CenterAndExpand"
                 x:Name="EmailLabel"
-                   FontSize="Large"/>
+                   Style="{StaticResource MediumLabelStyle}"
+                       Margin="0,10,0,0"/>
             </Grid>
             <Button Text="Change account details"
-                    HorizontalOptions="CenterAndExpand"
-                    Clicked="ChangeAccount_Clicked"/>
+                    Clicked="ChangeAccount_Clicked"
+                    Style="{StaticResource ButtonStyle}"
+                    Margin="5,20,5,0"/>
             <Button Text="My reviews"
                     x:Name="MyReviewsBtn"
-                    HorizontalOptions="CenterAndExpand"
-                    Clicked="MyReviews_Clicked"/>
-            <Button Text="Logout"
-                VerticalOptions="EndAndExpand"
-                HorizontalOptions="CenterAndExpand"
-                Clicked="Logout_Clicked"/>
+                    Clicked="MyReviews_Clicked"
+                    Style="{StaticResource ButtonStyle}"
+                    Margin="5,20,5,20"/>
+            <Grid HorizontalOptions="StartAndExpand" ColumnSpacing="20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <CheckBox Grid.Row="1" Grid.Column="1" VerticalOptions="Center" x:Name="ThemeCheckBox" Color="{DynamicResource PrimaryColor}" CheckedChanged="ThemeCheckBox_CheckedChanged"/>
+                <Label Grid.Row="1" Grid.Column="2" Text="Use dark theme" VerticalOptions="Center" x:Name="ModeLabel" Style="{StaticResource SmallLabelStyle}"/>
+            </Grid>
+            <Button Text="Logout"               
+                    Clicked="Logout_Clicked"
+                    CornerRadius="18"
+                    BackgroundColor="{DynamicResource PrimaryColor}"
+                    TextColor="{DynamicResource SecondaryColor}"
+                    Margin="5,0,5,0"
+                    HorizontalOptions="Fill"
+                    VerticalOptions="EndAndExpand"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

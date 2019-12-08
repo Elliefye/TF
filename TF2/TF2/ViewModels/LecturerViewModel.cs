@@ -15,7 +15,7 @@ namespace TF2.ViewModels
         {
             LecturerViewList = new ObservableCollection<LecOrSubView>();
 
-            foreach (Lecturer lect in EntityLoader.lecturers)
+            foreach (Lecturer lect in EntityLoader.lecturers.OrderBy(l => l.FirstName))
             {
                 LecturerViewList.Add(new LecOrSubView(lect.FirstName + " " + lect.LastName, Math.Round(EntityLoader.GetAvgRating(lect), 2).ToString()));
             }
@@ -49,6 +49,19 @@ namespace TF2.ViewModels
         public ObservableCollection<LecOrSubView> Sort50()
         {
             return new ObservableCollection<LecOrSubView>(LecturerViewList.ToList().OrderByDescending(v => v.Item2));
+        }
+
+        public ObservableCollection<LecOrSubView> UpdateRatings()
+        {
+            ObservableCollection<LecOrSubView> newList = new ObservableCollection<LecOrSubView>();
+
+            foreach (LecOrSubView lw in LecturerViewList)
+            {
+                Lecturer lect = EntityLoader.lecturers.Find(l => l.FirstName + " " + l.LastName == lw.Item1);
+                newList.Add(new LecOrSubView(lw.Item1, Math.Round(EntityLoader.GetAvgRating(lect), 2).ToString()));
+            }
+
+            return newList;
         }
     }
 }

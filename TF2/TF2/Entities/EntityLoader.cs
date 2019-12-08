@@ -269,6 +269,26 @@ namespace TF2.Entities
             db.Insert(review);
         }
 
+        public static void EditReview(SubjectReview review)
+        {
+            db.Update(review);
+        }
+
+        public static void EditReview(LecturerReview review)
+        {
+            db.Update(review);
+        }
+
+        public static void DeleteReview(LecturerReview review)
+        {
+            db.Delete(review);
+        }
+
+        public static void DeleteReview(SubjectReview review)
+        {
+            db.Delete(review);
+        }
+
         public static string GetReviewerUsername(LecturerReview lecturerReview)
         {
             string reviewerUsername = db.Table<User>().FirstOrDefault(u => u.Id == lecturerReview.UserId).Username;
@@ -287,6 +307,28 @@ namespace TF2.Entities
             user.Username = enc.Decrypt(user.Username);
             user.Email = enc.Decrypt(user.Email);
             return user;
+        }
+
+        public static List<Lecturer> GetTop5Lecturers()
+        {
+            var list = db.ExecuteScalar<string>("select top 5 from LecturerReviews "); //something something, need to think abt this one
+
+            if (list == null)
+            {
+                return null;
+            }
+            else return new List<Lecturer>();
+        }
+
+        public static List<Subject> GetTop5Subjects()
+        {
+            var list = db.ExecuteScalar<string>("select top 5 from LecturerReviews "); //something something, need to think abt this one
+
+            if (list == null)
+            {
+                return null;
+            }
+            else return new List<Subject>();
         }
     }
 }

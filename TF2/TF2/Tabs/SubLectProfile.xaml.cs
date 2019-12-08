@@ -10,11 +10,21 @@ using Xamarin.Forms.Xaml;
 
 namespace TF2.Tabs
 {
+    class Item
+    {
+        public string item { get; set; }
+
+        public Item (string content)
+        {
+            item = content;
+        }
+    }
+
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class SubLectProfile : ContentPage
 	{
-        private List<string> list1Empty = new List<string>();
-        private List<string> list1Full = new List<string>();
+        private ObservableCollection<Item> list1Full = new ObservableCollection<Item>();
+        private ObservableCollection<Item> list1Empty = new ObservableCollection<Item>();
         private ObservableCollection<Rev> list2Empty = new ObservableCollection<Rev>();
         private ObservableCollection<Rev> list2Full = new ObservableCollection<Rev>();
         private bool list1Collapsed = false;
@@ -38,7 +48,7 @@ namespace TF2.Tabs
 
             foreach (Lecturer l in subject.Lecturers.Value)
             {
-                list1Full.Add(l.FirstName + " " + l.LastName);
+                list1Full.Add(new Item(l.FirstName + " " + l.LastName));
             }
 
             SubOrLectList.ItemsSource = list1Full;
@@ -50,22 +60,34 @@ namespace TF2.Tabs
                     SubOrLectList.ItemsSource = list1Full;
                     List1Label.Text = "All lecturers: ▼";
                     list1Collapsed = false;
+                    SubOrLectList.HeightRequest = list1Full.Count * 40 + 20;
                 }
                 else
                 {
                     SubOrLectList.ItemsSource = list1Empty;
                     List1Label.Text = "All lecturers: ▷";
                     list1Collapsed = true;
+                    SubOrLectList.HeightRequest = 0;
                 }
             };
 
             List1Label.GestureRecognizers.Add(list1LabelTapGestureRecognizer);
+            SubOrLectList.HeightRequest = list1Full.Count * 40 + 20;
+
             id = subject.Id;
             
             ReviewViewModel reviewViewModel = new ReviewViewModel(subject);
             ReviewList.BindingContext = reviewViewModel;
             list2Full = reviewViewModel.ReviewViewList;
             ReviewListChange();
+            ReviewList.HeightRequest = list2Full.Count * 100 + 50;
+
+            if (EntityLoader.GetUserReviewsS().Any(sr => sr.SubjectId == id))
+            {
+                AddReviewBtn.Text = "Change review";
+                AddReviewBtn.Clicked -= AddReviewBtn_Clicked;
+                AddReviewBtn.Clicked += EditReviewBtn_Clicked;
+            }
         }
 
         public SubLectProfile(Lecturer lecturer)
@@ -79,7 +101,7 @@ namespace TF2.Tabs
 
             foreach (Subject s in lecturer.Subjects.Value)
             {
-                list1Full.Add(s.SubjectName);
+                list1Full.Add(new Item(s.SubjectName));
             }
 
             SubOrLectList.ItemsSource = list1Full;
@@ -91,16 +113,20 @@ namespace TF2.Tabs
                     SubOrLectList.ItemsSource = list1Full;
                     List1Label.Text = "All subjects: ▼";
                     list1Collapsed = false;
+                    SubOrLectList.HeightRequest = list1Full.Count * 40 + 20;
                 }
                 else
                 {
                     SubOrLectList.ItemsSource = list1Empty;
                     List1Label.Text = "All subjects: ▷";
                     list1Collapsed = true;
+                    SubOrLectList.HeightRequest = 0;
                 }
             };
 
             List1Label.GestureRecognizers.Add(list1LabelTapGestureRecognizer);
+            SubOrLectList.HeightRequest = list1Full.Count * 40 + 20;
+
             subprof = false;
             id = lecturer.Id;
 
@@ -108,6 +134,15 @@ namespace TF2.Tabs
             ReviewList.BindingContext = reviewViewModel;
             list2Full = reviewViewModel.ReviewViewList;
             ReviewListChange();
+            ReviewList.HeightRequest = list2Full.Count * 100 +50;
+
+
+            if (EntityLoader.GetUserReviewsL().Any(lr => lr.LecturerId == id))
+            {
+                AddReviewBtn.Text = "Change review";
+                AddReviewBtn.Clicked -= AddReviewBtn_Clicked;
+                AddReviewBtn.Clicked += EditReviewBtn_Clicked;
+            }
         }
 
         private void ReviewListChange()
@@ -122,12 +157,18 @@ namespace TF2.Tabs
                     ReviewList.ItemsSource = list2Full;
                     List2Label.Text = "All reviews: ▼";
                     list2Collapsed = false;
+                    ReviewList.HeightRequest = list2Full.Count * 100 + 50;
+                    List1Label.VerticalOptions = LayoutOptions.CenterAndExpand;
+                    AddReviewBtn.VerticalOptions = LayoutOptions.CenterAndExpand;
                 }
                 else
                 {
                     ReviewList.ItemsSource = list2Empty;
                     List2Label.Text = "All reviews: ▷";
                     list2Collapsed = true;
+                    ReviewList.HeightRequest = 0;
+                    List1Label.VerticalOptions = LayoutOptions.CenterAndExpand;
+                    AddReviewBtn.VerticalOptions = LayoutOptions.CenterAndExpand;
                 }
             };
 
@@ -136,7 +177,9 @@ namespace TF2.Tabs
 
         private async void ItemFromList1Tapped(object sender, ItemTappedEventArgs e)
         {
-            string item = e.Item.ToString();
+            Item source = e.Item as Item;
+            string item = source.item;            
+
             bool answer = await DisplayAlert("", "Would you like to visit the profile page for " + item + "?", "Yes!", "No thanks");
 
             if(answer)
@@ -185,6 +228,26 @@ namespace TF2.Tabs
             }
         }
 
+        async void EditReviewBtn_Clicked(object sender, EventArgs e)
+        {
+            if (subprof)
+            {
+                SubjectReview review = EntityLoader.GetUserReviewsS().Find(sr => sr.SubjectId == id);
+                Subject subject = EntityLoader.subjects.Find(s => s.Id == id);
+                var nextPage = new AddReview(subject, review);
+                nextPage.AddedReview += UpdateReviewList;
+                await Navigation.PushAsync(nextPage);
+            }
+            else
+            {
+                LecturerReview review = EntityLoader.GetUserReviewsL().Find(lr => lr.LecturerId == id);
+                Lecturer lecturer = EntityLoader.lecturers.Find(l => l.Id == id);
+                var nextPage = new AddReview(lecturer);
+                nextPage.AddedReview += UpdateReviewList;
+                await Navigation.PushAsync(nextPage);
+            }
+        }
+
         private void UpdateReviewList(object sender, EventArgs e)
         {
             if(subprof) //subject profile page
@@ -195,6 +258,13 @@ namespace TF2.Tabs
                 ReviewViewModel reviewViewModel = new ReviewViewModel(current);
                 ReviewList.BindingContext = reviewViewModel;
                 list2Full = reviewViewModel.ReviewViewList;
+
+                if (EntityLoader.GetUserReviewsS().Any(sr => sr.SubjectId == id))
+                {
+                    AddReviewBtn.Text = "Change review";
+                    AddReviewBtn.Clicked -= AddReviewBtn_Clicked;
+                    AddReviewBtn.Clicked += EditReviewBtn_Clicked;
+                }
             }
             else
             {
@@ -204,6 +274,13 @@ namespace TF2.Tabs
                 ReviewViewModel reviewViewModel = new ReviewViewModel(current);
                 ReviewList.BindingContext = reviewViewModel;
                 list2Full = reviewViewModel.ReviewViewList;
+
+                if (EntityLoader.GetUserReviewsL().Any(lr => lr.LecturerId == id))
+                {
+                    AddReviewBtn.Text = "Change review";
+                    AddReviewBtn.Clicked -= AddReviewBtn_Clicked;
+                    AddReviewBtn.Clicked += EditReviewBtn_Clicked;
+                }
             }
         }
     }

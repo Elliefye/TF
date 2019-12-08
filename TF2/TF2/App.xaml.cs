@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using TF2.Entities;
 using TF2.Tabs;
 using Xamarin.Essentials;
@@ -16,14 +17,12 @@ namespace TF2
             EntityLoader.ConnectToDatabase("teaching_feedback.db");
             EntityLoader.LoadLecturersAndSubjects();
             EntityLoader.LoadReviews();
-            CheckForAuth();         
+            CheckForAuth();
         }
 
         protected override void OnStart()
         {
-            //EntityLoader.ConnectToDatabase("teaching_feedback.db");
-            //EntityLoader.LoadLecturersAndSubjects();
-            //EntityLoader.LoadReviews();
+            SetColorMode();
         }
 
         protected override void OnSleep()
@@ -34,6 +33,7 @@ namespace TF2
         protected override void OnResume()
         {
             // Handle when your app resumes
+            SetColorMode();
         }
 
         private async void CheckForAuth()
@@ -46,6 +46,17 @@ namespace TF2
                 {
                     ConstVars.AuthStatus = 1;
                     ConstVars.currentUser = EntityLoader.GetUserFromId(Int32.Parse(token));
+                    string mode = await SecureStorage.GetAsync("mode");
+                    
+                    if(mode == "0")
+                    {
+                        ConstVars.DarkMode = false;
+                    }
+                    else if(mode == "1")
+                    {
+                        ConstVars.DarkMode = true;
+                    }
+
                     MainPage = new NavigationPage(new BottomNavigation());
                 }
                 else
@@ -56,6 +67,24 @@ namespace TF2
             catch
             {
                 MainPage = new NavigationPage(new LoginPage());
+            }
+        }
+
+        private void SetColorMode()
+        {
+            ICollection<ResourceDictionary> mergedDictionaries = Application.Current.Resources.MergedDictionaries;
+
+            if (mergedDictionaries != null)
+            {
+                mergedDictionaries.Clear();
+                if (ConstVars.DarkMode)
+                {
+                    mergedDictionaries.Add(new DarkTheme());
+                }
+                else
+                {
+                    mergedDictionaries.Add(new LightTheme());
+                }
             }
         }
     }

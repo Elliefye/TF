@@ -2,26 +2,30 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TF2.LoginPage"
-             Title="Welcome to Unirate!">
+             Title="Welcome to Unirate!"
+             BackgroundColor="{DynamicResource PageBackgroundColor}">
     <ContentPage.Content>
         <StackLayout>
             <Label x:Name="LogInLabel"
             Text="Please log in to continue." 
             HorizontalOptions="Center"
-            VerticalOptions="CenterAndExpand" />
+            VerticalOptions="CenterAndExpand"
+            Style="{StaticResource SmallLabelStyle}"/>
             <Entry x:Name="UsernameTextLogin" ReturnType="Next"
-            Placeholder="Username" />
+            Placeholder="Username" TextColor="{DynamicResource PrimaryTextColor}" PlaceholderColor="{DynamicResource PrimaryColor}"/>
             <Entry x:Name="PasswordTextLogin" ReturnType="Done"
             Placeholder="Password" 
-            IsPassword="True" VerticalTextAlignment="Center" TextColor="Default"/>
+            IsPassword="True" VerticalTextAlignment="Center" TextColor="{DynamicResource PrimaryTextColor}" PlaceholderColor="{DynamicResource PrimaryColor}"/>
             <Button
             Text="Log in" 
            VerticalOptions="CenterAndExpand"
-                 Clicked="LoginBtnClicked"/>
+                 Clicked="LoginBtnClicked"
+                Style="{StaticResource ButtonStyle}"/>
             <Button
                 Text="Sign Up Instead"
                     VerticalOptions="CenterAndExpand" 
-                    Clicked="SignUpInsteadBtnClicked"/>
+                    Clicked="SignUpInsteadBtnClicked"
+                Style="{StaticResource ButtonStyle}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

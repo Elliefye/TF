@@ -15,7 +15,7 @@ namespace TF2.ViewModels
         {
             SubjectViewList = new ObservableCollection<LecOrSubView>();
 
-            foreach (Subject sub in EntityLoader.subjects)
+            foreach (Subject sub in EntityLoader.subjects.OrderBy(s => s.SubjectName))
             {
                 SubjectViewList.Add(new LecOrSubView(sub.SubjectName, Math.Round(EntityLoader.GetAvgRating(sub), 2).ToString()));
             }
@@ -49,6 +49,19 @@ namespace TF2.ViewModels
         public ObservableCollection<LecOrSubView> Sort50()
         {
             return new ObservableCollection<LecOrSubView>(SubjectViewList.ToList().OrderByDescending(v => v.Item2));
+        }
+
+        public ObservableCollection<LecOrSubView> UpdateRatings()
+        {
+            ObservableCollection<LecOrSubView> newList = new ObservableCollection<LecOrSubView>();
+
+            foreach (LecOrSubView sw in SubjectViewList)
+            {
+                Subject sub = EntityLoader.subjects.Find(s => s.SubjectName == sw.Item1);
+                newList.Add(new LecOrSubView(sw.Item1, Math.Round(EntityLoader.GetAvgRating(sub), 2).ToString()));
+            }
+
+            return newList;
         }
     }
 }

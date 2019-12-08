@@ -90,5 +90,12 @@ namespace TF2.Tabs
                 SubjectList.BindingContext = subjectViewModel;
             }
         }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            subjectViewModel = new SubjectViewModel(subjectViewModel.UpdateRatings());
+            SubjectList.BindingContext = subjectViewModel;
+        }
     }
 }

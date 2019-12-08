@@ -5,24 +5,45 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              Title="Reviews"
-             x:Class="TF2.Reviews">
+             x:Class="TF2.Reviews"
+             BackgroundColor="{DynamicResource PageBackgroundColor}">
 
     <ListView ItemsSource="{Binding ReviewViewList}"
-              HasUnevenRows="True"
-              BackgroundColor="#ecf0f1"
-              SeparatorVisibility="None"
+              HasUnevenRows="True"              
               HorizontalOptions="FillAndExpand"
               VerticalOptions="FillAndExpand">
+        <!--BackgroundColor="#ecf0f1"-->
 
         <ListView.ItemTemplate>
             <DataTemplate>
                 <ViewCell>
-                    <StackLayout Margin="6,4,6,4"
-                                 BackgroundColor="White">
-                        <Label Text="{Binding Reviewerusername}"/>
-                        <Label Text="{Binding LecSubScore}"/>
-                        <Label Text="{Binding Comment}"/>
-                    </StackLayout>
+                    <Grid HorizontalOptions="StartAndExpand" ColumnSpacing="5" >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="100"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="8*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
+                        <StackLayout Grid.Column="0" Grid.Row="0" Margin="6,4,6,4">
+                            <Label Text="{Binding LecSubName}" Style="{StaticResource SmallLabelStyle}"/>
+                            <Label Text="{Binding LecSubScore}" Style="{StaticResource SmallLabelStyle}"/>
+                            <Label Text="{Binding Comment}" Style="{StaticResource SmallLabelStyle}"/>
+                        </StackLayout>
+
+                        <Image Grid.Column="1" Grid.Row="0" Source="edit.png" x:Name="EditIcon">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding EditCommand}" CommandParameter="{Binding .}"/>
+                            </Image.GestureRecognizers>
+                        </Image>
+                        <Image Grid.Column="2" Grid.Row="0" Source="delete.png" x:Name="DeleteIcon">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding DeleteCommand}" CommandParameter="{Binding .}"/>
+                            </Image.GestureRecognizers>
+                        </Image>
+                    </Grid>
                 </ViewCell>
             </DataTemplate>
         </ListView.ItemTemplate>
