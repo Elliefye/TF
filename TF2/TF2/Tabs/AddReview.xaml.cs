@@ -42,7 +42,8 @@ namespace TF2.Tabs
             TopTextLabel.Text += lecturer.FirstName + " " + lecturer.LastName;
             LectOrSubPicker.Title = "(Optional) pick the subject";
 
-            foreach(Subject subject in lecturer.Subjects.Value)
+            //LectOrSubPicker.Items.Add("-");
+            foreach (Subject subject in lecturer.Subjects.Value)
             {
                 LectOrSubPicker.Items.Add(subject.SubjectName);
             }
@@ -65,6 +66,7 @@ namespace TF2.Tabs
             TopTextLabel.Text += subject.SubjectName;
             LectOrSubPicker.Title = "(Optional) pick the lecturer";
 
+            //LectOrSubPicker.Items.Add("-");
             foreach (Lecturer lecturer in subject.Lecturers.Value)
             {
                 LectOrSubPicker.Items.Add(lecturer.FirstName + " " + lecturer.LastName);
@@ -219,7 +221,7 @@ namespace TF2.Tabs
 
                 if (LectOrSubPicker.SelectedIndex != -1)
                 {
-                    newReview.LecturerId = EntityLoader.subjects.Find(s => 
+                    newReview.SubjectId = EntityLoader.subjects.Find(s => 
                         s.SubjectName == LectOrSubPicker.Items[LectOrSubPicker.SelectedIndex]).Id;
                 }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,24 +35,23 @@ namespace TF2.Tabs
             list1row4.Text = top5Lecturers.ElementAt(4).Item1;
             list1row4score.Text = top5Lecturers.ElementAt(4).Item2;
 
-            SubjectViewModel subjectViewModel = new SubjectViewModel();
-            subjectViewModel = new SubjectViewModel(subjectViewModel.Sort50());
-            List<LecOrSubView> top5Subjects = new SubjectViewModel(new SubjectViewModel().Sort50()).SubjectViewList.Take(5).ToList();
+            ObservableCollection<LecOrSubView> top5SubjectsTemp = new SubjectViewModel().Sort05();
+            List<LecOrSubView> top5Subjects = new SubjectViewModel(top5SubjectsTemp).SubjectViewList.Skip(Math.Max(0, top5SubjectsTemp.Count - 5)).ToList();
 
-            list2row0.Text = top5Subjects.ElementAt(0).Item1;
-            list2row0score.Text = top5Subjects.ElementAt(0).Item2;
+            list2row0.Text = top5Subjects.ElementAt(4).Item1;
+            list2row0score.Text = top5Subjects.ElementAt(4).Item2;
 
-            list2row1.Text = top5Subjects.ElementAt(1).Item1;
-            list2row1score.Text = top5Subjects.ElementAt(1).Item2;
+            list2row1.Text = top5Subjects.ElementAt(3).Item1;
+            list2row1score.Text = top5Subjects.ElementAt(3).Item2;
 
             list2row2.Text = top5Subjects.ElementAt(2).Item1;
             list2row2score.Text = top5Subjects.ElementAt(2).Item2;
 
-            list2row3.Text = top5Subjects.ElementAt(3).Item1;
-            list2row3score.Text = top5Subjects.ElementAt(3).Item2;
+            list2row3.Text = top5Subjects.ElementAt(1).Item1;
+            list2row3score.Text = top5Subjects.ElementAt(1).Item2;
 
-            list2row4.Text = top5Subjects.ElementAt(4).Item1;
-            list2row4score.Text = top5Subjects.ElementAt(4).Item2;
+            list2row4.Text = top5Subjects.ElementAt(0).Item1;
+            list2row4score.Text = top5Subjects.ElementAt(0).Item2;
         }
 	}
 }

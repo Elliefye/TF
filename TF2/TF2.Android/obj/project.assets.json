@@ -3260,24 +3260,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Elina\\.nuget\\packages\\": {},
+    "C:\\Users\\pauli\\.nuget\\packages\\": {},
     "C:\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Eli\\Code\\C#\\TF\\TF2\\TF2.Android\\TF2.Android.csproj",
+      "projectUniqueName": "C:\\Users\\pauli\\Downloads\\TF\\TF2\\TF2.Android\\TF2.Android.csproj",
       "projectName": "TF2.Android",
-      "projectPath": "D:\\Eli\\Code\\C#\\TF\\TF2\\TF2.Android\\TF2.Android.csproj",
-      "packagesPath": "C:\\Users\\Elina\\.nuget\\packages\\",
-      "outputPath": "D:\\Eli\\Code\\C#\\TF\\TF2\\TF2.Android\\obj\\",
+      "projectPath": "C:\\Users\\pauli\\Downloads\\TF\\TF2\\TF2.Android\\TF2.Android.csproj",
+      "packagesPath": "C:\\Users\\pauli\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\pauli\\Downloads\\TF\\TF2\\TF2.Android\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\"
       ],
       "configFilePaths": [
-        "C:\\Users\\Elina\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\pauli\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
@@ -3291,8 +3291,8 @@
       "frameworks": {
         "monoandroid90": {
           "projectReferences": {
-            "D:\\Eli\\Code\\C#\\TF\\TF2\\TF2\\TF2.csproj": {
-              "projectPath": "D:\\Eli\\Code\\C#\\TF\\TF2\\TF2\\TF2.csproj"
+            "C:\\Users\\pauli\\Downloads\\TF\\TF2\\TF2\\TF2.csproj": {
+              "projectPath": "C:\\Users\\pauli\\Downloads\\TF\\TF2\\TF2\\TF2.csproj"
             }
           }
         }

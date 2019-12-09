@@ -157,8 +157,9 @@ namespace TF2.Entities
 
             using (var db = new Context(dbPath))
             {
-                newUser.Id = db.Users.Max(u => u.Id);
-                db.Add(newUser);
+                int maxId = db.Users.Max(u => u.Id);
+                newUser.Id = maxId + 1;
+                db.Users.Add(newUser);
                 db.SaveChanges();
             }
         }
@@ -241,7 +242,10 @@ namespace TF2.Entities
                 {
                     return 0;
                 }
-                else return allReviews.Select(sr => sr.Rating).Average();
+                else return allReviews.Select(sr => sr.Rating).Aggregate(
+                    seed: 0,
+                    func: (result, item) => result + item,
+                    resultSelector: result => (double) result / allReviews.Count);
             }
         }
 
@@ -249,12 +253,15 @@ namespace TF2.Entities
         {
             using (var db = new Context(dbPath))
             {
-                List<LecturerReview> allreviews = db.LecturerReviews.Where(lr => lr.LecturerId == lecturer.Id).ToList();
-                if (allreviews.Count == 0)
+                List<LecturerReview> allReviews = db.LecturerReviews.Where(lr => lr.LecturerId == lecturer.Id).ToList();
+                if (allReviews.Count == 0)
                 {
                     return 0;
                 }
-                else return allreviews.Select(lr => lr.Rating).Average();
+                else return allReviews.Select(lr => lr.Rating).Aggregate(
+                    seed: 0,
+                    func: (result, item) => result + item,
+                    resultSelector: result => (double) result / allReviews.Count);
             }
         }
 
