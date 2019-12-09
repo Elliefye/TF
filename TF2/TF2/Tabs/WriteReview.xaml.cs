@@ -57,7 +57,7 @@ namespace TF2
                 review.Anonymous = 0;
             }
 
-            EntityLoader.AddReview(review);
+            //EntityLoader.AddReview(review);
 
             Application.Current.MainPage = new NavigationPage(new BottomNavigation());
         }

@@ -22,7 +22,7 @@ namespace TF2
         {
             LecSubList = new ObservableCollection<LecSub>();
 
-            foreach (LecturersAndSubjects ls in EntityLoader.GetLecturersAndSubjects())
+            /*foreach (LecturersAndSubjects ls in EntityLoader.GetLecturersAndSubjects())
             {
                 Lecturer lec = EntityLoader.lecturers.Find(l => l.Id == ls.LecturerId);
                 int lecturerId = lec.Id;
@@ -32,7 +32,7 @@ namespace TF2
                 String subjectName = sub.SubjectName;
 
                 _lecSubList.Add(new LecSub(lecturerId, subjectId, lecturerName, subjectName));
-            }
+            }*/
         }
 
         public LecSubViewModel(List<LecSub> lecSubList)
