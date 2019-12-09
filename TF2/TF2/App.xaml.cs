@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using TF2.Entities;
@@ -16,37 +18,15 @@ namespace TF2
         public App()
         {
             InitializeComponent();
-            // Create Database & Tables
-            List<User> allusers;
-            string dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "teaching_feedback.db");
-            EntityLoader.ConnectToDatabase("teaching_feedback.db");
 
-            using (var db = new Context(dbPath))
-            {
-                // Ensure database is created
-                db.Database.EnsureCreated();
-
-                // Retreive Data
-                allusers = db.Users.ToList();
-            }
-
-            // Show Data
-            MainPage = new ContentPage()
-            {
-                Content = new ListView()
-                {
-                    ItemsSource = allusers
-                }
-            };
-            /*EntityLoader.ConnectToDatabase("teaching_feedback.db");
+            EntityLoader.CopyDatabase();
             EntityLoader.LoadLecturersAndSubjects();
-            EntityLoader.LoadReviews();
-            CheckForAuth();*/
+            CheckForAuth();
         }
 
         protected override void OnStart()
         {
-            //SetColorMode();
+            SetColorMode();
         }
 
         protected override void OnSleep()
@@ -88,7 +68,7 @@ namespace TF2
                     MainPage = new NavigationPage(new LoginPage());
                 }
             }
-            catch
+            catch (Exception ex)
             {
                 MainPage = new NavigationPage(new LoginPage());
             }

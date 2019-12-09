@@ -10,6 +10,10 @@ namespace TF2.Entities
         public DbSet<User> Users { get; set; }
         public DbSet<Lecturer> Lecturers { get; set; }
         public DbSet<Subject> Subjects { get; set; }
+        public DbSet<LecturersAndSubjects> LecturersAndSubjects { get; set; }
+        public DbSet<LecturerReview> LecturerReviews { get; set; }
+        public DbSet<SubjectReview> SubjectReviews { get; set; }
+ 
         private string DbPath;
 
         public Context(string dbpath)
