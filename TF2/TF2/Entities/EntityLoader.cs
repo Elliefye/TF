@@ -29,7 +29,6 @@ namespace TF2.Entities
         public static List<LecturersAndSubjects> lecAndSub;
         public static List<Review> reviews = new List<Review>();
         //db connection can only be accessed through this class
-        private static SQLiteConnection db;
         private static readonly string dbName = "teaching_feedback.db";
         private static readonly string dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), dbName);        
         private static Encryption enc = new Encryption();
@@ -63,12 +62,6 @@ namespace TF2.Entities
                 lecturers = await db.Lecturers.ToListAsync();
                 subjects = await db.Subjects.ToListAsync();
             }
-        }
-
-        //not used anymore
-        public static List<LecturersAndSubjects> GetLecturersAndSubjects()
-        {
-            return db.Table<LecturersAndSubjects>().ToList();
         }
 
         public static List<Lecturer> GetLectListForSubject(Subject sub) 
@@ -211,13 +204,6 @@ namespace TF2.Entities
 
                 return match != null;
             }   
-        }
-
-        //not needed anymore
-        public static void AddReview(Review newReview)
-        {
-            db.Insert(newReview);
-            reviews.Add(newReview);
         }
 
         public static List<LecturerReview> GetUserReviewsL()
