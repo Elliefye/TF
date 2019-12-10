@@ -77,8 +77,11 @@ namespace TF2.Tabs
             id = subject.Id;
             
             ReviewViewModel reviewViewModel = new ReviewViewModel(subject);
-            ReviewList.BindingContext = reviewViewModel;
-            list2Full = reviewViewModel.ReviewViewList;
+            //ReviewList.BindingContext = reviewViewModel;
+            //list2Full = reviewViewModel.ReviewViewList;
+            OrderReviewList(reviewViewModel.ReviewViewList);
+            ReviewList.ItemsSource = list2Full;
+
             ReviewListChange();
             ReviewList.HeightRequest = list2Full.Count * 100 + 50;
 
@@ -131,8 +134,11 @@ namespace TF2.Tabs
             id = lecturer.Id;
 
             ReviewViewModel reviewViewModel = new ReviewViewModel(lecturer);
-            ReviewList.BindingContext = reviewViewModel;
-            list2Full = reviewViewModel.ReviewViewList;
+            //ReviewList.BindingContext = reviewViewModel;
+            //list2Full = reviewViewModel.ReviewViewList;
+            OrderReviewList(reviewViewModel.ReviewViewList);
+            ReviewList.ItemsSource = list2Full;
+
             ReviewListChange();
             ReviewList.HeightRequest = list2Full.Count * 100 +50;
 
@@ -173,6 +179,25 @@ namespace TF2.Tabs
             };
 
             List2Label.GestureRecognizers.Add(list2LabelTapGestureRecognizer);
+        }
+
+        private void OrderReviewList(ObservableCollection<Rev> list)
+        {
+            var groupQuery =
+                    from rev in list
+                    group rev by rev.LecSubScore into newGroup
+                    orderby newGroup.Key
+                    select newGroup;
+
+            ObservableCollection<Rev> orderedList2Full = new ObservableCollection<Rev>();
+            foreach (var scoreGroup in groupQuery)
+            {
+                foreach (var rev in scoreGroup)
+                {
+                    orderedList2Full.Add(rev);
+                }
+            }
+            list2Full = orderedList2Full;
         }
 
         private async void ItemFromList1Tapped(object sender, ItemTappedEventArgs e)
@@ -242,7 +267,7 @@ namespace TF2.Tabs
             {
                 LecturerReview review = EntityLoader.GetUserReviewsL().Find(lr => lr.LecturerId == id);
                 Lecturer lecturer = EntityLoader.lecturers.Find(l => l.Id == id);
-                var nextPage = new AddReview(lecturer);
+                var nextPage = new AddReview(lecturer, review);
                 nextPage.AddedReview += UpdateReviewList;
                 await Navigation.PushAsync(nextPage);
             }

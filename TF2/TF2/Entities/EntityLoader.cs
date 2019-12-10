@@ -4,6 +4,8 @@ using System.Text;
 using System.IO;
 using Android.App;
 using SQLite;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace TF2.Entities
 {
@@ -27,13 +29,12 @@ namespace TF2.Entities
         public static List<LecturersAndSubjects> lecAndSub;
         public static List<Review> reviews = new List<Review>();
         //db connection can only be accessed through this class
-        private static SQLiteConnection db;
+        private static readonly string dbName = "teaching_feedback.db";
+        private static readonly string dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), dbName);        
         private static Encryption enc = new Encryption();
 
-        public static void ConnectToDatabase(string dbName)
+        public static void CopyDatabase()
         {
-            string dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), dbName);
-
             //copy DB to device
             if (!File.Exists(dbPath))
             {
@@ -50,32 +51,30 @@ namespace TF2.Entities
                     }
                 }
             }
-
-            db = new SQLiteConnection(dbPath);
         }
 
-        public static void LoadLecturersAndSubjects()
+        public static async void LoadLecturersAndSubjects()
         {
-            lecturers = db.Table<Lecturer>().ToList();
-            subjects = db.Table<Subject>().ToList();
+            using (var db = new Context(dbPath))
+            {
+                db.Database.Migrate();
+
+                lecturers = await db.Lecturers.ToListAsync();
+                subjects = await db.Subjects.ToListAsync();
+            }
         }
 
-        public static List<LecturersAndSubjects> GetLecturersAndSubjects()
-        {
-            return db.Table<LecturersAndSubjects>().ToList();
-        }
-
-        //DO NOT CALL FOR EACH SUBJECT, since it draws the whole lecsub table into memory each time
         public static List<Lecturer> GetLectListForSubject(Subject sub) 
         {
-            lecAndSub = db.Table<LecturersAndSubjects>().ToList();
             List<Lecturer> lecturerList = new List<Lecturer>();
 
-            foreach (LecturersAndSubjects ls in lecAndSub)
+            using (var db = new Context(dbPath))
             {
-                if(ls.SubjectId == sub.Id)
+                List<int> lecturerIds = db.LecturersAndSubjects.Where(ls => ls.SubjectId == sub.Id).Select(ls => ls.LecturerId).ToList();
+
+                foreach (int lec in lecturerIds)
                 {
-                    lecturerList.Add(lecturers.Find(l => l.Id == ls.LecturerId));
+                    lecturerList.Add(lecturers.Find(l => l.Id == lec));
                 }
             }
 
@@ -84,29 +83,19 @@ namespace TF2.Entities
 
         public static List<Subject> GetSubListForLecturer(Lecturer lect)
         {
-            lecAndSub = db.Table<LecturersAndSubjects>().ToList();
             List<Subject> subjectList = new List<Subject>();
 
-            foreach (LecturersAndSubjects ls in lecAndSub)
+            using (var db = new Context(dbPath))
             {
-                if(ls.LecturerId == lect.Id)
+                List<int> subjectIds = db.LecturersAndSubjects.Where(ls => ls.LecturerId == lect.Id).Select(ls => ls.SubjectId).ToList();
+
+                foreach(int sub in subjectIds)
                 {
-                    subjectList.Add(subjects.Find(s => s.Id == ls.SubjectId));
+                    subjectList.Add(subjects.Find(s => s.Id == sub));
                 }
             }
 
             return subjectList;
-        }
-
-        public static void LoadReviews()
-        {
-            reviews = db.Table<Review>().ToList();
-
-            foreach (Review r in reviews)
-            {
-                r.lecturer = lecturers.Find(l => l.Id == r.LecturerId);
-                r.subject = subjects.Find(s => s.Id == r.SubjectId);
-            }
         }
 
         public static User LogIn(string Username, string Password)
@@ -114,34 +103,35 @@ namespace TF2.Entities
             Username = enc.Encrypt(Username);
             Password = enc.Encrypt(Password);
 
-            //supports logging in with either email or username
-            User match = db.Table<User>().FirstOrDefault(u => (u.Username == Username || u.Email == Username) 
-             && u.Password == Password);
-
-            if (match != null)
+            using (var db = new Context(dbPath))
             {
-                return new User
+                User match = db.Users.FirstOrDefault(u => (u.Username == Username || u.Email == Username)
+                    && u.Password == Password);
+
+                if (match != null)
                 {
-                    Id = match.Id,
-                    Username = enc.Decrypt(match.Username),
-                    //leave password encrypted for security reasons
-                    Password = match.Password,
-                    Email = enc.Decrypt(match.Email),
-                    Role = match.Role
-                };
-            }
-            else return null;
+                    return new User
+                    {
+                        Id = match.Id,
+                        Username = enc.Decrypt(match.Username),
+                        //leave password encrypted for security reasons
+                        Password = match.Password,
+                        Email = enc.Decrypt(match.Email),
+                        Role = match.Role
+                    };
+                }
+                else return null;
+            }  
         }
 
         public static void UpdateUserData()
         {
-            if (ConstVars.AuthStatus == 0)
+            if (ConstVars.AuthStatus == 0 || ConstVars.currentUser == null)
             {
                 throw new System.InvalidOperationException("No user is logged in");
             }
             else
             {
-                //use ConstVars.currentUser to write to db
                 User current = new User
                 {
                     Id = ConstVars.currentUser.Id,
@@ -151,7 +141,11 @@ namespace TF2.Entities
                     Role = ConstVars.currentUser.Role
                 };
 
-                db.Update(current);
+                using (var db = new Context(dbPath))
+                {
+                    db.Update(current);
+                    db.SaveChanges();
+                }
             }
         }
 
@@ -160,175 +154,214 @@ namespace TF2.Entities
             newUser.Username = enc.Encrypt(newUser.Username);
             newUser.Password = enc.Encrypt(newUser.Password);
             newUser.Email = enc.Encrypt(newUser.Email);
-            var id = db.ExecuteScalar<string>("select max(Id) from Users");
 
-            newUser.Id = Int32.Parse(id.ToString()) + 1;
-            
-            db.Insert(newUser);
+            using (var db = new Context(dbPath))
+            {
+                int maxId = db.Users.Max(u => u.Id);
+                newUser.Id = maxId + 1;
+                db.Users.Add(newUser);
+                db.SaveChanges();
+            }
         }
 
+        //finds users with the same username or email
         public static bool LookForExistingUser(string EmailOrUsername)
         {
             EmailOrUsername = enc.Encrypt(EmailOrUsername);
 
-            User match = db.Table<User>().FirstOrDefault(u => u.Username == EmailOrUsername || u.Email == EmailOrUsername);
-            return match != null;
+            using (var db = new Context(dbPath))
+            {
+                User match = db.Users.FirstOrDefault(u => u.Username == EmailOrUsername || u.Email == EmailOrUsername);
+                return match != null;
+            }    
         }
 
         public static bool LookForExistingUser(string email, string username)
         {
-            User match;
+            using (var db = new Context(dbPath))
+            {
+                User match;
 
-            if(ConstVars.currentUser.Email == email && ConstVars.currentUser.Username == username) //neither changed, only password
-            {
-                return false;
-            }
-            else if (ConstVars.currentUser.Email == email) //only username changed
-            {
-                username = enc.Encrypt(username);
-                match = db.Table<User>().FirstOrDefault(u => u.Username == username);
-            }
-            else if(ConstVars.currentUser.Username == username) //only email changed
-            {
-                email = enc.Encrypt(email);
-                match = db.Table<User>().FirstOrDefault(u => u.Email == email);                
-            }
-            else //both changed
-            {
-                username = enc.Encrypt(username);
-                email = enc.Encrypt(email);
-                match = db.Table<User>().FirstOrDefault(u => u.Username == username || u.Email == email);
-            }
+                if (ConstVars.currentUser.Email == email && ConstVars.currentUser.Username == username) //neither changed, only password
+                {
+                    return false;
+                }
+                else if (ConstVars.currentUser.Email == email) //only username changed
+                {
+                    username = enc.Encrypt(username);
+                    match = db.Users.FirstOrDefault(u => u.Username == username);
+                }
+                else if (ConstVars.currentUser.Username == username) //only email changed
+                {
+                    email = enc.Encrypt(email);
+                    match = db.Users.FirstOrDefault(u => u.Email == email);
+                }
+                else //both changed
+                {
+                    username = enc.Encrypt(username);
+                    email = enc.Encrypt(email);
+                    match = db.Users.FirstOrDefault(u => u.Username == username || u.Email == email);
+                }
 
-            return match != null;
-        }
-
-        public static void AddReview(Review newReview)
-        {
-            db.Insert(newReview);
-            reviews.Add(newReview);
+                return match != null;
+            }   
         }
 
         public static List<LecturerReview> GetUserReviewsL()
         {
-            if(ConstVars.AuthStatus == 0)
+            if(ConstVars.AuthStatus == 0 || ConstVars.currentUser == null)
             {
                 throw new InvalidOperationException("No user is logged in.");
             }
 
-            return db.Table<LecturerReview>().Where(r => r.UserId == ConstVars.currentUser.Id).ToList();
+            using (var db = new Context(dbPath))
+            {
+                return db.LecturerReviews.Where(r => r.UserId == ConstVars.currentUser.Id).ToList();
+            }     
         }
+
         public static List<SubjectReview> GetUserReviewsS()
         {
-            if (ConstVars.AuthStatus == 0)
+            if (ConstVars.AuthStatus == 0 || ConstVars.currentUser == null)
             {
                 throw new InvalidOperationException("No user is logged in.");
             }
 
-            return db.Table<SubjectReview>().Where(r => r.UserId == ConstVars.currentUser.Id).ToList();
+            using (var db = new Context(dbPath))
+            {
+                return db.SubjectReviews.Where(r => r.UserId == ConstVars.currentUser.Id).ToList();
+            }                
         }
 
-        public static float GetAvgRating(Subject subject)
+        public static double GetAvgRating(Subject subject)
         {
-            var avgRating = db.ExecuteScalar<string>("select avg(Rating) from SubjectReviews where SubjectId=" + subject.Id);
-
-            if(avgRating == null)
+            using (var db = new Context(dbPath))
             {
-                return 0;
+                List<SubjectReview> allReviews = db.SubjectReviews.Where(sr => sr.SubjectId == subject.Id).ToList();
+                if(allReviews.Count == 0)
+                {
+                    return 0;
+                }
+                else return allReviews.Select(sr => sr.Rating).Aggregate(
+                    seed: 0,
+                    func: (result, item) => result + item,
+                    resultSelector: result => (double) result / allReviews.Count);
             }
-            else return float.Parse(avgRating.ToString());
         }
 
-        public static float GetAvgRating(Lecturer lecturer)
+        public static double GetAvgRating(Lecturer lecturer)
         {
-            var avgRating = db.ExecuteScalar<string>("select avg(Rating) from LecturerReviews where LecturerId=" + lecturer.Id);
-            if (avgRating == null)
+            using (var db = new Context(dbPath))
             {
-                return 0;
+                List<LecturerReview> allReviews = db.LecturerReviews.Where(lr => lr.LecturerId == lecturer.Id).ToList();
+                if (allReviews.Count == 0)
+                {
+                    return 0;
+                }
+                else return allReviews.Select(lr => lr.Rating).Aggregate(
+                    seed: 0,
+                    func: (result, item) => result + item,
+                    resultSelector: result => (double) result / allReviews.Count);
             }
-            else return float.Parse(avgRating.ToString());
         }
 
         public static List<SubjectReview> GetSubjectReviews(Subject subject)
         {
-            return db.Table<SubjectReview>().Where(sr => sr.SubjectId == subject.Id).ToList();
+            using (var db = new Context(dbPath))
+            {
+                return db.SubjectReviews.Where(sr => sr.SubjectId == subject.Id).ToList();
+            }                
         }
 
         public static List<LecturerReview> GetLecturerReviews(Lecturer lecturer)
         {
-            return db.Table<LecturerReview>().Where(lr => lr.LecturerId == lecturer.Id).ToList();
+            using (var db = new Context(dbPath))
+            {
+                return db.LecturerReviews.Where(lr => lr.LecturerId == lecturer.Id).ToList();
+            }
         }
 
         public static void AddReview(LecturerReview review)
         {
-            db.Insert(review);
+            using (var db = new Context(dbPath))
+            {
+                db.LecturerReviews.Add(review);
+                db.SaveChanges();
+            }
         }
 
         public static void AddReview(SubjectReview review)
         {
-            db.Insert(review);
+            using (var db = new Context(dbPath))
+            {
+                db.SubjectReviews.Add(review);
+                db.SaveChanges();
+            }
         }
 
         public static void EditReview(SubjectReview review)
         {
-            db.Update(review);
+            using (var db = new Context(dbPath))
+            {
+                db.Update(review);
+                db.SaveChanges();
+            }
         }
 
         public static void EditReview(LecturerReview review)
         {
-            db.Update(review);
+            using (var db = new Context(dbPath))
+            {
+                db.Update(review);
+                db.SaveChanges();
+            }
         }
 
         public static void DeleteReview(LecturerReview review)
         {
-            db.Delete(review);
+            using (var db = new Context(dbPath))
+            {
+                db.Remove(review);
+                db.SaveChanges();
+            }
         }
 
         public static void DeleteReview(SubjectReview review)
         {
-            db.Delete(review);
+            using (var db = new Context(dbPath))
+            {
+                db.Remove(review);
+                db.SaveChanges();
+            }
         }
 
         public static string GetReviewerUsername(LecturerReview lecturerReview)
         {
-            string reviewerUsername = db.Table<User>().FirstOrDefault(u => u.Id == lecturerReview.UserId).Username;
-            return enc.Decrypt(reviewerUsername);
+            using (var db = new Context(dbPath))
+            {
+                string reviewerUsername = db.Users.FirstOrDefault(u => u.Id == lecturerReview.UserId).Username;
+                return enc.Decrypt(reviewerUsername);
+            }
         }
 
         public static string GetReviewerUsername(SubjectReview subjectReview)
         {
-            string reviewerUsername = db.Table<User>().FirstOrDefault(u => u.Id == subjectReview.UserId).Username;
-            return enc.Decrypt(reviewerUsername);
+            using (var db = new Context(dbPath))
+            {
+                string reviewerUsername = db.Users.FirstOrDefault(u => u.Id == subjectReview.UserId).Username;
+                return enc.Decrypt(reviewerUsername);
+            }
         }
 
         public static User GetUserFromId(int id)
         {
-            User user = db.Get<User>(id);
-            user.Username = enc.Decrypt(user.Username);
-            user.Email = enc.Decrypt(user.Email);
-            return user;
-        }
-
-        public static List<Lecturer> GetTop5Lecturers()
-        {
-            var list = db.ExecuteScalar<string>("select top 5 from LecturerReviews "); //something something, need to think abt this one
-
-            if (list == null)
+            using (var db = new Context(dbPath))
             {
-                return null;
+                User user = db.Users.FirstOrDefault(u => u.Id == id);
+                user.Username = enc.Decrypt(user.Username);
+                user.Email = enc.Decrypt(user.Email);
+                return user;
             }
-            else return new List<Lecturer>();
-        }
-
-        public static List<Subject> GetTop5Subjects()
-        {
-            var list = db.ExecuteScalar<string>("select top 5 from LecturerReviews "); //something something, need to think abt this one
-
-            if (list == null)
-            {
-                return null;
-            }
-            else return new List<Subject>();
         }
     }
 }

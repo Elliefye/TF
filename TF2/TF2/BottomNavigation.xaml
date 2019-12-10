@@ -28,10 +28,5 @@
                 <views:Profile />
             </x:Arguments>
         </NavigationPage>
-        <NavigationPage Title="Other" Icon="other_icon.png">
-            <x:Arguments>
-                <views1:MainPage />
-            </x:Arguments>
-        </NavigationPage>
     </TabbedPage.Children>
 </TabbedPage>

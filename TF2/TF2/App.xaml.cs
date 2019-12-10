@@ -1,5 +1,9 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
 using TF2.Entities;
 using TF2.Tabs;
 using Xamarin.Essentials;
@@ -14,9 +18,9 @@ namespace TF2
         public App()
         {
             InitializeComponent();
-            EntityLoader.ConnectToDatabase("teaching_feedback.db");
+
+            EntityLoader.CopyDatabase();
             EntityLoader.LoadLecturersAndSubjects();
-            EntityLoader.LoadReviews();
             CheckForAuth();
         }
 
@@ -64,7 +68,7 @@ namespace TF2
                     MainPage = new NavigationPage(new LoginPage());
                 }
             }
-            catch
+            catch (Exception ex)
             {
                 MainPage = new NavigationPage(new LoginPage());
             }
